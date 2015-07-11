@@ -24,6 +24,14 @@ TODO: move to package
 """
 
 from dracykeiton.compat import *
+from dracykeiton.entity import Entity, mod_dep
+from dracykeiton.common import RoundingHp
+
+@mod_dep(RoundingHp)
+class Merc(Entity):
+    def _init(self, name='merc'):
+        self.dynamic_property('name', name)
 
 class HiredGunsWorld(object):
-    pass
+    def __init__(self):
+        self.mercs = list([Merc('nobody')])
