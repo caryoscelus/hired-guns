@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.rpyc
+*.rpyb
+
+*.bak
+errors.txt
+log.txt
+traceback.txt
+tmp/
+saves/
+cache/
