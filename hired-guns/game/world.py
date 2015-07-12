@@ -27,7 +27,8 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp
 
-NATIONS = ['cosmopolite', 'pleb', 'imp', 'manny']
+NATIONS = ('cosmopolite', 'pleb', 'imp', 'manny')
+MERC_STATUSES = ('free', 'busy', 'injured', 'dead')
 
 class Name(Entity):
     """Entity with a name"""
@@ -40,6 +41,23 @@ class Attitude(Entity):
     @unbound
     def _init(self, attitude=0):
         self.dynamic_property('attitude', attitude)
+
+class MercStatus(Entity):
+    """Status of merc for in-between mission display."""
+    @unbound
+    def _init(self, status='free'):
+        self.dynamic_property('merc_status', status)
+        self.check_merc_status()(self, status)
+    
+    @unbound
+    def _load(self):
+        self.add_set_node('merc_status', self.check_merc_status())
+    
+    @simplenode
+    def check_merc_status(value):
+        if value in MERC_STATUSES:
+            return value
+        raise ValueError('there is no such merc as status as {}.. sorry'.format(value))
 
 class Nation(Entity):
     """Reflects owner's nation. Game-specific"""
@@ -58,7 +76,13 @@ class Nation(Entity):
             return value
         raise ValueError('there is no such nation as {}. try another universe?'.format(value))
 
-@mod_dep(RoundingHp, Name, Attitude, Nation)
+@mod_dep(
+    RoundingHp,
+    Name,
+    Nation,
+    Attitude,
+    MercStatus
+)
 class Merc(Entity):
     """Main mercenary class"""
     @unbound
