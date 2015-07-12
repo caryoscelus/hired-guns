@@ -24,8 +24,10 @@ TODO: move to package
 """
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep
+from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp
+
+NATIONS = ['cosmopolite', 'pleb', 'imp', 'manny']
 
 class Name(Entity):
     """Entity with a name"""
@@ -39,7 +41,24 @@ class Attitude(Entity):
     def _init(self, attitude=0):
         self.dynamic_property('attitude', attitude)
 
-@mod_dep(RoundingHp, Name, Attitude)
+class Nation(Entity):
+    """Reflects owner's nation. Game-specific"""
+    @unbound
+    def _init(self, nation='cosmopolite'):
+        self.dynamic_property('nation', nation)
+        self.check_nation()(self, nation)
+    
+    @unbound
+    def _load(self):
+        self.add_set_node('nation', self.check_nation())
+    
+    @simplenode
+    def check_nation(value):
+        if value in NATIONS:
+            return value
+        raise ValueError('there is no such nation as {}. try another universe?'.format(value))
+
+@mod_dep(RoundingHp, Name, Attitude, Nation)
 class Merc(Entity):
     """Main mercenary class"""
     @unbound
