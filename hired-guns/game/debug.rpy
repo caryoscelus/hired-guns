@@ -15,7 +15,21 @@ screen debug_all(world):
         textbutton "Debug.." action ToggleScreenVariable('expanded')
         if expanded:
             use debug_mercs(world.mercs)
+            use debug_missions(world.missions)
             use dice(dice)
+
+screen debug_missions(missions):
+    label "Mission list:"
+    if not missions:
+        label "There are none.. Good job!"
+    for mission in missions:
+        use debug_mission(mission)
+
+screen debug_mission(mission):
+    frame:
+        has vbox
+        label "Mission"
+        use debug_entity(mission)
 
 screen debug_mercs(mercs):
     #use expandable("Merc list"):
@@ -29,8 +43,11 @@ screen debug_merc(merc):
     frame:
         has vbox
         label "Merc"
-        frame:
-            has vbox
-            label "All properties"
-            for prop in merc._props:
-                label '{} : {}'.format(prop, getattr(merc, prop))
+        use debug_entity(merc)
+
+screen debug_entity(entity):
+    frame:
+        has vbox
+        label "All properties"
+        for prop in entity._props:
+            label '{} : {}'.format(prop, getattr(entity, prop))

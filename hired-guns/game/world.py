@@ -121,3 +121,4 @@ class Merc(Entity):
 class HiredGunsWorld(object):
     def __init__(self):
         self.mercs = list([Merc('nobody')])
+        self.missions = list()
