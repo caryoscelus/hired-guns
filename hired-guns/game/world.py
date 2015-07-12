@@ -28,12 +28,20 @@ from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.common import RoundingHp
 
 class Name(Entity):
+    """Entity with a name"""
     @unbound
     def _init(self, name=''):
         self.dynamic_property('name', name)
 
-@mod_dep(RoundingHp, Name)
+class Attitude(Entity):
+    """Contains attitude property; default is 0 (neutral)"""
+    @unbound
+    def _init(self, attitude=0):
+        self.dynamic_property('attitude', attitude)
+
+@mod_dep(RoundingHp, Name, Attitude)
 class Merc(Entity):
+    """Main mercenary class"""
     @unbound
     def _init(self, name='merc'):
         self.name = name
