@@ -27,9 +27,6 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp
 
-NATIONS = ('cosmopolite', 'pleb', 'imp', 'manny')
-MERC_STATUSES = ('free', 'busy', 'injured', 'dead')
-
 class Name(Entity):
     """Entity with a name"""
     @unbound
@@ -42,6 +39,7 @@ class Attitude(Entity):
     def _init(self, attitude=0):
         self.dynamic_property('attitude', attitude)
 
+MERC_STATUSES = ('free', 'busy', 'injured', 'dead')
 class MercStatus(Entity):
     """Status of merc for in-between mission display."""
     @unbound
@@ -59,6 +57,7 @@ class MercStatus(Entity):
             return value
         raise ValueError('there is no such merc as status as {}.. sorry'.format(value))
 
+NATIONS = ('cosmopolite', 'pleb', 'imp', 'manny')
 class Nation(Entity):
     """Reflects owner's nation. Game-specific"""
     @unbound
@@ -76,12 +75,42 @@ class Nation(Entity):
             return value
         raise ValueError('there is no such nation as {}. try another universe?'.format(value))
 
+TACTICS = ('default', 'cover', 'retreat', 'attack', 'defend')
+class Tactics(Entity):
+    """Contains basic tactic direction."""
+    @unbound
+    def _init(self):
+        self.dynamic_property('tactic', 'default')
+    
+    @unbound
+    def _load(self):
+        self.add_set_node('tactic', self.check_tactic())
+    
+    @simplenode
+    def check_tactic(value):
+        if value in TACTICS:
+            return value
+        raise ValueError('there is no such tactic as {}'.format(value))
+
+class Target(Entity):
+    """Target in battle"""
+    @unbound
+    def _init(self):
+        self.dynamic_property('target', None)
+
 @mod_dep(
+    # base attributes
     RoundingHp,
+    
+    # merc stuff
     Name,
     Nation,
     Attitude,
-    MercStatus
+    MercStatus,
+    
+    # battle
+    Tactics,
+    Target
 )
 class Merc(Entity):
     """Main mercenary class"""
