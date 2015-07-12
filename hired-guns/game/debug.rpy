@@ -9,11 +9,13 @@ screen expandable(text):
 screen debug_all(world):
     #use expandable("Debug.."):
     default expanded = False
+    default dice = Dice(6)
     frame:
         has vbox
         textbutton "Debug.." action ToggleScreenVariable('expanded')
         if expanded:
             use debug_mercs(world.mercs)
+            use dice(dice)
 
 screen debug_mercs(mercs):
     #use expandable("Merc list"):
