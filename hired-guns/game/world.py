@@ -27,10 +27,16 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.common import RoundingHp
 
-@mod_dep(RoundingHp)
-class Merc(Entity):
-    def _init(self, name='merc'):
+class Name(Entity):
+    @unbound
+    def _init(self, name=''):
         self.dynamic_property('name', name)
+
+@mod_dep(RoundingHp, Name)
+class Merc(Entity):
+    @unbound
+    def _init(self, name='merc'):
+        self.name = name
 
 class HiredGunsWorld(object):
     def __init__(self):
