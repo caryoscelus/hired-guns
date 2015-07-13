@@ -23,4 +23,13 @@
 from dracykeiton.compat import *
 
 class Mission(object):
-    pass
+    """Mission
+    
+    Mission has three steps:
+    - intro / preparation (via calling renpy label)
+    - battle
+    - outro (via calling renpy label)
+    """
+    def __init__(self, intro=None, outro=None):
+        self.intro = intro
+        self.outro = outro
