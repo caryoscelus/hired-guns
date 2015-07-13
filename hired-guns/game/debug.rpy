@@ -17,6 +17,7 @@ screen debug_all(world):
             use debug_mercs(world.mercs)
             use debug_missions(world.missions)
             use dice(dice)
+            use debug_merc_chooser(world.mercs)
 
 screen debug_missions(missions):
     label "Mission list:"
@@ -52,3 +53,13 @@ screen debug_entity(entity):
         label "All properties"
         for prop in entity._props:
             label '{} : {}'.format(prop, getattr(entity, prop))
+
+label call_merc_chooser(mercs):
+    call screen merc_chooser(mercs)
+    $ result = str(_return).replace('{', '').replace('}', '')
+    "[result]"
+
+screen debug_merc_chooser(mercs):
+    frame:
+        has vbox
+        textbutton "Choose merc" action Function(renpy.call, 'call_merc_chooser', mercs)
