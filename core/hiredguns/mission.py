@@ -18,14 +18,9 @@
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-"""World for HiredGuns
-"""
+"""Mission"""
 
 from dracykeiton.compat import *
-from .merc import Merc
-from .mission import Mission
 
-class HiredGunsWorld(object):
-    def __init__(self):
-        self.mercs = list([Merc('nobody')])
-        self.missions = list([Mission()])
+class Mission(object):
+    pass
