@@ -20,7 +20,7 @@
 
 """World for HiredGuns
 
-TODO: move to package
+TODO: split
 """
 
 from dracykeiton.compat import *

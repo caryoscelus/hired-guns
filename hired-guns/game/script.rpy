@@ -4,7 +4,7 @@ label main_menu:
 
 # import our modules
 init python:
-    from world import HiredGunsWorld
+    from hiredguns.world import HiredGunsWorld
 
 # starting here
 label start:
