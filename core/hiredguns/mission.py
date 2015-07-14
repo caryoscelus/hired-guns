@@ -21,6 +21,10 @@
 """Mission"""
 
 from dracykeiton.compat import *
+from dracykeiton.tb.controller import UserController, Controller
+from dracykeiton.tb.encounter import Encounter
+from dracykeiton.tb.turnman import Turnman
+from .merc import Merc
 
 class Mission(object):
     """Mission
@@ -33,4 +37,10 @@ class Mission(object):
     def __init__(self, intro=None, outro=None):
         self.intro = intro
         self.outro = outro
+        self.mercs = set([])
         self.battleman = None
+    
+    def prepare_battle(self):
+        encounter = Encounter(Turnman)
+        encounter.add_side('left', UserController, len(self.mercs), predefined=list(self.mercs))
+        encounter.add_side('right', Controller, (1, 4), possible=Merc)
