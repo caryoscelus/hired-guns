@@ -29,7 +29,7 @@ screen debug_missions(missions):
 screen debug_mission(mission):
     frame:
         has vbox
-        label "Mission"
+        label mission.name
         #use debug_entity(mission)
         textbutton 'Start mission' action Function(renpy.call, 'mission', mission)
 

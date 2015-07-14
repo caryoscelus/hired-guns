@@ -28,4 +28,4 @@ from .mission import Mission
 class HiredGunsWorld(object):
     def __init__(self):
         self.mercs = list([Merc('nobody')])
-        self.missions = list([Mission()])
+        self.missions = list([Mission('dummy mission')])

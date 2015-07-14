@@ -34,10 +34,15 @@ class Mission(object):
     - battle
     - outro (via calling renpy label)
     """
-    def __init__(self, content=None):
+    def __init__(self, name, content=None):
         self.content = content
         self.mercs = set([])
         self.battleman = None
+        self.name = name
+        self.selected = None
+    
+    def select_merc(self, merc):
+        self.selected = merc
     
     def prepare_battle(self):
         encounter = Encounter(Turnman)
