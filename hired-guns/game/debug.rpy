@@ -52,7 +52,7 @@ screen debug_entity(entity):
         has vbox
         label "All properties"
         for prop in entity._props:
-            label '{} : {}'.format(prop, getattr(entity, prop))
+            label '{} : {}'.format(prop, getattr(entity, prop)).replace('{', '{{')
 
 label call_merc_chooser(mercs):
     call screen merc_chooser(mercs)
