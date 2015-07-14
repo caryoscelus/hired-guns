@@ -21,7 +21,7 @@
 """Mercs attitude system"""
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep, simplenode
+from dracykeiton.entity import Entity, mod_dep
 
 class Attitude(Entity):
     """Contains attitude property; default is 0 (neutral)"""
@@ -30,17 +30,17 @@ class Attitude(Entity):
         self.dynamic_property('attitude', attitude)
 
 @mod_dep(Attitude)
-class Patriot(Entity):
+class TraitAttitude(Entity):
+    """Universal attitude changer based on traits."""
     @unbound
     def _init(self):
-        self.dynamic_property('patriot', 0.0)
+        self.dynamic_property('traits', dict())
     
     @unbound
-    def _load(self):
-        self.add_set_node('patriot', self.check_patriot())
+    def add_trait(self, trait, value):
+        self.traits[trait] = value
     
-    @simplenode
-    def check_patriot(value):
-        if -1 <= value <= 1:
-            return value
-        raise ValueError('one cannot {} his country THAT much (patriot property {} > 1)'.format('hate' if value < -1 else 'love', value))
+    @unbound
+    def affect_trait(self, trait, amount):
+        trait_value = self.traits.get(trait, 0)
+        self.attitude += trait_value * amount

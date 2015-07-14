@@ -23,7 +23,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp
-from .attitude import Attitude, Patriot
+from .attitude import TraitAttitude
 
 class Name(Entity):
     """Entity with a name"""
@@ -99,9 +99,7 @@ class Target(Entity):
     Name,
     Nation,
     MercStatus,
-    
-    Attitude,
-    Patriot,
+    TraitAttitude,
     
     # battle
     Tactics,
