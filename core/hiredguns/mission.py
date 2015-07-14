@@ -33,3 +33,4 @@ class Mission(object):
     def __init__(self, intro=None, outro=None):
         self.intro = intro
         self.outro = outro
+        self.battleman = None

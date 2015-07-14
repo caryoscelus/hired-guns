@@ -4,7 +4,7 @@ label mission(mission):
     if not mission.intro is None:
         $ renpy.call(mission.intro)
     ">>> mission battle phase"
-    "TEH BATTLE"
+    call screen battle(mission.battleman)
     ">>> mission outro"
     if not mission.outro is None:
         $ renpy.call(mission.outro)
