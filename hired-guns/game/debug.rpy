@@ -56,7 +56,7 @@ screen debug_entity(entity):
 
 label call_merc_chooser(mercs):
     call screen merc_chooser(mercs)
-    $ result = str(_return).replace('{', '').replace('}', '')
+    $ result = str({k.name : _return[k] for k in _return}).replace('{', '').replace('}', '')
     "[result]"
 
 screen debug_merc_chooser(mercs):
