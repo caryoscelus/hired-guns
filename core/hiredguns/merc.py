@@ -23,6 +23,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp
+from .attitude import Attitude, Patriot
 
 class Name(Entity):
     """Entity with a name"""
@@ -30,11 +31,6 @@ class Name(Entity):
     def _init(self, name=''):
         self.dynamic_property('name', name)
 
-class Attitude(Entity):
-    """Contains attitude property; default is 0 (neutral)"""
-    @unbound
-    def _init(self, attitude=0):
-        self.dynamic_property('attitude', attitude)
 
 MERC_STATUSES = ('free', 'busy', 'injured', 'dead')
 class MercStatus(Entity):
@@ -102,8 +98,10 @@ class Target(Entity):
     # merc stuff
     Name,
     Nation,
-    Attitude,
     MercStatus,
+    
+    Attitude,
+    Patriot,
     
     # battle
     Tactics,
