@@ -24,7 +24,7 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp
 from .nation import Nation
-from .attitude import TraitAttitude
+from .traits import TraitAttitude
 
 class Name(Entity):
     """Entity with a name"""

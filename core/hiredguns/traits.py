@@ -32,19 +32,28 @@ class Attitude(Entity):
 
 KNOWN_TRAITS = ('pacifist', 'brute') + NATIONS
 
-@mod_dep(Attitude)
-class TraitAttitude(Entity):
-    """Universal attitude changer based on traits."""
+class Traits(Entity):
     @unbound
     def _init(self):
         self.dynamic_property('traits', dict())
     
     @unbound
-    def add_trait(self, trait, value):
+    def add_trait(self, trait, value=1.0):
         if not trait in KNOWN_TRAITS:
             print('WARNING: {} is not known trait!'.format(trait))
         self.traits[trait] = value
     
+    @unbound
+    def has_trait(self, trait):
+        return self.traits.get(trait, 0) > 0
+    
+    @unbound
+    def has_all_traits(self, traits):
+        return all(self.has_trait(trait) for trait in traits)
+
+@mod_dep(Attitude, Traits)
+class TraitAttitude(Entity):
+    """Universal attitude changer based on traits."""
     @unbound
     def affect_trait(self, trait, amount):
         trait_value = self.traits.get(trait, 0)
