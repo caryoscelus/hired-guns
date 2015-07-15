@@ -35,6 +35,7 @@ class HiredGunsWorld(object):
     def start_mission(self, mission):
         mission.add_mercs((self.pc,))
         self.active_mission = mission
+        mission.selected = self.pc
     
     def end_mission(self):
         self.active_mission.finish()
