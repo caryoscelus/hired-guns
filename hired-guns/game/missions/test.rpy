@@ -6,4 +6,5 @@ label test_mission(mission):
     "[merc.name] was hurt!"
     merc.speaker "I am hurt!"
     selected_merc().speaker "Aww..."
+    $ affect_trait('pacifist', -10)
     return

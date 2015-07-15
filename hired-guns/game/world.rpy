@@ -18,3 +18,7 @@ init python:
     
     def selected_merc():
         return world.active_mission.selected
+    
+    def affect_trait(trait, amount):
+        for merc in world.active_mission.mercs:
+            merc.affect_trait(trait, amount)
