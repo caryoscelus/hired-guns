@@ -12,10 +12,10 @@ init python:
     
     Merc.global_mod(MercSpeaker)
 
-screen merc_default(merc, action, selected=False):
+screen merc_default(merc, action, selected=False, get_selected=None):
     button action action:
         has vbox
-        text "Merc {}".format(merc.name) bold selected
+        text "Merc {}".format(merc.name) bold (get_selected() if get_selected else selected)
 
 screen merc_chooser(mercs):
     default chosen = {merc : False for merc in mercs}

@@ -16,6 +16,11 @@ label choose_mercs_for_mission(mission):
     $ mission.add_mercs([merc for merc in _return if _return[merc]])
     return
 
+init python:
+    from dracykeiton.util import curry
+    def merc_is_selected(merc, mission):
+        return merc is mission.selected
+
 screen mission_merc_list(mission):
     frame:
         xalign 1.0
@@ -23,4 +28,4 @@ screen mission_merc_list(mission):
         if not mission.mercs:
             text "You've got no mercs on mission! You're quite doomed!"
         for merc in mission.mercs:
-            use merc_default(merc, mission.select_merc(merc))
+            use merc_default(merc, Function(mission.select_merc, merc), get_selected=curry.curry(merc_is_selected)(merc, mission))
