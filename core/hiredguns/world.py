@@ -28,7 +28,7 @@ from .mission import Mission
 class HiredGunsWorld(object):
     def __init__(self, pc):
         self.pc = pc
-        self.mercs = list([pc, Merc('nobody')])
+        self.mercs = list([pc])
         self.missions = list([Mission('dummy mission')])
         self.active_mission = None
     
