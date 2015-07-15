@@ -18,34 +18,23 @@
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-"""Mercs attitude system"""
-
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep
-from .nation import NATIONS
+from dracykeiton.entity import Entity, simplenode
 
-class Attitude(Entity):
-    """Contains attitude property; default is 0 (neutral)"""
+NATIONS = ('cosmopolite', 'pleb', 'imp', 'manny')
+class Nation(Entity):
+    """Reflects owner's nation. Game-specific"""
     @unbound
-    def _init(self, attitude=0):
-        self.dynamic_property('attitude', attitude)
-
-KNOWN_TRAITS = ('pacifist', 'brute') + NATIONS
-
-@mod_dep(Attitude)
-class TraitAttitude(Entity):
-    """Universal attitude changer based on traits."""
-    @unbound
-    def _init(self):
-        self.dynamic_property('traits', dict())
+    def _init(self, nation='cosmopolite'):
+        self.dynamic_property('nation', nation)
+        self.check_nation()(self, nation)
     
     @unbound
-    def add_trait(self, trait, value):
-        if not trait in KNOWN_TRAITS:
-            print('WARNING: {} is not known trait!'.format(trait))
-        self.traits[trait] = value
+    def _load(self):
+        self.add_set_node('nation', self.check_nation())
     
-    @unbound
-    def affect_trait(self, trait, amount):
-        trait_value = self.traits.get(trait, 0)
-        self.attitude += trait_value * amount
+    @simplenode
+    def check_nation(value):
+        if value in NATIONS:
+            return value
+        raise ValueError('there is no such nation as {}. try another universe?'.format(value))

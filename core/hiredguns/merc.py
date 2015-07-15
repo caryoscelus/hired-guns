@@ -23,6 +23,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp
+from .nation import Nation
 from .attitude import TraitAttitude
 
 class Name(Entity):
@@ -49,24 +50,6 @@ class MercStatus(Entity):
         if value in MERC_STATUSES:
             return value
         raise ValueError('there is no such merc as status as {}.. sorry'.format(value))
-
-NATIONS = ('cosmopolite', 'pleb', 'imp', 'manny')
-class Nation(Entity):
-    """Reflects owner's nation. Game-specific"""
-    @unbound
-    def _init(self, nation='cosmopolite'):
-        self.dynamic_property('nation', nation)
-        self.check_nation()(self, nation)
-    
-    @unbound
-    def _load(self):
-        self.add_set_node('nation', self.check_nation())
-    
-    @simplenode
-    def check_nation(value):
-        if value in NATIONS:
-            return value
-        raise ValueError('there is no such nation as {}. try another universe?'.format(value))
 
 TACTICS = ('default', 'cover', 'retreat', 'attack', 'defend')
 class Tactics(Entity):
