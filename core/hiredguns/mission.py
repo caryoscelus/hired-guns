@@ -36,13 +36,23 @@ class Mission(object):
     """
     def __init__(self, name, content=None):
         self.content = content
-        self.mercs = set([])
+        self.mercs = set()
         self.battleman = None
         self.name = name
         self.selected = None
     
+    def add_mercs(self, mercs):
+        self.mercs.update(mercs)
+        for merc in mercs:
+            merc.be_born()
+    
     def select_merc(self, merc):
         self.selected = merc
+    
+    def finish(self):
+        for merc in self.mercs:
+            merc.be_unborn()
+        self.mercs = set()
     
     def prepare_battle(self):
         encounter = Encounter(Turnman)

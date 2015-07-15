@@ -13,7 +13,7 @@ label mission(mission):
 
 label choose_mercs_for_mission(mission):
     call screen merc_chooser(world.mercs)
-    $ mission.mercs.update([merc for merc in _return if _return[merc]])
+    $ mission.add_mercs([merc for merc in _return if _return[merc]])
     return
 
 screen mission_merc_list(mission):

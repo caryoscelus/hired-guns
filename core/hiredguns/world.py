@@ -33,8 +33,9 @@ class HiredGunsWorld(object):
         self.active_mission = None
     
     def start_mission(self, mission):
-        mission.mercs.add(self.pc)
+        mission.add_mercs((self.pc,))
         self.active_mission = mission
     
     def end_mission(self):
+        self.active_mission.finish()
         self.active_mission = None
