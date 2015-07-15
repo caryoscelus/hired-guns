@@ -4,4 +4,5 @@ label test_mission(mission):
     $ merc = random_merc()
     $ merc.hurt(1)
     "[merc.name] was hurt!"
+    merc.speaker "I am hurt!"
     return
