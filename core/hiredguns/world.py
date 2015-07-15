@@ -26,6 +26,7 @@ from .merc import Merc
 from .mission import Mission
 
 class HiredGunsWorld(object):
-    def __init__(self):
-        self.mercs = list([Merc('nobody')])
+    def __init__(self, pc):
+        self.pc = pc
+        self.mercs = list([pc, Merc('nobody')])
         self.missions = list([Mission('dummy mission')])

@@ -2,11 +2,12 @@ init python:
     from dracykeiton import random
     from hiredguns.world import HiredGunsWorld
     from hiredguns.mission import Mission
+    from hiredguns.merc import Merc
     
     def init_world():
+        pc_name = renpy.input(_("What is your name?"))
         global world
-        world = HiredGunsWorld()
-        world.missions.append(Mission('test mission', 'test_mission'))
+        world = HiredGunsWorld(Merc(pc_name))
     
     def random_merc(req_traits=()):
         mercs = [merc for merc in world.active_mission.mercs if merc.has_all_traits(req_traits)]
