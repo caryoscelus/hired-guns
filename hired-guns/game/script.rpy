@@ -2,15 +2,9 @@
 label main_menu:
     return
 
-# import our modules
-init python:
-    from hiredguns.world import HiredGunsWorld
-    from hiredguns.mission import Mission
-
 # starting here
 label start:
-    $ world = HiredGunsWorld()
-    $ world.missions.append(Mission('test mission', 'test_mission'))
+    call init_world()
     show screen debug_all(world)
     "YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
 label loop:
