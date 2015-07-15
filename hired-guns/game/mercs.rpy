@@ -1,3 +1,17 @@
+init python:
+    # TODO: move elsewhere?
+    from dracykeiton.compat import *
+    from dracykeiton.entity import Entity, mod_dep
+    from hiredguns.merc import Name, Merc
+    
+    @mod_dep(Name)
+    class MercSpeaker(Entity):
+        @unbound
+        def _init(self):
+            self.dynamic_property('speaker', Character(self.name))
+    
+    Merc.global_mod(MercSpeaker)
+
 screen merc_default(merc, action, selected=False):
     button action action:
         has vbox
