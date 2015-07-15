@@ -43,9 +43,9 @@ screen debug_mercs(mercs):
 
 screen debug_merc(merc):
     frame:
-        has vbox
-        label "Merc"
-        use debug_entity(merc)
+        has hbox
+        label "{}".format(merc.name)
+        textbutton "Inspect" action Show('debug_entity_window', entity=merc)
 
 screen debug_entity(entity):
     frame:
@@ -53,6 +53,13 @@ screen debug_entity(entity):
         label "All properties"
         for prop in entity._props:
             label '{} : {}'.format(prop, getattr(entity, prop)).replace('{', '{{')
+
+screen debug_entity_window(entity):
+    drag:
+        frame:
+            has vbox
+            use debug_entity(entity)
+            textbutton "Close" action Hide('debug_entity_window')
 
 label call_merc_chooser(mercs):
     call screen merc_chooser(mercs)
