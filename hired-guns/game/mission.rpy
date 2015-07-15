@@ -1,5 +1,6 @@
 label mission(mission):
     ">> mission start"
+    $ mission.mercs.add(world.pc)
     show screen mission_merc_list(mission)
     if mission.content:
         $ renpy.call(mission.content, mission)
