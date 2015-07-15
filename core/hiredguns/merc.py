@@ -22,7 +22,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
-from dracykeiton.common import RoundingHp
+from dracykeiton.common import RoundingHp, Hp
 from .nation import Nation
 from .traits import TraitAttitude
 
@@ -68,6 +68,20 @@ class Tactics(Entity):
             return value
         raise ValueError('there is no such tactic as {}'.format(value))
 
+@mod_dep(Hp)
+class DamageType(Entity):
+    @unbound
+    def _init(self):
+        self.dynamic_property('damage_type_coeff', dict())
+    
+    @unbound
+    def set_damage_type_coeff(self, dtype, coeff):
+        self.damage_type_coeff[dtype] = coeff
+    
+    @unbound
+    def receive_damage(self, amount, dtype='default'):
+        self.hurt(amount*self.damage_type_coeff.get(dtype, 1.0))
+
 class Target(Entity):
     """Target in battle"""
     @unbound
@@ -77,6 +91,7 @@ class Target(Entity):
 @mod_dep(
     # base attributes
     RoundingHp,
+    DamageType,
     
     # merc stuff
     Name,
