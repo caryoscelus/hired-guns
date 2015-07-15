@@ -19,7 +19,7 @@
 ##
 
 from dracykeiton.compat import *
-from hiredguns.attitude import TraitAttitude
+from hiredguns.traits import TraitAttitude
 
 def test_attitude():
     entity = TraitAttitude()
