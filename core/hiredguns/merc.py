@@ -93,3 +93,4 @@ class Merc(Entity):
     @unbound
     def _init(self, name='merc'):
         self.name = name
+        self.maxhp = 5
