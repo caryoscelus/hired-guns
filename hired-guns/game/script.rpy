@@ -13,9 +13,3 @@ label loop:
     jump loop
     "YOU DIED FOR A FEW COINS. HOW UNLUCKY."
     return
-
-label test_mission(mission):
-    "mission [mission.name] start"
-    call choose_mercs_for_mission(mission)
-    "mission could be happening here.."
-    return
