@@ -5,4 +5,5 @@ label test_mission(mission):
     $ merc.hurt(1)
     "[merc.name] was hurt!"
     merc.speaker "I am hurt!"
+    selected_merc().speaker "Aww..."
     return
