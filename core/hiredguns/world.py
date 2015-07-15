@@ -30,3 +30,11 @@ class HiredGunsWorld(object):
         self.pc = pc
         self.mercs = list([pc, Merc('nobody')])
         self.missions = list([Mission('dummy mission')])
+        self.active_mission = None
+    
+    def start_mission(self, mission):
+        mission.mercs.add(self.pc)
+        self.active_mission = mission
+    
+    def end_mission(self):
+        self.active_mission = None

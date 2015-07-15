@@ -1,12 +1,13 @@
 label mission(mission):
     ">> mission start"
-    $ mission.mercs.add(world.pc)
+    $ world.start_mission(mission)
     show screen mission_merc_list(mission)
     if mission.content:
         $ renpy.call(mission.content, mission)
     else:
         "Your mission was a failure"
     hide screen mission_merc_list
+    $ world.end_mission()
     ">> mission end"
     return
 
