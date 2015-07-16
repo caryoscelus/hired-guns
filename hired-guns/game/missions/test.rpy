@@ -24,6 +24,7 @@ label monster_loop:
         "Kill everything!\
                 ^^not selected_merc().has_trait('pacifist')":
             selected_merc().speaker "Burn with fire, monsters!"
+            $ monsters = False
             $ affect_trait('pacifist', -10)
         "Sneak out of this ambush!\
                 ^^selected_merc().has_skill('stealth')":
