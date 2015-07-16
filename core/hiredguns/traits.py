@@ -18,17 +18,11 @@
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-"""Mercs attitude system"""
+"""Mercs trait and attitude system"""
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
 from .nation import NATIONS
-
-class Attitude(Entity):
-    """Contains attitude property; default is 0 (neutral)"""
-    @unbound
-    def _init(self, attitude=0):
-        self.dynamic_property('attitude', attitude)
 
 KNOWN_TRAITS = ('pacifist', 'brute') + NATIONS
 
@@ -50,6 +44,12 @@ class Traits(Entity):
     @unbound
     def has_all_traits(self, traits):
         return all(self.has_trait(trait) for trait in traits)
+
+class Attitude(Entity):
+    """Contains attitude property; default is 0 (neutral)"""
+    @unbound
+    def _init(self, attitude=0):
+        self.dynamic_property('attitude', attitude)
 
 @mod_dep(Attitude, Traits)
 class TraitAttitude(Entity):
