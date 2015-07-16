@@ -24,7 +24,8 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp, Hp
 from .nation import Nation
-from .traits import TraitAttitude
+from .traits import Traits, TraitAttitude
+from .skills import Skills
 
 class Name(Entity):
     """Entity with a name"""
@@ -97,6 +98,8 @@ class Target(Entity):
     Name,
     Nation,
     MercStatus,
+    Traits,
+    Skills,
     TraitAttitude,
     
     # battle
