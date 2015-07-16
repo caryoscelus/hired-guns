@@ -25,6 +25,19 @@ label monster_loop:
                 ^^not selected_merc().has_trait('pacifist')":
             selected_merc().speaker "Burn with fire, monsters!"
             $ affect_trait('pacifist', -10)
+        "Sneak out of this ambush!\
+                ^^selected_merc().has_skill('stealth')":
+            $ merc = selected_merc()
+            merc.speaker "Shhhhh...."
+            "Sneak, sneak, sneak!"
+            call screen roll_dices(merc.get_skill('stealth'))
+            if 6 in _return:
+                $ monsters = False
+                "We snuck out!"
+            elif 5 in _return:
+                "We thought we snuck out, but after a minute or two, monsters appeared again!"
+            else:
+                "Monsters easily tracked us and ambushed again.."
     if monsters:
         jump monster_loop
     return
