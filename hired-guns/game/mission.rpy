@@ -13,8 +13,7 @@ label mission(mission):
 
 label choose_mercs_for_mission(mission):
     $ available_mercs = set(world.mercs)-mission.mercs
-    $ available_mercs = [merc for merc in available_mercs if merc.attitude >= 0]
-    call screen merc_chooser(available_mercs)
+    call screen hire_mercs(mission, available_mercs)
     $ mission.add_mercs([merc for merc in _return if _return[merc]])
     return
 

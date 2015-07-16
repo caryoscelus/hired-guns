@@ -42,3 +42,23 @@ screen merc_chooser(mercs):
         for merc in mercs:
             use merc_default(merc, ToggleDict(chosen, merc), chosen[merc])
         textbutton "Ok!" action Return(chosen)
+
+init python:
+    def hire_merc(merc, mission, result):
+        hired = merc.hire(mission)
+        result[merc] = hired
+
+screen hire_merc(merc, mission, result):
+    button action Function(hire_merc, merc, mission, result):
+        text "Hire [merc.name]" bold result[merc]
+
+screen hire_mercs(mission, mercs):
+    default chosen = {merc : False for merc in mercs}
+    frame:
+        xalign 0.5
+        yalign 0.5
+        has vbox
+        label "Hire mercs!"
+        for merc in mercs:
+            use hire_merc(merc, mission, chosen)
+        textbutton "Ok!" action Return(chosen)

@@ -24,7 +24,7 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode
 from dracykeiton.common import RoundingHp, Hp
 from .nation import Nation
-from .traits import Traits, TraitAttitude
+from .traits import Traits, TraitAttitude, Attitude
 from .skills import Skills
 
 class Name(Entity):
@@ -89,6 +89,14 @@ class Target(Entity):
     def _init(self):
         self.dynamic_property('target', None)
 
+@mod_dep(Attitude)
+class Hire(Entity):
+    @unbound
+    def hire(self, mission):
+        if self.attitude < 0:
+            return False
+        return True
+
 @mod_dep(
     # base attributes
     RoundingHp,
@@ -101,6 +109,7 @@ class Target(Entity):
     Traits,
     Skills,
     TraitAttitude,
+    Hire,
     
     # battle
     Tactics,
