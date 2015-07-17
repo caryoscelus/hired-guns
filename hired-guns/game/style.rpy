@@ -21,3 +21,13 @@ init python:
                 raise ValueError('unknown mode {}'.format(_vn_mode))
 
 define narrator = CombinedCharacter(None, what_color='#000')
+
+style simple_frame:
+    background Frame('images/ui/frame.png', 8, 8)
+
+style filled_frame:
+    background Frame('images/ui/filledframe.png', 8, 8)
+
+style empty:
+    background None
+    foreground None

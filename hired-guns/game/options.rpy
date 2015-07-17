@@ -97,7 +97,7 @@ init -1 python hide:
     ## are the size of the left/right and top/bottom borders,
     ## respectively.
 
-    # style.window.background = Frame("frame.png", 12, 12)
+    # style.window.background = Frame("images/ui/frame.png", 8, 8)
     style.window.background = Solid('#0000')
     style.nvl_window.background = Solid('#0000')
 

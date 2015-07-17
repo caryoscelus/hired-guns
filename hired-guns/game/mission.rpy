@@ -21,9 +21,8 @@ init python:
         return merc is mission.selected
 
 screen mission_merc_list(mission):
-    frame:
+    vbox:
         xalign 1.0
-        has vbox
         if not mission.mercs:
             text "You've got no mercs on mission! You're quite doomed!"
         for merc in mission.mercs:

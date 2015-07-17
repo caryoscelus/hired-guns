@@ -28,7 +28,7 @@ init python:
     Merc.global_mod(AttitudeChange)
 
 screen merc_default(merc, action, selected=False, get_selected=None):
-    button action action:
+    button action action style 'filled_frame':
         has vbox
         text "Merc {}".format(merc.name) bold (get_selected() if get_selected else selected)
 
