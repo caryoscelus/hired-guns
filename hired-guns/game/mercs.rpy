@@ -1,7 +1,7 @@
 init python:
     # TODO: move elsewhere?
     from dracykeiton.compat import *
-    from dracykeiton.entity import Entity, mod_dep, listener
+    from dracykeiton.entity import Entity, mod_dep, listener, depends, simplenode
     from hiredguns.merc import Name, Merc
     from hiredguns.traits import Attitude
     
@@ -26,10 +26,28 @@ init python:
                 self.speaker(_("I am angry at you! I won't work with such a bastard anymore!"))
     
     Merc.global_mod(AttitudeChange)
+    
+    class VisualEntity(Entity):
+        @unbound
+        def _init(self):
+            self.dynamic_property('image')
+            self.dynamic_property('visual_state', 'default')
+            self.add_get_node('image', self.get_image())
+        
+        @depends('visual_state')
+        @simplenode
+        def get_image(value, visual_state):
+            if not value:
+                return 'merc'
+            return value
+    
+    Merc.global_mod(VisualEntity)
 
 screen merc_default(merc, action, selected=False, get_selected=None):
     button action action style 'filled_frame':
         has vbox
+        if merc.image:
+            add merc.image zoom 0.5
         text "Merc {}".format(merc.name) bold (get_selected() if get_selected else selected)
 
 screen merc_chooser(mercs):
