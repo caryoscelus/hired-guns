@@ -45,29 +45,29 @@ init -1 python hide:
         ## Color scheme: Tree Frog
 
         ## The color of an idle widget face.
-        widget = "#1c140d",
+        widget = "#eee",
 
         ## The color of a focused widget face.
-        widget_hover = "#86827e",
+        widget_hover = "#fff",
 
         ## The color of the text in a widget.
-        widget_text = "#cbe86b",
+        widget_text = "#000",
 
         ## The color of the text in a selected widget. (For
         ## example, the current value of a preference.)
-        widget_selected = "#f2e9e1",
+        widget_selected = "#000",
 
         ## The color of a disabled widget face.
-        disabled = "#ffffff",
+        disabled = "#ddd",
 
         ## The color of disabled widget text.
-        disabled_text = "#1c140d",
+        disabled_text = "#eee",
 
         ## The color of informational labels.
-        label = "#1c140d",
+        label = "#000",
 
         ## The color of a frame containing widgets.
-        frame = "#cbe86b",
+        frame = "#ddd",
 
         ## The background of the main menu. This can be a color
         ## beginning with '#', or an image filename. The latter
@@ -98,6 +98,8 @@ init -1 python hide:
     ## respectively.
 
     # style.window.background = Frame("frame.png", 12, 12)
+    style.window.background = Solid('#0000')
+    style.nvl_window.background = Solid('#0000')
 
     ## Margin is space surrounding the window, where the background
     ## is not drawn.
@@ -151,6 +153,8 @@ init -1 python hide:
     ## The default size of text.
 
     # style.default.size = 22
+    style.default.color = '#000'
+    style.input_text.color = '#000'
 
     ## Note that these only change the size of some of the text. Other
     ## buttons have their own styles.
