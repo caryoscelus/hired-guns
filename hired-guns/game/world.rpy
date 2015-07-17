@@ -1,4 +1,5 @@
 init python:
+    from dracykeiton.compat import *
     from dracykeiton import random
     from hiredguns.world import HiredGunsWorld
     from hiredguns.mission import Mission
