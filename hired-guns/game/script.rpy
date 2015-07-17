@@ -2,8 +2,11 @@
 label main_menu:
     return
 
+image white = Solid('#ffffff')
+
 # starting here
 label start:
+    scene white
     python:
         init_world()
         world.missions.append(Mission('test mission', 'test_mission'))

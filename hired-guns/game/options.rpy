@@ -40,44 +40,44 @@ init -1 python hide:
     ## The theme function takes a number of parameters that can
     ## customize the color scheme.
 
-    theme.tv(
-        ## Theme: TV
-        ## Color scheme: City Lights
+    theme.marker(
+        ## Theme: Marker
+        ## Color scheme: Tree Frog
 
         ## The color of an idle widget face.
-        widget = "#45ada8",
+        widget = "#1c140d",
 
         ## The color of a focused widget face.
-        widget_hover = "#2e5860",
+        widget_hover = "#86827e",
 
         ## The color of the text in a widget.
-        widget_text = "#9de0ad",
+        widget_text = "#cbe86b",
 
         ## The color of the text in a selected widget. (For
         ## example, the current value of a preference.)
-        widget_selected = "#e5fcc2",
+        widget_selected = "#f2e9e1",
 
         ## The color of a disabled widget face.
-        disabled = "#638e89",
+        disabled = "#ffffff",
 
         ## The color of disabled widget text.
-        disabled_text = "#594f4f",
+        disabled_text = "#1c140d",
 
         ## The color of informational labels.
-        label = "#e5fcc2",
+        label = "#1c140d",
 
         ## The color of a frame containing widgets.
-        frame = "#547980",
+        frame = "#cbe86b",
 
         ## The background of the main menu. This can be a color
         ## beginning with '#', or an image filename. The latter
         ## should take up the full height and width of the screen.
-        mm_root = "#594f4f",
+        mm_root = "#ffffff",
 
         ## The background of the game menu. This can be a color
         ## beginning with '#', or an image filename. The latter
         ## should take up the full height and width of the screen.
-        gm_root = "#594f4f",
+        gm_root = "#ffffff",
 
         ## If this is True, the in-game window is rounded. If False,
         ## the in-game window is square.
