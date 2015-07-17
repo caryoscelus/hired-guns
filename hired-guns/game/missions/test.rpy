@@ -45,6 +45,8 @@ label monster_loop:
 
 
 label test_gfx_mission(mission):
-    nv "Hello"
-    nv "la-la-la"
+    $ vn_mode('nvl')
+    "Hello"
+    "la-la-la"
+    $ vn_mode('adv')
     return
