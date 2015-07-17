@@ -10,6 +10,7 @@ label start:
     python:
         init_world()
         world.missions.append(Mission('test mission', 'test_mission'))
+        world.missions.append(Mission('test gfx mission', 'test_gfx_mission'))
         
         world.mercs.append(Merc('nobody'))
         

@@ -42,3 +42,9 @@ label monster_loop:
     if monsters:
         jump monster_loop
     return
+
+
+label test_gfx_mission(mission):
+    nv "Hello"
+    nv "la-la-la"
+    return
