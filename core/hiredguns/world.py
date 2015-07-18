@@ -29,14 +29,19 @@ class HiredGunsWorld(object):
     def __init__(self, pc):
         self.pc = pc
         self.mercs = list([pc])
-        self.missions = list([Mission('dummy mission')])
+        self.missions = dict()
         self.active_mission = None
+    
+    def add_mission(self, mission):
+        self.missions[mission] = 'available'
     
     def start_mission(self, mission):
         mission.add_mercs((self.pc,))
         self.active_mission = mission
         mission.selected = self.pc
+        self.missions[mission] = 'active'
     
     def end_mission(self):
         self.active_mission.finish()
+        self.missions[self.active_mission] = 'finished'
         self.active_mission = None
