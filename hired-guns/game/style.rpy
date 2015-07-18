@@ -7,7 +7,6 @@ init python:
         def __init__(self, *args, **kwargs):
             kwargs_adv = kwargs.copy()
             kwargs_adv['kind'] = adv
-            print(Character)
             self.adv = Character(*args, **kwargs_adv)
             kwargs_nvl = kwargs.copy()
             kwargs_nvl['kind'] = nvl

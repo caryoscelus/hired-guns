@@ -46,7 +46,10 @@ label monster_loop:
 
 label test_gfx_mission(mission):
     $ vn_mode('nvl')
-    "Hello"
-    "la-la-la"
+    "So you're on a mission"
+    "Choose some mercs or something"
+    call choose_mercs_for_mission(mission)
+    "Now do something!!"
+    nvl clear
     $ vn_mode('adv')
     return
