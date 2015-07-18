@@ -49,7 +49,7 @@ screen merc_default(merc, action, selected=False, get_selected=None):
     button action action style 'filled_frame':
         has vbox
         if merc.image:
-            add merc.image zoom 0.5
+            add merc.image zoom 0.66
         text merc.name bold (get_selected() if get_selected else selected)
 
 screen merc_chooser(mercs):
@@ -69,8 +69,11 @@ init python:
         result[merc] = hired
 
 screen hire_merc(merc, mission, result):
-    button action Function(hire_merc, merc, mission, result):
+    button action Function(hire_merc, merc, mission, result) style 'filled_frame':
+        has vbox
         text "Hire [merc.name]" bold result[merc]
+        if merc.image:
+            add merc.image zoom 0.66
 
 screen hire_mercs(mission, mercs):
     default chosen = {merc : False for merc in mercs}
@@ -78,7 +81,8 @@ screen hire_mercs(mission, mercs):
         xalign 0.5
         yalign 0.5
         has vbox
-        label "Hire mercs!"
-        for merc in mercs:
-            use hire_merc(merc, mission, chosen)
+        text "Hire mercs!"
+        hbox:
+            for merc in mercs:
+                use hire_merc(merc, mission, chosen)
         textbutton "Ok!" action Return(chosen)
