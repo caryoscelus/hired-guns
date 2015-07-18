@@ -1,4 +1,5 @@
 label test_mission(mission):
+    $ vn_mode('nvl')
     "mission [mission.name] start"
     call choose_mercs_for_mission(mission)
     "There are some angry monsters waiting to eat you!"
@@ -41,6 +42,7 @@ label monster_loop:
                 "Monsters easily tracked us and ambushed again.."
     if monsters:
         jump monster_loop
+    $ vn_mode('adv')
     return
 
 

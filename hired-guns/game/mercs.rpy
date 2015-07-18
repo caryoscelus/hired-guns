@@ -10,7 +10,7 @@ init python:
     class MercSpeaker(Entity):
         @unbound
         def _init(self):
-            self.dynamic_property('speaker', Character(self.name))
+            self.dynamic_property('speaker', CombinedCharacter(self.name))
     
     Merc.global_mod(MercSpeaker)
     
