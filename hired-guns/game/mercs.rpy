@@ -2,6 +2,7 @@ init python:
     # TODO: move elsewhere?
     from dracykeiton.compat import *
     from dracykeiton.entity import Entity, mod_dep, listener, depends, simplenode
+    from dracykeiton import random
     from hiredguns.merc import Name, Merc
     from hiredguns.traits import Attitude
     
@@ -33,6 +34,7 @@ init python:
             self.dynamic_property('image')
             self.dynamic_property('visual_state', 'default')
             self.add_get_node('image', self.get_image())
+            self.image = 'merc0{}'.format(random.randint(0, 3))
         
         @depends('visual_state')
         @simplenode
@@ -48,7 +50,7 @@ screen merc_default(merc, action, selected=False, get_selected=None):
         has vbox
         if merc.image:
             add merc.image zoom 0.5
-        text "Merc {}".format(merc.name) bold (get_selected() if get_selected else selected)
+        text merc.name bold (get_selected() if get_selected else selected)
 
 screen merc_chooser(mercs):
     default chosen = {merc : False for merc in mercs}
