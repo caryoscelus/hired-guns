@@ -4,7 +4,7 @@ rem  set HIREDGUNS=/path/to/hiredguns
 
 cd %DRACYKEITON%
 git pull
-xcopy dracykeiton %RENPY%\lib\pythonlib2.7\dracykeiton /Y
+xcopy dracykeiton %RENPY%\lib\pythonlib2.7\dracykeiton /Y /E /I
 cd %HIREDGUNS%
 git pull
-xcopy core/hiredguns %RENPY%\lib\pythonlib2.7\hiredguns /Y
+xcopy core\hiredguns %RENPY%\lib\pythonlib2.7\hiredguns /Y /E /I
