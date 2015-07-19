@@ -1,21 +1,29 @@
 init python:
     renpy.store._vn_mode = 'adv'
-    def vn_mode(value):
+    renpy.store._margins = {
+        'left' : 0,
+        'right' : 0,
+        'bottom' : 0,
+        'top' : 0
+    }
+    def vn_mode(value, **kwargs):
         renpy.store._vn_mode = value
+        renpy.store._margins.update(kwargs)
     
     class CombinedCharacter(object):
         def __init__(self, *args, **kwargs):
-            kwargs_adv = kwargs.copy()
-            kwargs_adv['kind'] = adv
-            self.adv = Character(*args, **kwargs_adv)
-            kwargs_nvl = kwargs.copy()
-            kwargs_nvl['kind'] = nvl
-            self.nvl = Character(*args, **kwargs_nvl)
+            self.args = args
+            self.kwargs = kwargs
         def __call__(self, *args, **kwargs):
+            kwargs_copy = self.kwargs.copy()
+            for margin in renpy.store._margins:
+                kwargs_copy['window_'+margin+'_margin'] = renpy.store._margins[margin]
             if _vn_mode == 'nvl':
-                return self.nvl(*args, **kwargs)
+                kwargs_copy['kind'] = nvl
+                return Character(*self.args, **kwargs_copy)(*args, **kwargs)
             elif _vn_mode == 'adv':
-                return self.adv(*args, **kwargs)
+                kwargs_copy['kind'] = adv
+                return Character(*self.args, **kwargs_copy)(*args, **kwargs)
             else:
                 raise ValueError('unknown mode {}'.format(_vn_mode))
 
