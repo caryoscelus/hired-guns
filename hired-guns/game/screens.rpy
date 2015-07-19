@@ -104,14 +104,24 @@ screen nvl(dialogue, items=None):
                 id "menu"
 
                 for caption, action, chosen in items:
-
                     if action:
-
+                        if '^' in caption:
+                            $ caption, condition = caption.split('^^')
+                            $ caption.strip()
+                        else:
+                            $ condition = 'True'
+                        
+                        $ result = eval(condition)
+                        
                         button:
+                            if result:
+                                action action
+                            else:
+                                action Function(renpy.notify, 'Selected merc cannot do this!')
                             style "nvl_menu_choice_button"
                             action action
 
-                            text caption style "nvl_menu_choice"
+                            text caption style "nvl_menu_choice" bold result
 
                     else:
 

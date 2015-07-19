@@ -7,6 +7,26 @@
 ## commented-out code, and you may want to uncomment them when
 ## appropriate.
 
+init python:
+    menu = nvl_menu
+    # The color of a menu choice when it isn't hovered. 
+    style.nvl_menu_choice.idle_color = "#000"
+ 
+    # The color of a menu choice when it is hovered.
+    style.nvl_menu_choice.hover_color = "#111"
+ 
+    # The color of the background of a menu choice, when it isn't
+    # hovered.
+    style.nvl_menu_choice_button.idle_background = "#00000000"
+
+    # The color of the background of a menu choice, when it is
+    # hovered.
+    style.nvl_menu_choice_button.hover_background = "#88888844"
+
+    # How far from the left menu choices should be indented. 
+    style.nvl_menu_choice_button.left_margin = 20
+    style.nvl_menu_choice_button.right_margin = 20
+
 init -1 python hide:
 
     ## Should we enable the use of developer tools? This should be
