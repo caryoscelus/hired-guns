@@ -1,5 +1,6 @@
 label test_mission(mission):
-    $ vn_mode('nvl')
+    $ push_mode('nvl')
+    nvl clear
     "mission [mission.name] start"
     call choose_mercs_for_mission(mission)
     "There are some angry monsters waiting to eat you!"
@@ -61,16 +62,17 @@ label monsters_sneakout:
 
 label monsters_end:
     "And thus we continue our journey"
-    $ vn_mode('adv')
+    $ pop_mode()
     return
 
 
 label test_gfx_mission(mission):
-    $ vn_mode('nvl')
+    $ push_mode('nvl', left=200)
+    nvl clear
     "So you're on a mission"
     "Choose some mercs or something"
     call choose_mercs_for_mission(mission)
     "Now do something!!"
     nvl clear
-    $ vn_mode('adv')
+    $ pop_mode()
     return
