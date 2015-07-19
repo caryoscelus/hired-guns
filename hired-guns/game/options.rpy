@@ -8,7 +8,6 @@
 ## appropriate.
 
 init python:
-    menu = nvl_menu
     # The color of a menu choice when it isn't hovered. 
     style.nvl_menu_choice.idle_color = "#000"
  
