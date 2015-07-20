@@ -51,9 +51,6 @@ screen say(who, what, side_image=None, two_window=False):
     else:
         add SideImage() xalign 0.0 yalign 1.0
 
-    # Use the quick menu.
-    use quick_menu
-
 ##############################################################################
 # Input
 #
@@ -67,8 +64,6 @@ screen input(prompt):
 
         text prompt style "input_prompt"
         input id "input" style "input_text"
-
-    use quick_menu
 
 ##############################################################################
 # Nvl
@@ -128,8 +123,6 @@ screen nvl(dialogue, items=None):
                         text caption style "nvl_dialogue"
 
     add SideImage() xalign 0.0 yalign 1.0
-
-    use quick_menu
 
 
 # custom choice screen allowing dynamic conditions on choices
