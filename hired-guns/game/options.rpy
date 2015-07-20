@@ -10,10 +10,10 @@
 init python:
     # The color of a menu choice when it isn't hovered. 
     style.nvl_menu_choice.idle_color = "#000"
- 
+
     # The color of a menu choice when it is hovered.
     style.nvl_menu_choice.hover_color = "#111"
- 
+
     # The color of the background of a menu choice, when it isn't
     # hovered.
     style.nvl_menu_choice_button.idle_background = "#00000000"

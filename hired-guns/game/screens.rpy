@@ -100,7 +100,7 @@ screen nvl(dialogue, items=None):
 
                 for caption, action, chosen in items:
                     if action:
-                        if '^' in caption:
+                        if caption.find('^^') > -1:
                             $ caption, condition = caption.split('^^')
                             $ caption.strip()
                         else:
@@ -113,7 +113,6 @@ screen nvl(dialogue, items=None):
                                 action action
                             else:
                                 action Function(renpy.notify, 'Selected merc cannot do this!')
-                            style "nvl_menu_choice_button"
                             action action
 
                             text caption style "nvl_menu_choice" bold result
