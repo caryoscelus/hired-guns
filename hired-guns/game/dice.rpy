@@ -24,7 +24,6 @@ init python:
 
 label roll_dices_action(n, f):
     call screen roll_dices(n)
-    "hi!"
     $ f(_return)
     return
 
