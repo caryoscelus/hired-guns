@@ -33,11 +33,8 @@ roll_result = list()
 def roll_f(result):
     global roll_result
     roll_result = result
-    print(conditions)
     for name in conditions:
-        print(name)
         if conditions[name]():
-            print('ok')
             actions[name]()
             break
     else:
@@ -74,9 +71,6 @@ def get_dice(want, amount=1):
     except TypeError:
         amount = (amount, amount)
     def f():
-        print(roll_result)
-        print(range(want[0], want[1]+1))
         r = [dice for dice in roll_result if dice in range(want[0], want[1]+1)]
-        print(r)
         return len(r) in range(amount[0], amount[1]+1)
     return f
