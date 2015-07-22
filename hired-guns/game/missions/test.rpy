@@ -1,8 +1,11 @@
 label test_mission(mission):
-    $ push_mode('nvl')
+    $ push_mode('nvl', left=40, right=620)
     nvl clear
     "mission [mission.name] start"
     call choose_mercs_for_mission(mission)
+    show jungle00:
+        xalign 0.9 yalign 0.2
+        zoom 0.2
     "There are some angry monsters waiting to eat you!"
     $ monsters = True
 label monsters_loop:
@@ -13,18 +16,40 @@ label monsters_loop:
     selected_merc().speaker "Aww..."
     menu:
         "What are we gonna do?"
-        "Pacify them\
-                ^^selected_merc().has_trait('pacifist')":
-            call monsters_pacify()
-        "Kill everything!\
-                ^^not selected_merc().has_trait('pacifist')":
-            call monsters_kill()
-        "Sneak out of this ambush!\
-                ^^selected_merc().has_skill('stealth')":
-            call monsters_sneakout()
+        #"Pacify them\
+                #^^selected_merc().has_trait('pacifist')":
+            #call monsters_pacify()
+        "Pacify them^^\
+            roll(4);\
+            require_trait('pacifist');\
+            outcome_condition('success', get_dice((4, 6), amount=(2, 4)));\
+            outcome_label('success', 'monsters_pacified');\
+            #outcome_condition('failure', lambda: True);\
+            outcome_label('failure', 'monsters_not_pacified');\
+            ":
+            pass
+        #"Kill everything!\
+                #^^not selected_merc().has_trait('pacifist')":
+            #call monsters_kill()
+        #"Sneak out of this ambush!\
+                #^^selected_merc().has_skill('stealth')":
+            #call monsters_sneakout()
     if monsters:
         jump monsters_loop
     jump monsters_end
+
+label monsters_pacified:
+    $ monsters = False
+    $ pacifist = selected_merc()
+    nvl clear
+    "Monsters were scared by [pacifist.name]'s strange rite of pacifying and flew away"
+    return
+
+label monsters_not_pacified:
+    $ pacifist = selected_merc()
+    nvl clear
+    "Monsters observe [pacifist.name]'s rite curiously."
+    return
 
 label monsters_pacify:
     nvl clear
