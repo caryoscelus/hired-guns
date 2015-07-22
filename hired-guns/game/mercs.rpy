@@ -34,7 +34,7 @@ init python:
             self.dynamic_property('image')
             self.dynamic_property('visual_state', 'default')
             self.add_get_node('image', self.get_image())
-            self.image = 'merc0{}'.format(random.randint(0, 3))
+            self.image = 'merc0{}'.format(random.randint(0, 8))
         
         @depends('visual_state')
         @simplenode
@@ -49,7 +49,7 @@ screen merc_default(merc, action, selected=False, get_selected=None):
     button action action style 'filled_frame':
         has vbox
         if merc.image:
-            add merc.image zoom 0.66
+            add merc.image zoom 0.333
         text merc.name bold (get_selected() if get_selected else selected)
 
 screen merc_chooser(mercs):
@@ -73,7 +73,7 @@ screen hire_merc(merc, mission, result):
         has vbox
         text "Hire [merc.name]" bold result[merc]
         if merc.image:
-            add merc.image zoom 0.66
+            add merc.image zoom 0.333
 
 screen hire_mercs(mission, mercs):
     default chosen = {merc : False for merc in mercs}
