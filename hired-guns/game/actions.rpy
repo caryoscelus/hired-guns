@@ -17,3 +17,28 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
+
+init python:
+    import re
+    import actions
+    
+    def menu_action(caption):
+        """...
+        
+        roll(n)
+        requires_skill(skill, level, who='merc'|'team')
+        affects_trait(trait, amount, forbid)
+        outcome_condition(name, condition)
+        outcome_action(name, action)
+        """
+        caption, body = caption.split('^^')
+        caption = caption.strip()
+        body = body.strip()
+        body = re.sub(';\s*', ';', body)
+        expr = compile(body, '<menu_action>', 'exec')
+        actions.test = True
+        actions.can_do = True
+        eval(expr, actions.__dict__)
+        actions.test = False
+        actions.action = Function(eval, expr, actions.__dict__)
+        return actions, caption

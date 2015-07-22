@@ -22,6 +22,12 @@ init python:
         for i in range(len(result)):
             result[i] = random.randint(1, 6)
 
+label roll_dices_action(n, f):
+    call screen roll_dices(n)
+    "hi!"
+    $ f(_return)
+    return
+
 screen roll_dices(n):
     default result = [random.randint(1, 6) for i in range(n)]
     frame:
