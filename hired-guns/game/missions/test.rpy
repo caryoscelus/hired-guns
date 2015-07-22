@@ -16,27 +16,38 @@ label monsters_loop:
     selected_merc().speaker "Aww..."
     menu:
         "What are we gonna do?"
-        #"Pacify them\
-                #^^selected_merc().has_trait('pacifist')":
-            #call monsters_pacify()
         "Pacify them^^\
             roll(4);\
             require_trait('pacifist');\
             outcome_condition('success', get_dice((4, 6), amount=(2, 4)));\
             outcome_label('success', 'monsters_pacified');\
-            #outcome_condition('failure', lambda: True);\
             outcome_label('failure', 'monsters_not_pacified');\
             ":
             pass
-        #"Kill everything!\
-                #^^not selected_merc().has_trait('pacifist')":
-            #call monsters_kill()
+        "Kill everything!^^\
+            roll(3);\
+            outcome_condition('success', get_dice((3, 6), amount=(1, 4)));\
+            outcome_label('success', 'monsters_killed');\
+            outcome_label('failure', 'monsters_not_killed');\
+            ":
+            pass
         #"Sneak out of this ambush!\
                 #^^selected_merc().has_skill('stealth')":
             #call monsters_sneakout()
     if monsters:
         jump monsters_loop
     jump monsters_end
+
+label monsters_killed:
+    $ monsters = False
+    nvl clear
+    "We killed all the monsters!"
+    return
+
+label monsters_not_killed:
+    nvl clear
+    "Monsters were not killed."
+    return
 
 label monsters_pacified:
     $ monsters = False
