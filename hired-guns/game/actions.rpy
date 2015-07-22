@@ -20,11 +20,11 @@
 
 init python:
     import re
+    import actions_info
     import actions
     
     def menu_action(caption):
         """...
-        
         roll(n)
         requires_skill(skill, level, who='merc'|'team')
         affects_trait(trait, amount, forbid)
@@ -33,12 +33,11 @@ init python:
         """
         caption, body = caption.split('^^')
         caption = caption.strip()
-        body = body.strip()
-        body = re.sub(';\s*', ';', body)
+        body = "start_action('{}');".format(caption)+body.strip()+"finish_action();"
         expr = compile(body, '<menu_action>', 'exec')
-        actions.test = True
-        actions.can_do = True
-        eval(expr, actions.__dict__)
-        actions.test = False
-        actions.action = Function(eval, expr, actions.__dict__)
-        return actions, caption
+        eval(expr, actions_info.__dict__)
+        answer = actions_info.result
+        actions_info.result = None
+        actions.parse_results[caption] = answer
+        answer['action'] = Function(eval, expr, actions.__dict__)
+        return answer, caption

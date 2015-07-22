@@ -22,43 +22,50 @@ from dracykeiton.compat import *
 from dracykeiton.util import curry
 from mworld import *
 import renpy.exports as renpy
+from collections import OrderedDict
+import actions
 
-parse_results = dict()
-parse_result = None
-roll_result = None
+result = None
 
 def start_action(name):
-    global parse_result
-    parse_result = parse_results[name]
+    global result
+    result = dict({
+        'can_do' : True,
+        #'roll_n' : None,
+        #'actions' : list(),
+        'branches' : OrderedDict(),
+    })
 
 def finish_action():
     pass
 
-def roll_f(result):
-    global roll_result
-    roll_result = result
-    for name in parse_result['branches']:
-        if parse_result['branches'][name][0]():
-            parse_result['branches'][name][1]()
-            break
-    else:
-        raise Exception('no action has happened')
-
 def roll(n):
-    renpy.call('roll_dices_action', n, roll_f)
+    pass
 
 def require_trait(trait, who='merc'):
-    pass
+    if result['can_do']:
+        if who == 'merc':
+            result['can_do'] = selected_merc().has_trait(trait)
+        else:
+            result['can_do'] = all([m.has_trait(trait) for m in world.active_mission.mercs])
 
 def outcome_condition(name, cond):
-    pass
+    if not name in result['branches']:
+        result['branches'][name] = list([lambda: True, None])
+    result['branches'][name][0] = cond
 
 def outcome_label(name, label):
-    pass
+    if not name in result['branches']:
+        result['branches'][name] = list([lambda: True, None])
+    result['branches'][name][1] = curry.curry(renpy.call)(label)
 
 def get_dice(want, amount=1):
-    pass
-
-def get_dice_f(want, amount):
-    r = [dice for dice in roll_result if dice in range(want[0], want[1]+1)]
-    return len(r) in range(amount[0], amount[1]+1)
+    try:
+        want[0]
+    except TypeError:
+        want = (want, want)
+    try:
+        amount[0]
+    except TypeError:
+        amount = (amount, amount)
+    return curry.curry(actions.get_dice_f)(want, amount)

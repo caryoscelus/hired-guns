@@ -101,8 +101,8 @@ screen nvl(dialogue, items=None):
                 for caption, action, chosen in items:
                     if caption.find('^^') > -1:
                         $ r, caption = menu_action(caption)
-                        $ action = r.action
-                        $ can_do = r.can_do
+                        $ action = r['action']
+                        $ can_do = r['can_do']
                     else:
                         $ can_do = True
                     
