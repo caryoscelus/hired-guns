@@ -8,10 +8,12 @@ screen reputation_view(world):
         has vbox
         text "You have reputation.."
 
-screen mission_choice_view(world):
+screen mission_choice_view(world, state):
     frame:
         has vbox
         text "You have missions"
+        for mission in world.missions:
+            textbutton mission.name action [SetField(world, 'active_mission', mission), SetDict(state, 'state', 'mission')]
 
 screen mission_details_view(world):
     frame:
@@ -29,26 +31,26 @@ screen hire_mercs_new(world):
         text "You hire mercs"
 
 screen overview(world):
-    default state = 'overview'
+    default state = {'state':'overview'}
     vbox:
         xalign 0.5 yalign 0.5
         hbox:
             use cash_view(world.pc)
             use reputation_view(world)
             vbox:
-                if state != 'overview':
-                    textbutton "<- Back" action SetScreenVariable('state', 'overview')
-                if state == 'overview':
-                    use mission_choice_view(world)
-                elif state == 'mission':
+                if state['state'] != 'overview':
+                    textbutton "<- Back" action SetDict(state, 'state', 'overview')
+                if state['state'] == 'overview':
+                    use mission_choice_view(world, state)
+                elif state['state'] == 'mission':
                     use mission_details_view(world)
-                elif state == 'equip':
+                elif state['state'] == 'equip':
                     use buy_equipment(world)
-                elif state == 'hire':
+                elif state['state'] == 'hire':
                     use hire_mercs_new(world)
                 else:
                     $ raise ValueError('unknown state {}'.format(state))
         hbox:
-            textbutton "Hire mercs" action SetScreenVariable('state', 'hire')
-            textbutton "Buy equipment" action SetScreenVariable('state', 'equip')
+            textbutton "Hire mercs" action SetDict(state, 'state', 'hire')
+            textbutton "Buy equipment" action SetDict(state, 'state', 'equip')
             textbutton "Start mission"
