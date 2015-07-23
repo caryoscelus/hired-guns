@@ -97,6 +97,11 @@ class Hire(Entity):
             return False
         return True
 
+class Money(Entity):
+    @unbound
+    def _init(self):
+        self.dynamic_property('money', 0)
+
 @mod_dep(
     # base attributes
     RoundingHp,
@@ -110,6 +115,7 @@ class Hire(Entity):
     Skills,
     TraitAttitude,
     Hire,
+    Money,
     
     # battle
     Tactics,
