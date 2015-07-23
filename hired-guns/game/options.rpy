@@ -32,6 +32,7 @@ init -1 python hide:
     ## set to False before the game is released, so the user can't
     ## cheat using developer tools.
 
+    config.use_cpickle = False
     config.developer = True
     config.autoreload = False
 
