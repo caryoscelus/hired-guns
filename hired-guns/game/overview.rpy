@@ -53,4 +53,4 @@ screen overview(world):
         hbox:
             textbutton "Hire mercs" action SetDict(state, 'state', 'hire')
             textbutton "Buy equipment" action SetDict(state, 'state', 'equip')
-            textbutton "Start mission"
+            textbutton "Start mission" action ([Function(renpy.call, 'mission', world.active_mission)] if world.active_mission else None)
