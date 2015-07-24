@@ -28,7 +28,8 @@ from .mission import Mission
 class HiredGunsWorld(object):
     def __init__(self, pc):
         self.pc = pc
-        self.mercs = list([pc])
+        self.mercs = list()
+        self.hired_mercs = list()
         self.missions = dict()
         self.active_mission = None
     
@@ -37,6 +38,8 @@ class HiredGunsWorld(object):
     
     def start_mission(self, mission):
         mission.add_mercs((self.pc,))
+        mission.add_mercs(self.hired_mercs)
+        self.hired_mercs = list()
         self.active_mission = mission
         mission.selected = self.pc
         self.missions[mission] = 'active'

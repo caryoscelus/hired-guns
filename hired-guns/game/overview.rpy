@@ -27,15 +27,30 @@ screen buy_equipment(world):
         has vbox
         text "You buy equipment"
 
+init python:
+    def hire_merc_new(merc, world):
+        if merc in world.hired_mercs:
+            world.hired_mercs.remove(merc)
+        else:
+            world.hired_mercs.append(merc)
+
 screen hire_mercs_new(world):
     frame:
         has vbox
-        text "You hire mercs"
+        text "Hire mercs"
+        hbox:
+            for merc in world.mercs:
+                button style 'filled_frame' action Function(hire_merc_new, merc, world):
+                    has vbox
+                    text merc.name bold (merc in world.hired_mercs)
+                    if merc.image:
+                        add merc.image zoom 0.333
 
 screen overview(world):
     default state = {'state':'overview'}
     vbox:
         xalign 0.5 yalign 0.5
+        text "current mission: {}".format(world.active_mission and world.active_mission.name)
         hbox:
             use cash_view(world.pc)
             use reputation_view(world)
