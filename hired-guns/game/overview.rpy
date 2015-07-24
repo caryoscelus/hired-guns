@@ -18,7 +18,9 @@ screen mission_choice_view(world, state):
 screen mission_details_view(world):
     frame:
         has vbox
-        text "You have mission details"
+        text world.active_mission.name
+        text "Description: {}".format(world.active_mission.description)
+        text "Payment: {}".format(world.active_mission.payment)
 
 screen buy_equipment(world):
     frame:

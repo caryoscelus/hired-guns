@@ -35,11 +35,13 @@ class Mission(Entity):
     - battle
     - outro (via calling renpy label)
     """
-    def _init(self, name, content=None):
+    def _init(self, name, content=None, description='', payment=None):
+        self.dynamic_property('name', name)
         self.dynamic_property('content', content)
+        self.dynamic_property('description', description)
+        self.dynamic_property('payment', payment)
         self.dynamic_property('mercs', set())
         self.dynamic_property('battleman', None)
-        self.dynamic_property('name', name)
         self.dynamic_property('selected', None)
     
     def add_mercs(self, mercs):
