@@ -20,7 +20,8 @@
 
 from dracykeiton.compat import *
 from dracykeiton.util import curry
-from mworld import *
+import mworld
+from mworld import selected_merc
 import renpy.exports as renpy
 from collections import OrderedDict
 import actions
@@ -32,7 +33,7 @@ def start_action(name):
     result = dict({
         'can_do' : True,
         #'roll_n' : None,
-        #'actions' : list(),
+        'actions' : list(),
         'branches' : OrderedDict(),
     })
 
@@ -69,3 +70,6 @@ def get_dice(want, amount=1):
     except TypeError:
         amount = (amount, amount)
     return curry.curry(actions.get_dice_f)(want, amount)
+
+def affect_trait(trait, amount):
+    result['actions'].append(curry.curry(mworld.affect_trait)(trait, amount))

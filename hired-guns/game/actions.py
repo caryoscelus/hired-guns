@@ -37,6 +37,10 @@ def finish_action():
 def roll_f(result):
     global roll_result
     roll_result = result
+    
+    for action in parse_result['actions']:
+        action()
+    
     for name in parse_result['branches']:
         if parse_result['branches'][name][0]():
             parse_result['branches'][name][1]()
@@ -62,3 +66,6 @@ def get_dice(want, amount=1):
 def get_dice_f(want, amount):
     r = [dice for dice in roll_result if dice in range(want[0], want[1]+1)]
     return len(r) in range(amount[0], amount[1]+1)
+
+def affect_trait(trait, amount):
+    pass
