@@ -92,6 +92,10 @@ class Target(Entity):
 @mod_dep(Attitude)
 class Hire(Entity):
     @unbound
+    def _init(self, cost=0):
+        self.dynamic_property('cost', cost)
+    
+    @unbound
     def hire(self, mission):
         if self.attitude < 0:
             return False
@@ -101,6 +105,10 @@ class Money(Entity):
     @unbound
     def _init(self):
         self.dynamic_property('money', 0)
+    
+    @unbound
+    def pay(self, amount):
+        self.money -= amount
 
 @mod_dep(
     # base attributes

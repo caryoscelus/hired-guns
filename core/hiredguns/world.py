@@ -38,7 +38,9 @@ class HiredGunsWorld(object):
     
     def start_mission(self, mission):
         mission.add_mercs((self.pc,))
-        mission.add_mercs(self.hired_mercs)
+        for merc in self.hired_mercs:
+            self.pc.pay(merc.cost)
+            mission.add_mercs((merc,))
         self.hired_mercs = list()
         self.active_mission = mission
         mission.selected = self.pc
