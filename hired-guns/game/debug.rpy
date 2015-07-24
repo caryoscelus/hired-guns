@@ -10,7 +10,7 @@ screen debug_all(world):
     #use expandable("Debug.."):
     default expanded = False
     default dice = Dice(6)
-    frame:
+    frame xalign 1.0 yalign 0.0:
         has vbox
         textbutton "Debug.." action ToggleScreenVariable('expanded')
         if expanded:

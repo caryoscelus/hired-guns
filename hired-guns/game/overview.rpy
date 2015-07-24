@@ -1,22 +1,26 @@
 screen cash_view(merc):
     frame:
+        xsize 0.15
+        ysize 0.9
         has vbox
         text "You have {} of moneys.".format(merc.money)
 
 screen reputation_view(world):
     frame:
+        xsize 0.15
+        ysize 0.9
         has vbox
         text "You have reputation.."
 
 screen mission_choice_view(world, state):
-    frame:
+    frame xfill True:
         has vbox
         text "You have missions"
         for mission in world.missions:
             textbutton mission.name action [SetField(world, 'active_mission', mission), SetDict(state, 'state', 'mission')]
 
 screen mission_details_view(world):
-    frame:
+    frame xfill True:
         has vbox
         text world.active_mission.name
         text "Description: {}".format(world.active_mission.description)
@@ -42,7 +46,7 @@ init python:
             world.hired_mercs.append(merc)
 
 screen hire_mercs_new(world):
-    frame:
+    frame xfill True:
         has vbox
         text "Hire mercs"
         hbox:
@@ -56,12 +60,13 @@ screen hire_mercs_new(world):
 screen overview(world):
     default state = {'state':'overview'}
     vbox:
-        xalign 0.5 yalign 0.5
+        xalign 0.0 yalign 0.0
         text "current mission: {}".format(world.active_mission and world.active_mission.name)
         hbox:
             use cash_view(world.pc)
             use reputation_view(world)
             vbox:
+                xfill True
                 if state['state'] != 'overview':
                     textbutton "<- Back" action SetDict(state, 'state', 'overview')
                 if state['state'] == 'overview':
