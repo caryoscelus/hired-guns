@@ -21,12 +21,13 @@
 """Mission"""
 
 from dracykeiton.compat import *
+from dracykeiton.entity import Entity
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.encounter import Encounter
 from dracykeiton.tb.turnman import Turnman
 from .merc import Merc
 
-class Mission(object):
+class Mission(Entity):
     """Mission
     
     Mission has three steps:
@@ -34,12 +35,12 @@ class Mission(object):
     - battle
     - outro (via calling renpy label)
     """
-    def __init__(self, name, content=None):
-        self.content = content
-        self.mercs = set()
-        self.battleman = None
-        self.name = name
-        self.selected = None
+    def _init(self, name, content=None):
+        self.dynamic_property('content', content)
+        self.dynamic_property('mercs', set())
+        self.dynamic_property('battleman', None)
+        self.dynamic_property('name', name)
+        self.dynamic_property('selected', None)
     
     def add_mercs(self, mercs):
         self.mercs.update(mercs)
