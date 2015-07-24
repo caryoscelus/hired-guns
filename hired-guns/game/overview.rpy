@@ -75,8 +75,10 @@ screen overview(world):
             use reputation_view(world)
             vbox:
                 xfill True
-                if state['state'] != 'overview':
-                    textbutton "<- Back" action SetDict(state, 'state', 'overview')
+                hbox:
+                    textbutton "Choose mission" action SetDict(state, 'state', 'overview')
+                    textbutton "Hire mercs" action SetDict(state, 'state', 'hire')
+                    textbutton "Buy equipment" action SetDict(state, 'state', 'equip')
                 if state['state'] == 'overview':
                     use mission_choice_view(world, state)
                 elif state['state'] == 'equip':
@@ -86,7 +88,8 @@ screen overview(world):
                 else:
                     $ raise ValueError('unknown state {}'.format(state))
         hbox:
-            textbutton "Hire mercs" action SetDict(state, 'state', 'hire')
-            textbutton "Buy equipment" action SetDict(state, 'state', 'equip')
-            textbutton "Start mission" action ([Function(renpy.call, 'mission', world.active_mission)] if world.active_mission else None)
-        use overview_merc_list(world)
+            use overview_merc_list(world)
+    textbutton "Start mission":
+        xalign 1.0 yalign 1.0
+        xminimum 0.2 yminimum 0.3
+        action ([Function(renpy.call, 'mission', world.active_mission)] if world.active_mission else None)
