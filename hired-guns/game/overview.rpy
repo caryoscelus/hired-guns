@@ -19,10 +19,13 @@ screen reputation_view(world):
 
 screen mission_choice_view(world, state):
     frame xfill True:
-        has vbox
-        text "You have missions"
-        for mission in world.missions:
-            textbutton mission.name action [SetField(world, 'active_mission', mission), SetDict(state, 'state', 'mission')]
+        has hbox
+        vbox:
+            text "You have missions"
+            for mission in world.missions:
+                textbutton mission.name action SetField(world, 'active_mission', mission) text_bold (mission is world.active_mission)
+        if world.active_mission:
+            use mission_details_view(world)
 
 screen mission_details_view(world):
     frame xfill True:
@@ -76,8 +79,6 @@ screen overview(world):
                     textbutton "<- Back" action SetDict(state, 'state', 'overview')
                 if state['state'] == 'overview':
                     use mission_choice_view(world, state)
-                elif state['state'] == 'mission':
-                    use mission_details_view(world)
                 elif state['state'] == 'equip':
                     use buy_equipment(world)
                 elif state['state'] == 'hire':
