@@ -2,7 +2,6 @@ label test_mission(mission):
     $ push_mode('nvl', left=40, right=620)
     nvl clear
     "mission [mission.name] start"
-    call choose_mercs_for_mission(mission)
     show jungle00:
         xalign 0.9 yalign 0.2
         zoom 0.2
