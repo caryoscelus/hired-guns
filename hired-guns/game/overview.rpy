@@ -27,8 +27,15 @@ screen buy_equipment(world):
         has vbox
         text "You buy equipment"
 
+label i_wont_work_with_you(merc):
+    merc.speaker "I won't work with you, bastard!"
+    return
+
 init python:
     def hire_merc_new(merc, world):
+        if merc.attitude < 0:
+            renpy.call('i_wont_work_with_you', merc)
+            return
         if merc in world.hired_mercs:
             world.hired_mercs.remove(merc)
         else:
