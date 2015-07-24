@@ -1,14 +1,19 @@
+screen overview_merc_list(world):
+    hbox:
+        for merc in world.hired_mercs:
+            use merc_default(merc, None)
+
 screen cash_view(merc):
     frame:
         xsize 0.15
-        ysize 0.9
+        ysize 0.8
         has vbox
         text "You have {} of moneys.".format(merc.money)
 
 screen reputation_view(world):
     frame:
         xsize 0.15
-        ysize 0.9
+        ysize 0.8
         has vbox
         text "You have reputation.."
 
@@ -83,3 +88,4 @@ screen overview(world):
             textbutton "Hire mercs" action SetDict(state, 'state', 'hire')
             textbutton "Buy equipment" action SetDict(state, 'state', 'equip')
             textbutton "Start mission" action ([Function(renpy.call, 'mission', world.active_mission)] if world.active_mission else None)
+        use overview_merc_list(world)
