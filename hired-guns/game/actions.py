@@ -64,8 +64,8 @@ def get_dice(want, amount=1):
     pass
 
 def get_dice_f(want, amount):
-    r = [dice for dice in roll_result if dice in range(want[0], want[1]+1)]
-    return len(r) in range(amount[0], amount[1]+1)
+    r = [dice for dice in roll_result if want[0] <= dice <= want[1]]
+    return amount[0] <= len(r) <= amount[1]
 
 def affect_trait(trait, amount):
     pass
