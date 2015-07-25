@@ -32,9 +32,13 @@ label monsters_loop:
             affect_trait('pacifist', -10);\
             ":
             pass
-        #"Sneak out of this ambush!\
-                #^^selected_merc().has_skill('stealth')":
-            #call monsters_sneakout()
+        "Sneak out of this ambush!^^\
+            roll(selected_merc().get_skill('stealth'));\
+            outcome_condition('success', get_dice((4, 6), amount=(3, float('inf'))));\
+            outcome_label('success', 'snuck_out');\
+            outcome_label('failure', 'not_snuck_out');\
+            ":
+            pass
     if monsters:
         jump monsters_loop
     jump monsters_end
@@ -61,6 +65,15 @@ label monsters_not_pacified:
     $ pacifist = selected_merc()
     nvl clear
     "Monsters observe [pacifist.name]'s rite curiously."
+    return
+
+label snuck_out:
+    $ monsters = False
+    "We snuk out"
+    return
+
+label not_snuck_out:
+    "We haven't snuk out"
     return
 
 label monsters_end:
