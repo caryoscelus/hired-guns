@@ -16,6 +16,12 @@ label start:
         world.add_mission(Mission('test mission', 'test_mission', payment=30))
         world.add_mission(Mission('test gfx mission', 'test_gfx_mission', payment=10))
         
+        world.encounter_pool.add(Encounter('encounter_test', 0, {'random', 'test'}))
+        world.encounter_pool.add(Encounter('encounter_yare1', 1, {'random', 'test'}))
+        world.encounter_pool.add(Encounter('encounter_yare2', 2, {'random', 'test'}))
+        world.encounter_pool.add(Encounter('encounter_yare3', 3, {'random', 'test'}))
+        world.encounter_pool.add(Encounter('encounter_unrand', 0, {'test'}))
+        
         world.mercs.append(Merc('nobody'))
         
         pacifist = Merc('pacifist')

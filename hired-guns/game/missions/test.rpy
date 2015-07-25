@@ -13,6 +13,7 @@ label monsters_loop:
     "[merc.name] was hurt!"
     merc.speaker "I am hurt!"
     selected_merc().speaker "Aww..."
+    $ random_encounter(level=(2, 6))
     menu:
         "What are we gonna do?"
         "Pacify them^^\
@@ -75,8 +76,9 @@ label test_gfx_mission(mission):
     nvl clear
     "So you're on a mission"
     "Now do something!!"
-    "Sorry, not much can be done here.."
+    $ random_encounter(with_tags={'random'})
+    "Mission ends here"
+    $ mission_outcome('success')
     nvl clear
     $ pop_mode()
-    $ mission_outcome('success')
     return
