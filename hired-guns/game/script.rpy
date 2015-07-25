@@ -34,7 +34,7 @@ label start:
         ninja.cost = 20
         world.mercs.append(ninja)
     show screen debug_all(world)
-    "YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
+    #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
 label loop:
     scene white
     call screen overview(world)
