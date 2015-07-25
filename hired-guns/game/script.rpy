@@ -13,8 +13,8 @@ label start:
         
         init_world()
         world.pc.money = 15
-        world.add_mission(Mission('test mission', 'test_mission'))
-        world.add_mission(Mission('test gfx mission', 'test_gfx_mission'))
+        world.add_mission(Mission('test mission', 'test_mission', payment=30))
+        world.add_mission(Mission('test gfx mission', 'test_gfx_mission', payment=10))
         
         world.mercs.append(Merc('nobody'))
         

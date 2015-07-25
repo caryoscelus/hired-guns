@@ -65,6 +65,8 @@ label monsters_not_pacified:
 label monsters_end:
     "And thus we continue our journey"
     $ pop_mode()
+    "We finished the mission! Yay!"
+    $ mission_outcome('success')
     return
 
 
@@ -76,4 +78,5 @@ label test_gfx_mission(mission):
     "Sorry, not much can be done here.."
     nvl clear
     $ pop_mode()
+    $ mission_outcome('success')
     return
