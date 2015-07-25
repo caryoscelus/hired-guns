@@ -3,7 +3,7 @@ init python:
     from hiredguns.world import HiredGunsWorld
     from hiredguns.mission import Mission
     from hiredguns.merc import Merc
-    from mworld import random_merc, selected_merc, affect_trait
+    from mworld import random_merc, selected_merc, affect_trait, mission_outcome
     
     def init_world():
         #pc_name = renpy.input(_("What is your name?"))
