@@ -3,12 +3,13 @@ screen overview_merc_list(world):
         for merc in world.hired_mercs:
             use merc_default(merc, None)
 
-screen cash_view(merc):
+screen cash_view(world):
     frame:
         xsize 0.15
         ysize 0.8
         has vbox
-        text "You have {} of moneys.".format(merc.money)
+        text "You have {} of moneys.".format(world.pc.money)
+        text "After hiring mercs, {} will be left.".format(world.get_money_prediction())
 
 screen reputation_view(world):
     frame:
@@ -72,7 +73,7 @@ screen overview(world):
         xalign 0.0 yalign 0.0
         text "current mission: {}".format(world.active_mission and world.active_mission.name)
         hbox:
-            use cash_view(world.pc)
+            use cash_view(world)
             use reputation_view(world)
             vbox:
                 xfill True
