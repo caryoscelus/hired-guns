@@ -50,3 +50,6 @@ class HiredGunsWorld(object):
         self.active_mission.finish()
         self.missions[self.active_mission] = 'finished'
         self.active_mission = None
+    
+    def get_money_prediction(self):
+        return self.pc.money - sum([merc.cost for merc in self.hired_mercs])
