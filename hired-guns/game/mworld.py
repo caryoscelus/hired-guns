@@ -30,3 +30,19 @@ def mission_outcome(status):
         renpy.store.world.pc.money += renpy.store.world.active_mission.payment
     else:
         pass
+
+def random_encounter(level=(0, float('inf')), with_tags=set(), without_tags=set()):
+    try:
+        level[0]
+    except TypeError:
+        level = (level, level)
+    encounters = [
+        encounter for encounter in renpy.store.world.encounter_pool
+            if  level[0] <= encounter.level <= level[1] and
+                set(with_tags).issubset(encounter.tags) and
+                set(without_tags).isdisjoint(encounter.tags)
+    ]
+    if encounters:
+        return random.choice(encounters)()
+    else:
+        return None

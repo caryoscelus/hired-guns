@@ -32,6 +32,7 @@ class HiredGunsWorld(object):
         self.hired_mercs = list()
         self.missions = dict()
         self.active_mission = None
+        self.encounter_pool = set()
     
     def add_mission(self, mission):
         self.missions[mission] = 'available'
