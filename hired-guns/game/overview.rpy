@@ -94,4 +94,4 @@ screen overview(world):
     textbutton "Start mission":
         xalign 1.0 yalign 1.0
         xminimum 0.2 yminimum 0.3
-        action ([Function(renpy.call, 'mission', world.active_mission)] if world.active_mission else None)
+        action ([Function(renpy.call, 'mission', world.active_mission)] if world.active_mission and world.get_money_prediction() >= 0 else None)
