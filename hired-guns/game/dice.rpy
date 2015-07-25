@@ -21,6 +21,10 @@ init python:
     def reroll(result):
         for i in range(len(result)):
             result[i] = random.randint(1, 6)
+    
+    def roll_same(n, result):
+        for i in range(len(result)):
+            result[i] = n
 
 label roll_dices_action(n, f):
     call screen roll_dices(n)
@@ -37,4 +41,6 @@ screen roll_dices(n):
                 use roll_dice(r)
         hbox:
             textbutton "Re-roll!" action Function(reroll, result)
+            textbutton "Roll 1s" action Function(roll_same, 1, result)
+            textbutton "Roll 6s" action Function(roll_same, 6, result)
             textbutton "Ok!" action Return(result)
