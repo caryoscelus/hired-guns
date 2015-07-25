@@ -64,6 +64,7 @@ screen hire_mercs_new(world):
                     text merc.name bold (merc in world.hired_mercs)
                     if merc.image:
                         add merc.image zoom 0.333
+                    text "Costs {}".format(merc.cost)
 
 screen overview(world):
     default state = {'state':'overview'}
