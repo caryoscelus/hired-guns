@@ -69,10 +69,12 @@ label monsters_not_pacified:
 
 label snuck_out:
     $ monsters = False
+    nvl clear
     "We snuk out"
     return
 
 label not_snuck_out:
+    nvl clear
     "We haven't snuk out"
     return
 
