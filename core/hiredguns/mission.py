@@ -29,11 +29,6 @@ from .merc import Merc
 
 class Mission(Entity):
     """Mission
-    
-    Mission has three steps:
-    - intro / preparation (via calling renpy label)
-    - battle
-    - outro (via calling renpy label)
     """
     def _init(self, name, content=None, description='', payment=None):
         self.dynamic_property('name', name)
