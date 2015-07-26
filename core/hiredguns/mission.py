@@ -39,6 +39,7 @@ class Mission(Entity):
         self.dynamic_property('battleman', None)
         self.dynamic_property('selected', None)
         self.dynamic_property('tags', set())
+        self.dynamic_property('locals', set())
     
     def add_mercs(self, mercs):
         self.mercs.update(mercs)
@@ -57,3 +58,6 @@ class Mission(Entity):
         encounter = Encounter(Turnman)
         encounter.add_side('left', UserController, len(self.mercs), predefined=list(self.mercs))
         encounter.add_side('right', Controller, (1, 4), possible=Merc)
+    
+    def define_var(self, name):
+        self.locals.add(name)

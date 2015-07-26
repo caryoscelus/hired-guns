@@ -49,3 +49,10 @@ def random_encounter(level=(0, float('inf')), with_tags=set(), without_tags=set(
         return random.choice(encounters)()
     else:
         return None
+
+def spawn_battle():
+    pass
+
+def define_var(name, value=None):
+    renpy.store.world.active_mission.define_var(name)
+    setattr(renpy.store, name, value)
