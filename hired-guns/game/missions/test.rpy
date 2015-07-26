@@ -6,9 +6,9 @@ label test_mission(mission):
         xalign 0.9 yalign 0.2
         zoom 0.2
     "There are some angry monsters waiting to eat you!"
-    $ monsters = True
+    $ define_var('monsters', True)
 label monsters_loop:
-    $ merc = random_merc()
+    $ define_var('merc', random_merc())
     $ merc.hurt(1)
     "[merc.name] was hurt!"
     merc.speaker "I am hurt!"
