@@ -57,8 +57,12 @@ def require_skill(skill, level=1, who='merc'):
     if result['can_do']:
         if who == 'merc':
             result['can_do'] = selected_merc().has_skill(skill, level)
-        else:
+        elif who == 'team':
             result['can_do'] = all([m.has_skill(skill, level) for m in world.active_mission.mercs])
+        elif who == 'sum':
+            result['can_do'] = get_team_skill(skill) >= level
+        else:
+            raise ValueError('require_skill: "who" cannot be {}'.format(who))
 
 def outcome_condition(name, cond):
     if not name in result['branches']:
