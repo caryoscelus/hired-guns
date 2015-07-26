@@ -6,6 +6,10 @@ label mission(mission):
     else:
         "Your mission was a failure"
     hide screen mission_merc_list
+    python:
+        for var in mission.locals:
+            delattr(renpy.store, var)
+    $ mission.locals.clear()
     $ world.end_mission()
     return
 
