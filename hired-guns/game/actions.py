@@ -48,6 +48,10 @@ def roll_f(result):
     else:
         raise Exception('no action has happened')
 
+def force_outcome(name, condition):
+    if condition:
+        parse_result['branches'][name][1]()
+
 def roll(n):
     renpy.call('roll_dices_action', n, roll_f)
 

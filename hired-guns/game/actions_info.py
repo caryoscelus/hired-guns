@@ -43,6 +43,9 @@ def finish_action():
 def roll(n):
     pass
 
+def force_outcome(name, condition):
+    pass
+
 def require_trait(trait, who='merc'):
     if result['can_do']:
         if who == 'merc':
