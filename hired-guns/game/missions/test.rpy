@@ -34,6 +34,7 @@ label monsters_loop:
             pass
         "Sneak out of this ambush!^^\
             roll(selected_merc().get_skill('stealth'));\
+            require_skill('stealth', 3);\
             outcome_condition('success', get_dice((4, 6), atleast=3));\
             outcome_label('success', 'snuck_out');\
             outcome_label('failure', 'not_snuck_out');\
