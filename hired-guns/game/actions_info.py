@@ -47,6 +47,9 @@ def force_outcome(name, condition):
     pass
 
 def require_trait(trait, who='merc'):
+    if not who+'_traits' in result:
+        result[who+'_traits'] = list()
+    result[who+'_traits'].append(trait)
     if result['can_do']:
         if who == 'merc':
             result['can_do'] = selected_merc().has_trait(trait)
@@ -54,6 +57,9 @@ def require_trait(trait, who='merc'):
             result['can_do'] = all([m.has_trait(trait) for m in world.active_mission.mercs])
 
 def require_skill(skill, level=1, who='merc'):
+    if not who+'_skills' in result:
+        result[who+'_skills'] = list()
+    result[who+'_skills'].append((skill, level))
     if result['can_do']:
         if who == 'merc':
             result['can_do'] = selected_merc().has_skill(skill, level)

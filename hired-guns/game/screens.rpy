@@ -104,22 +104,35 @@ screen nvl(dialogue, items=None):
                         $ action = r['action']
                         $ can_do = r['can_do']
                     else:
+                        $ r = dict()
                         $ can_do = True
                     
                     if action:
-                        button:
-                            if can_do:
-                                action action
-                            else:
-                                action Function(renpy.notify, 'Selected merc cannot do this!')
-                            action action
+                        button action action:
+                            has vbox
 
                             text caption style "nvl_menu_choice" bold can_do
+                            if r.get('merc_skills'):
+                                text "Req skills: {}".format(format_skills(r['merc_skills']))
+                            if r.get('team_skills'):
+                                text "Req team skills: {}".format(format_skills(r['team_skills']))
+                            if r.get('sum_skills'):
+                                text "Req sum skills: {}".format(format_skills(r['sum_skills']))
+                            if r.get('merc_traits'):
+                                text "Req traits: {}".format(format_traits(r['merc_traits']))
+                            if r.get('team_traits'):
+                                text "Req team traits: {}".format(format_traits(r['team_traits']))
                     else:
                         text caption style "nvl_dialogue"
 
     add SideImage() xalign 0.0 yalign 1.0
 
+init -1 python:
+    def format_skills(skills):
+        return ', '.join(['{}: {}'.format(skill[0], skill[1]) for skill in skills])
+    
+    def format_traits(traits):
+        return ', '.join([trait for trait in traits])
 
 # custom choice screen allowing dynamic conditions on choices
 # syntax:
