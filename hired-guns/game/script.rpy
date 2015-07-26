@@ -21,6 +21,7 @@ label start:
         test_mission.tags.update(set({'test', 'jungle'}))
         world.add_mission(test_mission)
         world.add_mission(Mission('test gfx mission', 'test_gfx_mission', payment=10))
+        world.add_mission(Mission('cheese mission', 'cheese_mission', payment=20))
         
         world.encounter_pool.add(Encounter('encounter_test', 0, {'random', 'test'}))
         world.encounter_pool.add(Encounter('encounter_yare1', 1, {'random', 'test'}))
