@@ -236,7 +236,7 @@ screen navigation():
         textbutton _("Load Game") action ShowMenu("load")
         textbutton _("Main Menu") action MainMenu()
         textbutton _("Help") action Help()
-        textbutton _("Quit") action Quit()
+        textbutton _("Quit") action Quit(confirm=False)
 
 init -2:
 
@@ -298,7 +298,7 @@ screen file_picker():
 
                 # Each file slot is a button.
                 button:
-                    action FileAction(i)
+                    action FileAction(i, confirm=False)
                     xfill True
 
                     has hbox
