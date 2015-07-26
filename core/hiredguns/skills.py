@@ -35,8 +35,8 @@ class Skills(Entity):
         self.skills[skill] = value
     
     @unbound
-    def has_skill(self, skill):
-        return self.get_skill(skill) > 0
+    def has_skill(self, skill, level=1):
+        return self.get_skill(skill) >= level
     
     @unbound
     def get_skill(self, skill):
