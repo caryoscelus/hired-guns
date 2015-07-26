@@ -32,11 +32,12 @@ label start:
         
         pacifist = Merc('pacifist')
         pacifist.add_trait('pacifist')
+        pacifist.set_skill('stealth', 4)
         pacifist.cost = 10
         world.mercs.append(pacifist)
         
         ninja = Merc('ninja')
-        ninja.set_skill('stealth', 5)
+        ninja.set_skill('stealth', 7)
         ninja.cost = 20
         world.mercs.append(ninja)
     show screen debug_all(world)
