@@ -32,7 +32,7 @@ screen mission_details_view(world):
     frame xfill True:
         has vbox
         text world.active_mission.name
-        text "Description: {}".format(world.active_mission.description)
+        text "Description: {}".format(world.active_mission.description.strip())
         text "Payment: {}".format(world.active_mission.payment)
 
 screen buy_equipment(world):
