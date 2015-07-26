@@ -12,7 +12,7 @@ screen debug_all(world):
     default dice = Dice(6)
     frame xalign 1.0 yalign 0.0:
         has vbox
-        textbutton "Debug.." action ToggleScreenVariable('expanded')
+        textbutton "Debug.." xalign 1.0 action ToggleScreenVariable('expanded')
         if expanded:
             use debug_mercs(world.mercs)
             use debug_missions(world.missions)
