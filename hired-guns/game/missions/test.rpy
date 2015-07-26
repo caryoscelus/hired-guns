@@ -25,6 +25,7 @@ label monsters_loop:
             ":
             pass
         "Kill everything!^^\
+            force_outcome('success', get_team_skill('unarmed_combat') >= 6);\
             roll(3);\
             outcome_condition('success', get_dice((3, 6), atleast=1));\
             outcome_label('success', 'monsters_killed');\
