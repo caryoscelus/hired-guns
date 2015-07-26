@@ -38,6 +38,7 @@ class Mission(Entity):
         self.dynamic_property('mercs', set())
         self.dynamic_property('battleman', None)
         self.dynamic_property('selected', None)
+        self.dynamic_property('tags', set())
     
     def add_mercs(self, mercs):
         self.mercs.update(mercs)

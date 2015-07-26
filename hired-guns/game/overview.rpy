@@ -33,6 +33,7 @@ screen mission_details_view(world):
         has vbox
         text world.active_mission.name
         text "Description: {}".format(world.active_mission.description.strip())
+        text "Tags: {}".format(str(list(world.active_mission.tags)).replace('[', '').replace(']', ''))
         text "Payment: {}".format(world.active_mission.payment)
 
 screen buy_equipment(world):
