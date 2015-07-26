@@ -11,3 +11,20 @@ init python:
         pc_name = 'pc'
         global world
         world = HiredGunsWorld(Merc(pc_name))
+    
+    def roll_skill_hurt(skill, want, atleast, damage):
+        renpy.call('roll_skill_hurt', skill, want, atleast, damage)
+
+label roll_skill_hurt(skill, want, atleast, damage):
+    $ define_var('remaining_mercs', world.active_mission.mercs.copy())
+label roll_skill_hurt_loop:
+    if not remaining_mercs:
+        jump roll_skill_hurt_end
+    $ define_var('merc', remaining_mercs.pop())
+    call screen roll_dices(merc.get_skill(skill))
+    $ define_var('r', [dice for dice in _return if want[0] <= dice <= want[1]])
+    if len(r) < atleast:
+        $ merc.hurt(damage)
+    jump roll_skill_hurt_loop
+label roll_skill_hurt_end:
+    return
