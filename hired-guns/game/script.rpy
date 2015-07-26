@@ -29,6 +29,8 @@ label start:
         world.encounter_pool.add(Encounter('encounter_yare3', 3, {'random', 'test'}))
         world.encounter_pool.add(Encounter('encounter_unrand', 0, {'test'}))
         
+        world.pc.set_skill('unarmed_combat', 1)
+        
         world.mercs.append(Merc('nobody'))
         
         pacifist = Merc('pacifist')
