@@ -19,14 +19,14 @@ label monsters_loop:
         "Pacify them^^\
             roll(4);\
             require_trait('pacifist');\
-            outcome_condition('success', get_dice((4, 6), amount=(2, 4)));\
+            outcome_condition('success', get_dice((4, 6), atleast=2));\
             outcome_label('success', 'monsters_pacified');\
             outcome_label('failure', 'monsters_not_pacified');\
             ":
             pass
         "Kill everything!^^\
             roll(3);\
-            outcome_condition('success', get_dice((3, 6), amount=(1, 4)));\
+            outcome_condition('success', get_dice((3, 6), atleast=1));\
             outcome_label('success', 'monsters_killed');\
             outcome_label('failure', 'monsters_not_killed');\
             affect_trait('pacifist', -10);\
@@ -34,7 +34,7 @@ label monsters_loop:
             pass
         "Sneak out of this ambush!^^\
             roll(selected_merc().get_skill('stealth'));\
-            outcome_condition('success', get_dice((4, 6), amount=(3, float('inf'))));\
+            outcome_condition('success', get_dice((4, 6), atleast=3));\
             outcome_label('success', 'snuck_out');\
             outcome_label('failure', 'not_snuck_out');\
             ":
