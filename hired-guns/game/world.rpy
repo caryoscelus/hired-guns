@@ -4,7 +4,7 @@ init python:
     from hiredguns.mission import Mission
     from hiredguns.encounter import Encounter
     from hiredguns.merc import Merc
-    from mworld import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter
+    from mworld import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill
     
     def init_world():
         #pc_name = renpy.input(_("What is your name?"))

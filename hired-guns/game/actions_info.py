@@ -21,7 +21,7 @@
 from dracykeiton.compat import *
 from dracykeiton.util import curry
 import mworld
-from mworld import selected_merc
+from mworld import selected_merc, get_team_skill
 import renpy.exports as renpy
 from collections import OrderedDict
 import actions

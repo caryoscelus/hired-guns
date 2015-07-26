@@ -21,6 +21,9 @@ def affect_trait(trait, amount):
     for merc in renpy.store.world.active_mission.mercs:
         merc.affect_trait(trait, amount)
 
+def get_team_skill(skill):
+    return sum([merc.get_skill(skill) for merc in renpy.store.world.active_mission.mercs])
+
 def mission_outcome(status):
     """Call this when mission is over
     
