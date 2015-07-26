@@ -88,7 +88,7 @@ screen nvl(dialogue, items=None):
                     spacing 10
 
                 if who is not None:
-                    text who id who_id
+                    text who bold True # id who_id
 
                 text what id what_id
 
