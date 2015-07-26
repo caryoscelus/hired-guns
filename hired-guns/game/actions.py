@@ -60,7 +60,7 @@ def outcome_condition(name, cond):
 def outcome_label(name, label):
     pass
 
-def get_dice(want, amount=1):
+def get_dice(want, *args, **kwargs):
     pass
 
 def get_dice_f(want, amount):
