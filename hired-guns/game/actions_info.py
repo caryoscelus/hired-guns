@@ -50,6 +50,13 @@ def require_trait(trait, who='merc'):
         else:
             result['can_do'] = all([m.has_trait(trait) for m in world.active_mission.mercs])
 
+def require_skill(skill, level=1, who='merc'):
+    if result['can_do']:
+        if who == 'merc':
+            result['can_do'] = selected_merc().has_skill(skill, level)
+        else:
+            result['can_do'] = all([m.has_skill(skill, level) for m in world.active_mission.mercs])
+
 def outcome_condition(name, cond):
     if not name in result['branches']:
         result['branches'][name] = list([lambda: True, None])

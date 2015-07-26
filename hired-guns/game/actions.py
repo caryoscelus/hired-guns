@@ -54,6 +54,9 @@ def roll(n):
 def require_trait(trait, who='merc'):
     pass
 
+def require_skill(skill, who='merc'):
+    pass
+
 def outcome_condition(name, cond):
     pass
 
