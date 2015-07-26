@@ -22,6 +22,7 @@
 """
 
 from dracykeiton.compat import *
+from dracykeiton import random
 from .merc import Merc
 from .mission import Mission
 
@@ -30,12 +31,24 @@ class HiredGunsWorld(object):
         self.pc = pc
         self.mercs = list()
         self.hired_mercs = list()
+        self.mission_pool = dict()
         self.missions = dict()
+        self.old_missions = dict()
         self.active_mission = None
         self.encounter_pool = set()
     
     def add_mission(self, mission):
-        self.missions[mission] = 'available'
+        self.mission_pool[mission] = 'available'
+    
+    def update_missions(self):
+        for mission in self.missions:
+            self.missions[mission] -= 1
+            if self.missions[mission] <= 0:
+                self.finish_mission(mission, 'timeout')
+        while len(self.missions) < 3 and self.mission_pool:
+            mission = random.choice(self.mission_pool.keys())
+            del self.mission_pool[mission]
+            self.missions[mission] = 4
     
     def start_mission(self, mission):
         mission.add_mercs((self.pc,))
@@ -47,9 +60,13 @@ class HiredGunsWorld(object):
         mission.selected = self.pc
         self.missions[mission] = 'active'
     
+    def finish_mission(self, mission, reason):
+        del self.missions[mission]
+        self.old_missions[mission] = reason
+    
     def end_mission(self):
         self.active_mission.finish()
-        self.missions[self.active_mission] = 'finished'
+        self.finish_mission(self.active_mission, 'finished')
         self.active_mission = None
     
     def get_money_prediction(self):

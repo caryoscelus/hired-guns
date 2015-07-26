@@ -24,7 +24,7 @@ screen mission_choice_view(world, state):
         vbox:
             text "You have missions"
             for mission in world.missions:
-                textbutton mission.name action (SetField(world, 'active_mission', mission) if world.missions[mission] == 'available' else None) text_bold (mission is world.active_mission)
+                textbutton mission.name action SetField(world, 'active_mission', mission) text_bold (mission is world.active_mission)
         if world.active_mission:
             use mission_details_view(world)
 
