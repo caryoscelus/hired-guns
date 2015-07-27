@@ -26,6 +26,7 @@ label monsters_loop:
             ":
             pass
         "Kill everything!^^\
+            money_cost(10);\
             force_outcome('success', get_team_skill('unarmed_combat') >= 6);\
             roll(3);\
             require_skill('unarmed_combat', 3, 'sum');\
