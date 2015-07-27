@@ -34,7 +34,7 @@ init python:
             self.dynamic_property('image')
             self.dynamic_property('visual_state', 'default')
             self.add_get_node('image', self.get_image())
-            self.image = 'merc{:02}'.format(random.randint(0, 13))
+            self.image = 'merc{:02}'.format(random.randint(0, 18))
         
         @depends('visual_state')
         @simplenode
