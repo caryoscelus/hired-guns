@@ -72,7 +72,11 @@ def require_skill(skill, level=1, who='merc'):
 
 def psy_cost(cost):
     if result['can_do']:
-        result['can_do'] = cost < selected_merc().psy
+        result['can_do'] = cost <= selected_merc().psy
+
+def money_cost(cost):
+    if result['can_do']:
+        result['can_do'] = cost <= renpy.store.world.pc.money
 
 def outcome_condition(name, cond):
     if not name in result['branches']:

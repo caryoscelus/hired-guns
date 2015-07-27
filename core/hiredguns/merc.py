@@ -109,6 +109,13 @@ class Money(Entity):
     @unbound
     def pay(self, amount):
         self.money -= amount
+    
+    @unbound
+    def spend_money(self, amount):
+        if amount <= self.money:
+            self.money -= amount
+            return True
+        return False
 
 @mod_dep(Living)
 class PsyPoints(Entity):
@@ -124,7 +131,7 @@ class PsyPoints(Entity):
     
     @unbound
     def spend_psy(self, amount):
-        if amount < self.psy:
+        if amount <= self.psy:
             self.psy -= amount
             return True
         return False

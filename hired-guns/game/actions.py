@@ -64,6 +64,9 @@ def require_skill(skill, who='merc'):
 def psy_cost(cost):
     selected_merc().spend_psy(cost)
 
+def money_cost(cost):
+    renpy.store.world.pc.spend_money(cost)
+
 def outcome_condition(name, cond):
     pass
 
