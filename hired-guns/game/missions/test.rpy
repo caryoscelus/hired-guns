@@ -17,6 +17,7 @@ label monsters_loop:
     menu:
         "What are we gonna do?"
         "Pacify them^^\
+            psy_cost(10);\
             roll(4);\
             require_trait('pacifist');\
             outcome_condition('success', get_dice((4, 6), atleast=2));\
@@ -25,6 +26,7 @@ label monsters_loop:
             ":
             pass
         "Kill everything!^^\
+            money_cost(10);\
             force_outcome('success', get_team_skill('unarmed_combat') >= 6);\
             roll(3);\
             require_skill('unarmed_combat', 3, 'sum');\

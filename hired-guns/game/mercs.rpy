@@ -51,6 +51,7 @@ screen merc_default(merc, action, selected=False, get_selected=None):
         if merc.image:
             add merc.image zoom 0.333
         text "hp: {0.hp} / {0.maxhp}".format(merc)
+        text "psy: {0.psy} / {0.maxpsy}".format(merc)
         text "attitude: {0.attitude}".format(merc)
         text merc.name bold (get_selected() if get_selected else selected)
 

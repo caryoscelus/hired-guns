@@ -70,6 +70,18 @@ def require_skill(skill, level=1, who='merc'):
         else:
             raise ValueError('require_skill: "who" cannot be {}'.format(who))
 
+def require(value, comment=None):
+    if result['can_do']:
+        result['can_do'] = value
+
+def psy_cost(cost):
+    if result['can_do']:
+        result['can_do'] = cost <= selected_merc().psy
+
+def money_cost(cost):
+    if result['can_do']:
+        result['can_do'] = cost <= renpy.store.world.pc.money
+
 def outcome_condition(name, cond):
     if not name in result['branches']:
         result['branches'][name] = list([lambda: True, None])
