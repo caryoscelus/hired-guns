@@ -70,6 +70,10 @@ def require_skill(skill, level=1, who='merc'):
         else:
             raise ValueError('require_skill: "who" cannot be {}'.format(who))
 
+def require(value, comment=None):
+    if result['can_do']:
+        result['can_do'] = value
+
 def psy_cost(cost):
     if result['can_do']:
         result['can_do'] = cost <= selected_merc().psy

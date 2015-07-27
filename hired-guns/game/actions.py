@@ -61,6 +61,9 @@ def require_trait(trait, who='merc'):
 def require_skill(skill, who='merc'):
     pass
 
+def require(value, comment=None):
+    pass
+
 def psy_cost(cost):
     selected_merc().spend_psy(cost)
 
