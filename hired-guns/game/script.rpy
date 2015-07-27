@@ -21,7 +21,7 @@ label start:
         test_mission.tags.update(set({'test', 'jungle'}))
         world.add_mission(test_mission)
         world.add_mission(Mission('test gfx mission', 'test_gfx_mission', payment=10))
-        #world.add_mission(Mission('cheese mission', 'cheese_mission', payment=20))
+        world.add_mission(Mission('cheese mission', 'cheese_mission', payment=20))
         
         world.encounter_pool.add(Encounter('encounter_test', 0, {'random', 'test'}))
         world.encounter_pool.add(Encounter('encounter_yare1', 1, {'random', 'test'}))
@@ -30,6 +30,13 @@ label start:
         world.encounter_pool.add(Encounter('encounter_unrand', 0, {'test'}))
         
         world.pc.set_skill('unarmed_combat', 1)
+        world.pc.set_skill('resilience', 1)
+        world.pc.set_skill('hacking', 2)
+        world.pc.set_skill('firearms', 1)
+        world.pc.set_skill('explosives', 1)
+        world.pc.set_skill('stealth', 1)
+        world.pc.set_skill('telepathy', 1)
+        world.pc.set_skill('mechanics', 1)
         
         world.mercs.append(Merc('nobody'))
         
