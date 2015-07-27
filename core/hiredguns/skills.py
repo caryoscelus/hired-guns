@@ -21,7 +21,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
 
-KNOWN_SKILLS = ('stealth', 'cooking', 'unarmed_combat')
+KNOWN_SKILLS = ('stealth', 'cooking', 'unarmed_combat', 'resilience', 'hacking', 'firearms', 'explosives', 'telepathy', 'mechanics')
 
 class Skills(Entity):
     @unbound
