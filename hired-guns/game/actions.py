@@ -61,6 +61,9 @@ def require_trait(trait, who='merc'):
 def require_skill(skill, who='merc'):
     pass
 
+def psy_cost(cost):
+    selected_merc().spend_psy(cost)
+
 def outcome_condition(name, cond):
     pass
 
