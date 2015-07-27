@@ -17,6 +17,7 @@ label monsters_loop:
     menu:
         "What are we gonna do?"
         "Pacify them^^\
+            psy_cost(10);\
             roll(4);\
             require_trait('pacifist');\
             outcome_condition('success', get_dice((4, 6), atleast=2));\

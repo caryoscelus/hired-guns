@@ -37,12 +37,14 @@ label start:
         world.pc.set_skill('stealth', 1)
         world.pc.set_skill('telepathy', 1)
         world.pc.set_skill('mechanics', 1)
+        world.pc.maxpsy = 20
         
         world.mercs.append(Merc('nobody'))
         
         pacifist = Merc('pacifist')
         pacifist.add_trait('pacifist')
         pacifist.set_skill('stealth', 4)
+        pacifist.maxpsy = 15
         pacifist.cost = 10
         world.mercs.append(pacifist)
         
