@@ -56,7 +56,7 @@ label start:
         brute.set_skill('unarmed_combat', 5)
         brute.cost = 15
         world.mercs.append(brute)
-    show screen debug_all(world)
+    $ renpy.show_screen('debug_all', world, _layer='debug')
     #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
 label loop:
     scene white

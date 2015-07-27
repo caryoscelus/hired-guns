@@ -35,6 +35,9 @@ init -1 python hide:
     config.use_cpickle = False
     config.developer = True
     config.autoreload = False
+    
+    ## 
+    config.layers = [ 'master', 'transient', 'screens', 'debug', 'overlay' ]
 
     ## These control the width and height of the screen.
 
