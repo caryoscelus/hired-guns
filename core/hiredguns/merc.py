@@ -21,8 +21,8 @@
 """Merc"""
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep, simplenode
-from dracykeiton.common import RoundingHp, Hp
+from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
+from dracykeiton.common import RoundingHp, Hp, Living
 from .nation import Nation
 from .traits import Traits, TraitAttitude, Attitude
 from .skills import Skills
@@ -110,6 +110,39 @@ class Money(Entity):
     def pay(self, amount):
         self.money -= amount
 
+@mod_dep(Living)
+class PsyPoints(Entity):
+    @unbound
+    def _init(self):
+        self.dynamic_property('psy', 0)
+        self.dynamic_property('maxpsy', 0)
+    
+    @unbound
+    def _load(self):
+        self.add_set_node('psy', self.psy_cap())
+        self.add_listener_node('living', self.restore_psy_if_born())
+    
+    @unbound
+    def spend_psy(self, amount):
+        if amount < self.psy:
+            self.psy -= amount
+            return True
+        return False
+    
+    @unbound
+    def full_psy(self):
+        self.psy = self.maxpsy
+    
+    @depends('maxpsy')
+    @simplenode
+    def psy_cap(value, maxpsy):
+        return min(value, maxpsy)
+    
+    @listener
+    def restore_psy_if_born(self, target, value):
+        if value == 'alive':
+            self.full_psy()
+
 @mod_dep(
     # base attributes
     RoundingHp,
@@ -124,6 +157,7 @@ class Money(Entity):
     TraitAttitude,
     Hire,
     Money,
+    PsyPoints,
     
     # battle
     Tactics,
