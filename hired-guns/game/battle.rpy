@@ -35,7 +35,7 @@ screen battle_side(manager, side):
             button:
                 hbox:
                     if proxy.image:
-                        add proxy.image
+                        add proxy.image zoom 0.333
                     vbox:
                         label proxy.name text_bold (proxy == manager.selected)
                         hbox:
