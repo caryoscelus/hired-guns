@@ -3,7 +3,8 @@ init python:
     from dracykeiton.compat import *
     from dracykeiton.entity import Entity, mod_dep, listener, depends, simplenode
     from dracykeiton import random
-    from hiredguns.merc import Name, Merc
+    from dracykeiton.common import Name
+    from hiredguns.merc import Merc
     from hiredguns.traits import Attitude
     
     @mod_dep(Name)
