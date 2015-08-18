@@ -101,6 +101,7 @@ label test_gfx_mission(mission):
     $ random_encounter(with_tags={'random'})
     "Now battle!"
     $ battle = HGBattle(Turnman, world)
+    $ battle.add_enemy(Monster('low monster'))
     $ start_battle(battle)
     "Mission ends here"
     $ mission_outcome('success')
