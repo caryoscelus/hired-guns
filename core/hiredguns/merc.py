@@ -22,17 +22,10 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
-from dracykeiton.common import RoundingHp, Hp, Living
+from dracykeiton.common import RoundingHp, Hp, Living, Name
 from .nation import Nation
 from .traits import Traits, TraitAttitude, Attitude
 from .skills import Skills
-
-class Name(Entity):
-    """Entity with a name"""
-    @unbound
-    def _init(self, name=''):
-        self.dynamic_property('name', name)
-
 
 MERC_STATUSES = ('free', 'busy', 'injured', 'dead')
 class MercStatus(Entity):
