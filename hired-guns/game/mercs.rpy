@@ -5,6 +5,7 @@ init python:
     from dracykeiton import random
     from dracykeiton.common import Name
     from hiredguns.merc import Merc
+    from hiredguns.monster import Monster
     from hiredguns.traits import Attitude
     
     @mod_dep(Name)
@@ -44,7 +45,7 @@ init python:
                 return 'merc'
             return value
     
-    Merc.global_mod(VisualEntity)
+    Monster.global_mod(VisualEntity)
 
 screen merc_default(merc, action, selected=False, get_selected=None):
     button action action style 'filled_frame':
