@@ -26,6 +26,7 @@ from dracykeiton.common import SimpleField
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.ui.battleuimanager import BattleUIManager
+from .tactics import BattleTactic
 
 class HGBattleAIController(Controller):
     pass
@@ -46,13 +47,13 @@ class HGBattle(object):
         return self.gen.generate()
 
 class HGBattleUIManager(BattleUIManager):
-    def get_strategies(self, entity):
-        return []
+    def get_tactics(self, entity):
+        return [BattleTactic('defend'), BattleTactic('attack')]
     
-    def set_strategy(self, side, entity, strategy):
+    def set_tactic(self, side, entity, tactic):
         if self.active_controller().entity == side:
             def f():
-                entity.strategy = strategy
+                entity.tactic = tactic
             return f
         else:
             return None

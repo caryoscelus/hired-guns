@@ -23,6 +23,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
 from dracykeiton.common import RoundingHp, Hp, Living, Name
+from .tactics import BattleTactic, TACTICS
 
 @mod_dep(Hp)
 class DamageType(Entity):
@@ -44,12 +45,11 @@ class Target(Entity):
     def _init(self):
         self.dynamic_property('target', None)
 
-TACTICS = ('default', 'cover', 'retreat', 'attack', 'defend')
 class Tactics(Entity):
     """Contains basic tactic direction."""
     @unbound
     def _init(self):
-        self.dynamic_property('tactic', 'default')
+        self.dynamic_property('tactic', BattleTactic('default'))
     
     @unbound
     def _load(self):
@@ -57,7 +57,7 @@ class Tactics(Entity):
     
     @simplenode
     def check_tactic(value):
-        if value in TACTICS:
+        if value is None or value.name in TACTICS:
             return value
         raise ValueError('there is no such tactic as {}'.format(value))
 

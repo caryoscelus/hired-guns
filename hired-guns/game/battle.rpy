@@ -39,13 +39,13 @@ screen battle_side(manager, side):
                     vbox:
                         text proxy.name bold (proxy == manager.selected)
                         hbox:
-                            $ strategies = manager.get_strategies(proxy)
-                            for strategy in strategies:
-                                $ f = manager.set_strategy(side, proxy, strategy)
-                                if action:
+                            $ tactics = manager.get_tactics(proxy)
+                            for tactic in tactics:
+                                $ f = manager.set_tactic(side, proxy, tactic)
+                                if f:
                                     $ f = Function(f)
                                 button:
-                                    text strategy.name
+                                    text tactic.name bold (proxy.tactic and proxy.tactic.name == tactic.name)
                                     action f
                         text "target: {}".format(proxy.target)
                         hbox:
