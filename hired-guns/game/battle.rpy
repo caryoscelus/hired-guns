@@ -37,11 +37,17 @@ screen battle_side(manager, side):
                     if proxy.image:
                         add proxy.image zoom 0.333
                     vbox:
-                        label proxy.name text_bold (proxy == manager.selected)
+                        text proxy.name bold (proxy == manager.selected)
                         hbox:
-                            $ actions = manager.get_actions(proxy, 'battle') + manager.get_actions(proxy, 'always')
-                            for act in actions:
-                                textbutton act.name action Function(manager.select_action, act)
+                            $ strategies = manager.get_strategies(proxy)
+                            for strategy in strategies:
+                                $ f = manager.set_strategy(side, proxy, strategy)
+                                if action:
+                                    $ f = Function(f)
+                                button:
+                                    text strategy.name
+                                    action f
+                        text "target: {}".format(proxy.target)
                         hbox:
                             add EntityText(proxy, "hp {0.hp:.0f}/{0.maxhp:.0f}")
                             bar value EntityValue(proxy, 'hp', proxy.maxhp)
