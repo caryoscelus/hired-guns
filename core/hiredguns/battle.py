@@ -46,4 +46,13 @@ class HGBattle(object):
         return self.gen.generate()
 
 class HGBattleUIManager(BattleUIManager):
-    pass
+    def get_strategies(self, entity):
+        return []
+    
+    def set_strategy(self, side, entity, strategy):
+        if self.active_controller().entity == side:
+            def f():
+                entity.strategy = strategy
+            return f
+        else:
+            return None
