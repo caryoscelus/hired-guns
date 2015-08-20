@@ -1,5 +1,11 @@
 init python:
+    from dracykeiton.entity import mod_dep
     from dracykeiton.proxyentity import ProxyEntity
+    from dracykeiton.interpolate import InterpolatingCache
+    
+    @mod_dep(InterpolatingCache)
+    class ProxyMonster(ProxyEntity):
+        pass
 
 screen battle(manager):
     if manager:
@@ -28,7 +34,7 @@ screen battle_side(manager, side):
         has vbox
         for entity in side.members:
             if not entity in proxies:
-                $ proxy = ProxyEntity(entity)
+                $ proxy = ProxyMonster(entity)
                 $ proxies[entity] = proxy
             else:
                 $ proxy = proxies[entity]
@@ -47,7 +53,7 @@ screen battle_side(manager, side):
                                 button:
                                     text tactic.name bold (proxy.tactic and proxy.tactic.name == tactic.name)
                                     action f
-                        text "target: {}".format(proxy.target)
+                        text "target: {}".format(proxy.target and proxy.target.name)
                         hbox:
                             add EntityText(proxy, "hp {0.hp:.0f}/{0.maxhp:.0f}")
                             bar value EntityValue(proxy, 'hp', proxy.maxhp)

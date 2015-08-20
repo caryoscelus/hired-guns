@@ -57,3 +57,17 @@ class HGBattleUIManager(BattleUIManager):
             return f
         else:
             return None
+    
+    def clicked(self, side, entity):
+        """Process simple click on entity.
+        
+        Right now, it selects player entity and sets target if entity is enemy
+        """
+        if self.selected:
+            if self.selected == entity:
+                self.deselect()
+            elif not (side is self.active_controller().entity):
+                self.selected.target = entity
+        else:
+            if side is self.active_controller().entity:
+                self.selected = entity
