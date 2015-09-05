@@ -93,19 +93,28 @@ screen nvl(dialogue, items=None):
                 text what id what_id
 
         # Display a menu, if given.
-        # advcaned
+        # advanced
         if items and items[0][0] == '^advanced^':
             
             vbox:
                 id "menu"
                 
                 text am.caption style "nvl_dialogue"
-
+                
                 for option in am.options:
-                    button action Function(option.launch):
+                    if am.can_do():
+                        $ action = Function(option.launch)
+                    else:
+                        $ action = None
+                    
+                    button action action:
                         has vbox
 
                         text option.name style "nvl_menu_choice"
+                        if option.requires:
+                            text "Requires:"
+                            for req in option.requires:
+                                text str(req) bold req.check()
                         #if r.get('merc_skills'):
                             #text "Req skills: {}".format(format_skills(r['merc_skills']))
                         #if r.get('team_skills'):

@@ -20,19 +20,64 @@
 
 from dracykeiton.compat import *
 from dracykeiton.util import curry
-from collections import OrderedDict
+
+from mworld import selected_merc, get_team_skill
+
 import renpy.exports as renpy
 import renpy.store as store
+
+from collections import OrderedDict
 
 class AdvancedMenuOutcome(object):
     def __init__(self):
         self.condition = None
         self.label = None
 
+class Requirement(object):
+    def check(self):
+        return False
+
+class RequireSkill(Requirement):
+    def __str__(self):
+        return 'require {0.skill} {0.amount} for {0.who}'.format(self)
+    
+    def __init__(self, skill, amount, who):
+        self.skill = skill
+        self.amount = amount
+        self.who = who
+    
+    def check(self):
+        if self.who == 'merc':
+            return selected_merc().has_skill(self.skill, self.level)
+        elif self.who == 'team':
+            return all([m.has_skill(self.skill, self.level) for m in store.world.active_mission.mercs])
+        elif self.who == 'sum':
+            return get_team_skill(self.skill) >= self.level
+        else:
+            raise ValueError('require_skill: "who" cannot be {}'.format(self.who))
+
+class RequireTrait(Requirement):
+    def __str__(self):
+        return 'require {0.trait} for {0.who}'.format(self)
+    
+    def __init__(self, trait, who):
+        self.trait = trait
+        self.who = who
+    
+    def check(self):
+        if self.who == 'merc':
+            return selected_merc().has_trait(self.trait)
+        elif self.who == 'all':
+            return all([m.has_trait(self.trait) for m in store.world.active_mission.mercs])
+        elif self.who == 'any':
+            return any([m.has_trait(self.trait) for m in store.world.active_mission.mercs])
+        else:
+            raise ValueError('require_skill: "who" cannot be {}'.format(self.who))
+
 class AdvancedMenuOption(object):
     def __init__(self, name):
         self.name = name
-        self.traits = list()
+        self.requires = list()
         self.outcomes = OrderedDict()
     
     def psy_cost(self, n):
@@ -41,8 +86,11 @@ class AdvancedMenuOption(object):
     def roll(self, n):
         self.roll_n = n
     
-    def require_trait(self, trait):
-        self.traits.append(trait)
+    def require_trait(self, trait, who='merc'):
+        self.requires.append(RequireTrait(trait, who))
+    
+    def require_skill(self, skill, amount, who='merc'):
+        self.requires.append(RequireSkill(skill, amount, who))
     
     def outcome_condition(self, name, condition):
         if not name in self.outcomes:
@@ -55,7 +103,7 @@ class AdvancedMenuOption(object):
         self.outcomes[name].label = label
     
     def can_do(self):
-        return False
+        return all([req.check() for req in self.requires])
     
     def launch(self):
         renpy.call('roll_dices_action', self.roll_n, self.after_roll)
