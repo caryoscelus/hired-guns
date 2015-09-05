@@ -93,36 +93,48 @@ screen nvl(dialogue, items=None):
                 text what id what_id
 
         # Display a menu, if given.
-        if items:
+        # advcaned
+        if items and items[0][0] == '^advanced^':
+            
+            vbox:
+                id "menu"
+                
+                text am.caption style "nvl_dialogue"
 
+                for option in am.options:
+                    button action Function(option.launch):
+                        has vbox
+
+                        text option.name style "nvl_menu_choice"
+                        #if r.get('merc_skills'):
+                            #text "Req skills: {}".format(format_skills(r['merc_skills']))
+                        #if r.get('team_skills'):
+                            #text "Req team skills: {}".format(format_skills(r['team_skills']))
+                        #if r.get('sum_skills'):
+                            #text "Req sum skills: {}".format(format_skills(r['sum_skills']))
+                        #if r.get('merc_traits'):
+                            #text "Req traits: {}".format(format_traits(r['merc_traits']))
+                        #if r.get('team_traits'):
+                            #text "Req team traits: {}".format(format_traits(r['team_traits']))
+        
+        # regular
+        elif items:
+            
             vbox:
                 id "menu"
 
                 for caption, action, chosen in items:
-                    if caption.find('^^') > -1:
-                        $ r, caption = menu_action(caption)
-                        $ action = r['action']
-                        $ can_do = r['can_do']
-                    else:
-                        $ r = dict()
-                        $ can_do = True
-                    
-                    if action:
-                        button action action:
-                            has vbox
 
-                            text caption style "nvl_menu_choice" bold can_do
-                            if r.get('merc_skills'):
-                                text "Req skills: {}".format(format_skills(r['merc_skills']))
-                            if r.get('team_skills'):
-                                text "Req team skills: {}".format(format_skills(r['team_skills']))
-                            if r.get('sum_skills'):
-                                text "Req sum skills: {}".format(format_skills(r['sum_skills']))
-                            if r.get('merc_traits'):
-                                text "Req traits: {}".format(format_traits(r['merc_traits']))
-                            if r.get('team_traits'):
-                                text "Req team traits: {}".format(format_traits(r['team_traits']))
+                    if action:
+
+                        button:
+                            style "nvl_menu_choice_button"
+                            action action
+
+                            text caption style "nvl_menu_choice"
+
                     else:
+
                         text caption style "nvl_dialogue"
 
     add SideImage() xalign 0.0 yalign 1.0

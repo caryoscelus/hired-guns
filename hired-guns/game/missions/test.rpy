@@ -14,37 +14,21 @@ label monsters_loop:
     merc.speaker "I am hurt!"
     selected_merc().speaker "Aww..."
     $ random_encounter(level=(2, 6))
+    
+    python:
+        am.start(_("What are we gonna do?"))
+        
+        am.option(_("Pacify them"))
+        am.psy_cost(10)
+        am.roll(4)
+        am.require_trait('pacifist')
+        am.outcome_condition('success', get_dice((4, 6), atleast=2))
+        am.outcome_label('success', 'monsters_pacified')
+        am.outcome_label('failure', 'monsters_not_pacified')
     menu:
-        "What are we gonna do?"
-        "Pacify them^^\
-            psy_cost(10);\
-            roll(4);\
-            require_trait('pacifist');\
-            outcome_condition('success', get_dice((4, 6), atleast=2));\
-            outcome_label('success', 'monsters_pacified');\
-            outcome_label('failure', 'monsters_not_pacified');\
-            ":
+        "^advanced^":
             pass
-        "Kill everything!^^\
-            money_cost(10);\
-            force_outcome('success', get_team_skill('unarmed_combat') >= 6);\
-            roll(3);\
-            require_skill('unarmed_combat', 3, 'sum');\
-            outcome_condition('success', get_dice((3, 6), atleast=1));\
-            outcome_label('success', 'monsters_killed');\
-            outcome_label('failure', 'monsters_not_killed');\
-            affect_trait('pacifist', -10);\
-            ":
-            pass
-        "Sneak out of this ambush!^^\
-            force_outcome('success', selected_merc().get_skill('stealth') >= 6);\
-            roll(selected_merc().get_skill('stealth'));\
-            require_skill('stealth', 3);\
-            outcome_condition('success', get_dice((4, 6), atleast=3));\
-            outcome_label('success', 'snuck_out');\
-            outcome_label('failure', 'not_snuck_out');\
-            ":
-            pass
+    
     if monsters:
         jump monsters_loop
     jump monsters_end
