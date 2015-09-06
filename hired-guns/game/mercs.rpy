@@ -26,7 +26,10 @@ init python:
         @listener
         def attitude_changed(self, target, value):
             if value < 0:
-                self.speaker(_("I am angry at you! I won't work with such a bastard anymore!"))
+                renpy.notify(_("{} is angry at you and won't work with such a bastard anymore!".format(self.name)))
+                
+                ## NOTE: this is preferred, but may cause "Cannot start an interaction in the middle of an interaction" error
+                #self.speaker(_("I am angry at you! I won't work with such a bastard anymore!"))
     
     Merc.global_mod(AttitudeChange)
     
