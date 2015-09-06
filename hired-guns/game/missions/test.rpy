@@ -25,6 +25,16 @@ label monsters_loop:
         am.outcome_condition('success', get_dice((4, 6), atleast=2))
         am.outcome_label('success', 'monsters_pacified')
         am.outcome_label('failure', 'monsters_not_pacified')
+        
+        am.option(_("Kill everything!"))
+        am.outcome_label('success', 'monsters_killed')
+        am.affect_trait('pacifist', -10)
+        am.money_cost(10)
+        if get_team_skill('unarmed_combat') < 6:
+            am.roll(3)
+            am.require_skill('unarmed_combat', 3, 'sum')
+            am.outcome_condition('success', get_dice((3, 6), atleast=1))
+            am.outcome_label('failure', 'monsters_not_killed')
     menu:
         "^advanced^":
             pass
