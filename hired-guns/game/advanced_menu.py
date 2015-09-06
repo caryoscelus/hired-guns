@@ -21,7 +21,7 @@
 from dracykeiton.compat import *
 from dracykeiton.util import curry
 
-from mworld import selected_merc, get_team_skill
+from mworld import selected_merc, get_team_skill, affect_trait
 
 import renpy.exports as renpy
 import renpy.store as store
@@ -103,17 +103,35 @@ class PsyCost(Requirement):
     def pay(self):
         selected_merc().spend_psy(self.amount)
 
+class AffectTrait(Requirement):
+    def __str__(self):
+        return 'Affects trait {} for {}'.format(self.trait, self.amount)
+    
+    def __init__(self, trait, amount):
+        self.trait = trait
+        self.amount = amount
+    
+    def check(self):
+        return True
+    
+    def pay(self):
+        affect_trait(self.trait, self.amount)
+
 class AdvancedMenuOption(object):
     def __init__(self, name):
         self.name = name
         self.requires = list()
         self.outcomes = OrderedDict()
+        self.roll_n = None
     
     def psy_cost(self, n):
         self.requires.append(PsyCost(n))
     
     def money_cost(self, n):
         self.requires.append(MoneyCost(n))
+    
+    def affect_trait(self, trait, amount):
+        self.requires.append(AffectTrait(trait, amount))
     
     def roll(self, n):
         self.roll_n = n
@@ -143,7 +161,10 @@ class AdvancedMenuOption(object):
     
     def launch(self):
         self.pay_costs()
-        renpy.call('roll_dices_action', self.roll_n, self.after_roll)
+        if self.roll_n != None:
+            renpy.call('roll_dices_action', self.roll_n, self.after_roll)
+        else:
+            self.after_roll(None)
     
     def after_roll(self, result):
         for outcome in self.outcomes.values():
