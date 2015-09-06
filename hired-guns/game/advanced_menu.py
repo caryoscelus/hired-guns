@@ -162,6 +162,8 @@ class AdvancedMenuOption(object):
     def launch(self):
         self.pay_costs()
         if self.roll_n != None:
+            if callable(self.roll_n):
+                self.roll_n = self.roll_n()
             renpy.call('roll_dices_action', self.roll_n, self.after_roll)
         else:
             self.after_roll(None)
