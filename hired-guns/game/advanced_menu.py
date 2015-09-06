@@ -36,14 +36,17 @@ class AdvancedMenuOutcome(object):
 class Requirement(object):
     def check(self):
         return False
+    
+    def pay(self):
+        pass
 
 class RequireSkill(Requirement):
     def __str__(self):
-        return 'require {0.skill} {0.amount} for {0.who}'.format(self)
+        return 'require {0.skill} {0.level} for {0.who}'.format(self)
     
-    def __init__(self, skill, amount, who):
+    def __init__(self, skill, level, who):
         self.skill = skill
-        self.amount = amount
+        self.level = level
         self.who = who
     
     def check(self):
@@ -74,6 +77,32 @@ class RequireTrait(Requirement):
         else:
             raise ValueError('require_skill: "who" cannot be {}'.format(self.who))
 
+class MoneyCost(Requirement):
+    def __str__(self):
+        return 'Costs {} moneys'.format(self.amount)
+    
+    def __init__(self, amount):
+        self.amount = amount
+    
+    def check(self):
+        return store.world.pc.money > self.amount
+    
+    def pay(self):
+        store.world.pc.money -= self.amount
+
+class PsyCost(Requirement):
+    def __str__(self):
+        return 'Costs {} psy'.format(self.amount)
+    
+    def __init__(self, amount):
+        self.amount = amount
+    
+    def check(self):
+        return selected_merc().psy > self.amount
+    
+    def pay(self):
+        selected_merc().spend_psy(self.amount)
+
 class AdvancedMenuOption(object):
     def __init__(self, name):
         self.name = name
@@ -81,7 +110,10 @@ class AdvancedMenuOption(object):
         self.outcomes = OrderedDict()
     
     def psy_cost(self, n):
-        self.psy = n
+        self.requires.append(PsyCost(n))
+    
+    def money_cost(self, n):
+        self.requires.append(MoneyCost(n))
     
     def roll(self, n):
         self.roll_n = n
@@ -105,7 +137,12 @@ class AdvancedMenuOption(object):
     def can_do(self):
         return all([req.check() for req in self.requires])
     
+    def pay_costs(self):
+        for req in self.requires:
+            req.pay()
+    
     def launch(self):
+        self.pay_costs()
         renpy.call('roll_dices_action', self.roll_n, self.after_roll)
     
     def after_roll(self, result):

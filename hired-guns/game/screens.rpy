@@ -102,29 +102,15 @@ screen nvl(dialogue, items=None):
                 text am.caption style "nvl_dialogue"
                 
                 for option in am.options:
-                    if am.can_do():
-                        $ action = Function(option.launch)
-                    else:
-                        $ action = None
                     
-                    button action action:
+                    button action (Function(option.launch) if option.can_do() else None):
                         has vbox
 
-                        text option.name style "nvl_menu_choice"
+                        text option.name style "nvl_menu_choice" bold option.can_do()
                         if option.requires:
                             text "Requires:"
                             for req in option.requires:
                                 text str(req) bold req.check()
-                        #if r.get('merc_skills'):
-                            #text "Req skills: {}".format(format_skills(r['merc_skills']))
-                        #if r.get('team_skills'):
-                            #text "Req team skills: {}".format(format_skills(r['team_skills']))
-                        #if r.get('sum_skills'):
-                            #text "Req sum skills: {}".format(format_skills(r['sum_skills']))
-                        #if r.get('merc_traits'):
-                            #text "Req traits: {}".format(format_traits(r['merc_traits']))
-                        #if r.get('team_traits'):
-                            #text "Req team traits: {}".format(format_traits(r['team_traits']))
         
         # regular
         elif items:
