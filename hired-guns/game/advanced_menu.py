@@ -122,6 +122,7 @@ class AdvancedMenuOption(object):
         self.name = name
         self.requires = list()
         self.outcomes = OrderedDict()
+        self.forced_conditions = OrderedDict()
         self.roll_n = None
     
     def psy_cost(self, n):
@@ -142,6 +143,9 @@ class AdvancedMenuOption(object):
     def require_skill(self, skill, amount, who='merc'):
         self.requires.append(RequireSkill(skill, amount, who))
     
+    def force_outcome(self, name, condition):
+        self.forced_conditions[name] = condition
+    
     def outcome_condition(self, name, condition):
         if not name in self.outcomes:
             self.outcomes[name] = AdvancedMenuOutcome()
@@ -161,14 +165,25 @@ class AdvancedMenuOption(object):
     
     def launch(self):
         self.pay_costs()
+        
+        for name in self.forced_conditions:
+            cond = self.forced_conditions[name]
+            if callable(cond):
+                cond = cond()
+            if cond:
+                self.after_roll(forced=name)
+        
         if self.roll_n != None:
             if callable(self.roll_n):
                 self.roll_n = self.roll_n()
             renpy.call('roll_dices_action', self.roll_n, self.after_roll)
         else:
-            self.after_roll(None)
+            self.after_roll()
     
-    def after_roll(self, result):
+    def after_roll(self, result=None, forced=None):
+        if forced:
+            renpy.call(self.outcomes[forced].label)
+            return
         for outcome in self.outcomes.values():
             if outcome.condition is None or outcome.condition(result):
                 renpy.call(outcome.label)
