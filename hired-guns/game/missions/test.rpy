@@ -30,11 +30,19 @@ label monsters_loop:
         am.outcome_label('success', 'monsters_killed')
         am.affect_trait('pacifist', -10)
         am.money_cost(10)
-        if get_team_skill('unarmed_combat') < 6:
-            am.roll(3)
-            am.require_skill('unarmed_combat', 3, 'sum')
-            am.outcome_condition('success', get_dice((3, 6), atleast=1))
-            am.outcome_label('failure', 'monsters_not_killed')
+        am.force_outcome('success', lambda: get_team_skill('unarmed_combat') < 6)
+        am.roll(3)
+        am.require_skill('unarmed_combat', 3, 'sum')
+        am.outcome_condition('success', get_dice((3, 6), atleast=1))
+        am.outcome_label('failure', 'monsters_not_killed')
+        
+        am.option("Sneak out of this ambush!")
+        am.force_outcome('success', lambda: selected_merc().get_skill('stealth') >= 6)
+        am.roll(lambda: selected_merc().get_skill('stealth'))
+        am.require_skill('stealth', 3)
+        am.outcome_condition('success', get_dice((4, 6), atleast=3))
+        am.outcome_label('success', 'snuck_out')
+        am.outcome_label('failure', 'not_snuck_out')
     menu:
         "^advanced^":
             pass
