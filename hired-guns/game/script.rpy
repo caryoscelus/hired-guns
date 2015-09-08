@@ -13,15 +13,6 @@ label start:
         
         init_world()
         world.pc.money = 115
-        test_mission = Mission('test mission', 'test_mission', payment=30)
-        test_mission.description = """
-            {p}This is just a test mission in a jungle.
-            {p}la-la-la
-        """
-        test_mission.tags.update(set({'test', 'jungle'}))
-        world.add_mission(test_mission)
-        test_battle_mission = Mission('test battle mission', 'test_gfx_mission', payment=10)
-        world.add_mission(test_battle_mission)
         world.add_mission(Mission('cheese mission', 'cheese_mission', payment=20))
         
         world.encounter_pool.add(Encounter('encounter_test', 0, {'random', 'test'}))

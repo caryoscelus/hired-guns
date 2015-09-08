@@ -1,4 +1,4 @@
-init python:
+init -5 python:
     from dracykeiton.compat import *
     from dracykeiton.tb.turnman import Turnman
     from hiredguns.world import HiredGunsWorld
@@ -8,11 +8,15 @@ init python:
     from hiredguns.battle import HGBattle, HGBattleUIManager
     from mworld import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill, define_var
     
+    missions_to_add = list()
+    
     def init_world():
         #pc_name = renpy.input(_("What is your name?"))
         pc_name = 'pc'
         global world
         world = HiredGunsWorld(Merc(pc_name))
+        for mission in missions_to_add:
+            world.add_mission(mission)
     
     def roll_skill_hurt(skill, want, atleast, damage):
         renpy.call('roll_skill_hurt', skill, want, atleast, damage)
