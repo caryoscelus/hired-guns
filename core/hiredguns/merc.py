@@ -73,6 +73,15 @@ class Money(Entity):
             return True
         return False
 
+class Contacts(Entity):
+    @unbound
+    def _init(self):
+        self.dynamic_property('contacts', list())
+    
+    @unbound
+    def add_contact(self, contact):
+        self.contacts.append(contact)
+
 @mod_dep(
     # basic battle stuff
     Monster,
@@ -85,6 +94,7 @@ class Money(Entity):
     TraitAttitude,
     Hire,
     Money,
+    Contacts,
 )
 class Merc(Entity):
     """Main mercenary class"""
