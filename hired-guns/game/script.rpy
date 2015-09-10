@@ -56,8 +56,8 @@ label start:
     #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
 label loop:
     scene white
-    $ world.update_missions()
-    call screen overview(world)
+    show screen status_panel(world)
+    ".."
     jump loop
     "YOU DIED FOR A FEW COINS. HOW UNLUCKY."
     return
