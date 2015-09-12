@@ -94,6 +94,11 @@ class PsyPoints(Entity):
         if value == 'alive':
             self.full_psy()
 
+class Id(Entity):
+    @unbound
+    def _init(self, id=None):
+        self.dynamic_property('id', id)
+
 @mod_dep(
     # base attributes
     RoundingHp,
@@ -104,6 +109,7 @@ class PsyPoints(Entity):
     Target,
     # misc
     Name,
+    Id,
 )
 class Monster(Entity):
     """Base class for entities in battle (including mercs)"""

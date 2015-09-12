@@ -91,6 +91,6 @@ class Money(Entity):
 class Merc(Entity):
     """Main mercenary class"""
     @unbound
-    def _init(self, name='merc'):
-        self.name = name
+    def _init(self, id='merc'):
+        self.id = id
         self.maxhp = 5
