@@ -26,6 +26,7 @@ from .nation import Nation
 from .traits import Traits, TraitAttitude, Attitude
 from .skills import Skills
 from .monster import Monster
+from .contacts import Contacts
 
 MERC_STATUSES = ('free', 'busy', 'injured', 'dead')
 class MercStatus(Entity):
@@ -72,15 +73,6 @@ class Money(Entity):
             self.money -= amount
             return True
         return False
-
-class Contacts(Entity):
-    @unbound
-    def _init(self):
-        self.dynamic_property('contacts', list())
-    
-    @unbound
-    def add_contact(self, contact):
-        self.contacts.append(contact)
 
 @mod_dep(
     # basic battle stuff
