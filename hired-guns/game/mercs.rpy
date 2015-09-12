@@ -39,13 +39,13 @@ init python:
             self.dynamic_property('image')
             self.dynamic_property('visual_state', 'default')
             self.add_get_node('image', self.get_image())
-            self.image = 'merc{:02}'.format(random.randint(0, 18))
         
         @depends('visual_state')
+        @depends('id')
         @simplenode
-        def get_image(value, visual_state):
+        def get_image(value, visual_state, id):
             if not value:
-                return 'merc'
+                return id
             return value
     
     Monster.global_mod(VisualEntity)
