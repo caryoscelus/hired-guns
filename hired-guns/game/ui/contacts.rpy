@@ -9,4 +9,9 @@ screen contacts:
             scrollbars 'vertical'
             vbox:
                 for contact in world.pc.contacts:
-                    text contact
+                    if contact.type != 'unknown':
+                        add contact.target.image zoom 0.333
+                    text contact.name
+                    if contact.type == 'merc':
+                        textbutton "Hire"
+                    textbutton "Call"
