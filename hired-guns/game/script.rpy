@@ -33,20 +33,12 @@ label start:
         world.pc.set_skill('mechanics', 1)
         world.pc.maxpsy = 20
         
-        world.mercs.append(Merc('nobody'))
-        
         pacifist = Merc('pacifist')
         pacifist.add_trait('pacifist')
         pacifist.set_skill('stealth', 4)
         pacifist.maxpsy = 15
         pacifist.cost = 10
         world.mercs.append(pacifist)
-        
-        ninja = Merc('ninja')
-        ninja.set_skill('stealth', 7)
-        ninja.set_skill('unarmed_combat', 2)
-        ninja.cost = 20
-        world.mercs.append(ninja)
         
         brute = Merc('brute')
         brute.set_skill('unarmed_combat', 5)
