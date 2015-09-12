@@ -98,7 +98,6 @@ label not_snuck_out:
 label monsters_end:
     "And thus we continue our journey"
     $ pop_mode()
-    "We finished the mission! Yay!"
     $ mission_outcome('success')
     return
 
