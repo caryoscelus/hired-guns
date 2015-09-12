@@ -6,6 +6,7 @@ init -5 python:
     from hiredguns.encounter import Encounter
     from hiredguns.merc import Merc
     from hiredguns.battle import HGBattle, HGBattleUIManager
+    from hiredguns.contacts import Contact
     from mworld import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill, define_var
     
     missions_to_add = list()
@@ -17,6 +18,9 @@ init -5 python:
         world = HiredGunsWorld(Merc(pc_name))
         for mission in missions_to_add:
             world.add_mission(mission)
+        for merc in game.mercs:
+            world.mercs.append(merc)
+            world.pc.add_contact(Contact(merc, 'merc'))
     
     def roll_skill_hurt(skill, want, atleast, damage):
         renpy.call('roll_skill_hurt', skill, want, atleast, damage)
