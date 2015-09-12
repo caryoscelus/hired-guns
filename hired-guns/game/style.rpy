@@ -1,4 +1,4 @@
-init python:
+init -1 python:
     class VNMode(object):
         def __init__(self, mode, **kwargs):
             self.mode = mode
