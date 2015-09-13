@@ -1,4 +1,4 @@
-screen Travel(travel_target=None):
+screen travel(travel_target=None):
     default target = travel_target
     tag main_view
     vbox:

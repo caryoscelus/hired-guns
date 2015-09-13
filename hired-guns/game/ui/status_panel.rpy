@@ -8,6 +8,6 @@ screen status_panel:
         textbutton "Overview"   action Show('overview_new')
         textbutton "Contacts"   action Show('contacts')
         textbutton "Jobs"       action Show('jobs')
-        textbutton "Finances"   action Show('Finances')
-        textbutton "Travel"     action Show('Travel')
+        textbutton "Finances"   action Show('finances')
+        textbutton "Travel"     action Show('travel')
         text "{}".format(world.time)

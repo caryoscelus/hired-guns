@@ -1,4 +1,4 @@
-screen Finances:
+screen finances:
     tag main_view
     vbox:
         ypos STATUS_PANEL_HEIGHT
