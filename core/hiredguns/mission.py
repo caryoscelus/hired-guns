@@ -30,7 +30,7 @@ from .merc import Merc
 class Mission(Entity):
     """Mission
     """
-    def _init(self, name, content=None, description='', payment=None):
+    def _init(self, name, content=None, description='', payment=None, timeout=None):
         self.dynamic_property('name', name)
         self.dynamic_property('content', content)
         self.dynamic_property('description', description)
@@ -40,6 +40,7 @@ class Mission(Entity):
         self.dynamic_property('selected', None)
         self.dynamic_property('tags', set())
         self.dynamic_property('locals', set())
+        self.dynamic_property('timeout', timeout)
     
     def add_mercs(self, mercs):
         self.mercs.update(mercs)

@@ -34,6 +34,18 @@ class Time(object):
     def __init__(self, time=0):
         self.t = time
     
+    def __lt__(self, other):
+        return self.t < other.t
+    
+    def __gt__(self, other):
+        return self.t > other.t
+    
+    def __eq__(self, other):
+        return self.t == other.t
+    
+    def __ne__(self, other):
+        return self.t != other.t
+    
     def __str__(self):
         return '{:04}-{:02}-{:02}'.format(self.year(), self.month()+1, self.day()+1)
     
@@ -45,6 +57,9 @@ class Time(object):
     
     def day(self):
         return self.t // DAY % MONTH
+    
+    def pass_time(self, amount):
+        self.t += amount
 
 class HiredGunsWorld(object):
     def __init__(self, pc):
@@ -52,7 +67,7 @@ class HiredGunsWorld(object):
         self.mercs = list()
         self.hired_mercs = list()
         self.mission_pool = dict()
-        self.missions = dict()
+        self.missions = list()
         self.old_missions = dict()
         self.active_mission = None
         self.encounter_pool = set()
@@ -63,13 +78,12 @@ class HiredGunsWorld(object):
     
     def update_missions(self):
         for mission in self.missions:
-            self.missions[mission] -= 1
-            if self.missions[mission] <= 0:
+            if mission.timeout is None or mission.timeout < self.time:
                 self.finish_mission(mission, 'timeout')
-        while len(self.missions) < 3 and self.mission_pool:
+        while len(self.missions) < 4 and self.mission_pool:
             mission = random.choice(self.mission_pool.keys())
             del self.mission_pool[mission]
-            self.missions[mission] = 4
+            self.missions.append(mission)
     
     def start_mission(self, mission):
         mission.add_mercs((self.pc,))
@@ -82,7 +96,7 @@ class HiredGunsWorld(object):
         self.missions[mission] = 'active'
     
     def finish_mission(self, mission, reason):
-        del self.missions[mission]
+        self.missions.remove(mission)
         self.old_missions[mission] = reason
     
     def end_mission(self):
@@ -92,3 +106,7 @@ class HiredGunsWorld(object):
     
     def get_money_prediction(self):
         return self.pc.money - sum([merc.cost for merc in self.hired_mercs])
+    
+    def pass_day(self):
+        self.time.pass_time(DAY)
+        self.update_missions()
