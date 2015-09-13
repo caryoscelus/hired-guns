@@ -68,6 +68,7 @@ class HiredGunsWorld(object):
         self.hired_mercs = list()
         self.mission_pool = dict()
         self.missions = list()
+        self.places = list()
         self.old_missions = dict()
         self.active_mission = None
         self.encounter_pool = set()
