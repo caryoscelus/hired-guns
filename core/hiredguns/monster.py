@@ -22,7 +22,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
-from dracykeiton.common import RoundingHp, Hp, Living, Name
+from dracykeiton.common import RoundingHp, Hp, Living, Name, Id
 from .tactics import BattleTactic, TACTICS
 
 @mod_dep(Hp)
@@ -93,11 +93,6 @@ class PsyPoints(Entity):
     def restore_psy_if_born(self, target, value):
         if value == 'alive':
             self.full_psy()
-
-class Id(Entity):
-    @unbound
-    def _init(self, id=None):
-        self.dynamic_property('id', id)
 
 @mod_dep(
     # base attributes
