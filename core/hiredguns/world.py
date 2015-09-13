@@ -26,6 +26,26 @@ from dracykeiton import random
 from .merc import Merc
 from .mission import Mission
 
+DAY = 24*60*60
+MONTH = 30
+YEAR = 12
+
+class Time(object):
+    def __init__(self, time=0):
+        self.t = time
+    
+    def __str__(self):
+        return '{:04}-{:02}-{:02}'.format(self.year(), self.month()+1, self.day()+1)
+    
+    def year(self):
+        return self.t // (DAY*MONTH*YEAR)
+    
+    def month(self):
+        return self.t // (DAY*MONTH) % YEAR
+    
+    def day(self):
+        return self.t // DAY % MONTH
+
 class HiredGunsWorld(object):
     def __init__(self, pc):
         self.pc = pc
@@ -36,6 +56,7 @@ class HiredGunsWorld(object):
         self.old_missions = dict()
         self.active_mission = None
         self.encounter_pool = set()
+        self.time = Time()
     
     def add_mission(self, mission):
         self.mission_pool[mission] = 'available'
