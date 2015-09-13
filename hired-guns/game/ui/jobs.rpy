@@ -20,5 +20,10 @@ screen jobs:
                 text "{}".format(job.description.strip())
                 text "Tags: {}".format(str(list(job.tags)).replace('[', '').replace(']', ''))
                 text "Reward: {}".format(job.payment)
+                text "Takes place on {}".format(job.place.name)
+                if job.place is world.now_place:
+                    textbutton "Start Mission!"
+                else:
+                    textbutton "Travel there.." action Show('travel', travel_target=job.place)
             else:
                 text "Choose mission to see its description"

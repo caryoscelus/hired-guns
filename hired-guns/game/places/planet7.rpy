@@ -1,4 +1,4 @@
-init python hide:
+init -1 python hide:
     planet7 = Place('planet7')
     planet7.name = _("Planet 7")
     planet7.ticket_price = 100
