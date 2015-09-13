@@ -24,6 +24,8 @@ init -5 python:
             world.pc.add_contact(Contact(merc, 'merc'))
         for place in game.places:
             world.places.append(place)
+        world.default_place = game.default_place
+        world.now_place = world.default_place
     
     def roll_skill_hurt(skill, want, atleast, damage):
         renpy.call('roll_skill_hurt', skill, want, atleast, damage)

@@ -40,6 +40,7 @@ class HiredGunsWorld(object):
         self.encounter_pool = set()
         self.time = Time()
         self.now_place = None
+        self.default_place = None
     
     def add_mission(self, mission):
         self.mission_pool[mission] = 'available'
