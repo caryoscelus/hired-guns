@@ -6,6 +6,7 @@ screen overview_new:
         hbox:
             text "It's {} now".format(world.time)
             textbutton "Pass a day" action Function(world.pass_day)
+        text "You are on {}".format(world.now_place.name)
         if world.active_mission:
             text "You are on {} mission".format(world.active_mission.name)
         else:

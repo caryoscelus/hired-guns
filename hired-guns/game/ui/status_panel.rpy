@@ -11,9 +11,3 @@ screen status_panel:
         textbutton "Finances"   action Show('Finances')
         textbutton "Travel"     action Show('Travel')
         text "{}".format(world.time)
-
-screen Finances:
-    tag main_view
-    vbox:
-        ypos STATUS_PANEL_HEIGHT
-        text "Finances"
