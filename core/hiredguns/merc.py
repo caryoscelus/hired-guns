@@ -87,6 +87,7 @@ class Money(Entity):
             return True
         return False
 
+@mod_dep(Money)
 class Tickets(Entity):
     @unbound
     def _init(self):
@@ -95,9 +96,10 @@ class Tickets(Entity):
     @unbound
     def buy_ticket(self, place, time):
         # TODO: real tickets
-        if not time.t in self.tickets:
-            self.tickets[time.t] = list()
-        self.tickets[time.t].append(place)
+        if self.spend_money(place.ticket_price):
+            if not time.t in self.tickets:
+                self.tickets[time.t] = list()
+            self.tickets[time.t].append(place)
     
     @unbound
     def get_tickets_on(self, time):
