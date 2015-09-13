@@ -9,6 +9,7 @@ screen status_panel:
         textbutton "Contacts"   action Show('contacts')
         textbutton "Jobs"       action Show('jobs')
         textbutton "Finances"   action Show('Finances')
+        text "{}".format(world.time)
 
 screen overview_new:
     tag main_view
