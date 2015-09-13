@@ -27,6 +27,7 @@ from .traits import Traits, TraitAttitude, Attitude
 from .skills import Skills
 from .monster import Monster
 from .contacts import Contacts
+from .time import Time
 
 MERC_STATUSES = ('free', 'busy', 'injured', 'dead')
 class MercStatus(Entity):
@@ -108,6 +109,15 @@ class Tickets(Entity):
     @unbound
     def has_ticket_for(self, place):
         return place in self.tickets.values()
+    
+    @unbound
+    def next_ticket_to(self, place):
+        tickets_to = [
+            t
+                for t in self.tickets
+                    if self.tickets[t] is place
+        ]
+        return Time(min(tickets_to))
     
     @unbound
     def cleanup_tickets(self, time):
