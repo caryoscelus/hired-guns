@@ -14,6 +14,7 @@ label start:
         init_world()
         world.pc.money = 115
         world.add_mission(Mission('cheese mission', 'cheese_mission', payment=20))
+        world.update_missions()
         
         world.encounter_pool.add(Encounter('encounter_test', 0, {'random', 'test'}))
         world.encounter_pool.add(Encounter('encounter_yare1', 1, {'random', 'test'}))

@@ -16,12 +16,6 @@ screen overview_new:
         ypos STATUS_PANEL_HEIGHT
         text "Overview"
 
-screen jobs:
-    tag main_view
-    vbox:
-        ypos STATUS_PANEL_HEIGHT
-        text "Jobs"
-
 screen Finances:
     tag main_view
     vbox:
