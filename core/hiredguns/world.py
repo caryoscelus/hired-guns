@@ -111,3 +111,5 @@ class HiredGunsWorld(object):
     def pass_day(self):
         self.time.pass_time(DAY)
         self.update_missions()
+        ## TODO
+        self.pc.cleanup_tickets()

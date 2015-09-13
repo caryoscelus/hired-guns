@@ -87,6 +87,34 @@ class Money(Entity):
             return True
         return False
 
+class Tickets(Entity):
+    @unbound
+    def _init(self):
+        self.dynamic_property('tickets', dict())
+    
+    @unbound
+    def buy_ticket(self, place, time):
+        # TODO: real tickets
+        if not time.t in self.tickets:
+            self.tickets[time.t] = list()
+        self.tickets[time.t].append(place)
+    
+    @unbound
+    def get_tickets_on(self, time):
+        return self.tickets.get(time.t, list())
+    
+    @unbound
+    def has_ticket_for(self, place):
+        return place in self.tickets.values()
+    
+    @unbound
+    def cleanup_tickets(self, time):
+        self.tickets = {
+            t : self.tickets[t]
+                for t in self.tickets
+                    if t >= time.t
+        }
+
 @mod_dep(
     # basic battle stuff
     Monster,
@@ -101,6 +129,7 @@ class Money(Entity):
     Employ,
     Money,
     Contacts,
+    Tickets,
 )
 class Merc(Entity):
     """Main mercenary class"""
