@@ -58,6 +58,19 @@ class Hire(Entity):
             return False
         return True
 
+class Employ(Entity):
+    @unbound
+    def _init(self):
+        self.dynamic_property('team', list())
+    
+    @unbound
+    def employ(self, other):
+        self.team.append(other)
+    
+    @unbound
+    def unemploy(self, other):
+        self.team.remove(other)
+
 class Money(Entity):
     @unbound
     def _init(self):
@@ -85,6 +98,7 @@ class Money(Entity):
     Skills,
     TraitAttitude,
     Hire,
+    Employ,
     Money,
     Contacts,
 )
