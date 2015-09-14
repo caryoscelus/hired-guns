@@ -65,7 +65,6 @@ class HiredGunsWorld(object):
         self.hired_mercs = list()
         self.active_mission = mission
         mission.selected = self.pc
-        self.missions[mission] = 'active'
     
     def finish_mission(self, mission, reason):
         self.missions.remove(mission)
