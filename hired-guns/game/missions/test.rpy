@@ -1,10 +1,11 @@
 init python hide:
-    test_mission = Mission('test mission', 'test_mission', payment=30)
+    test_mission = Mission('test mission', 'test_mission', payment=100)
     test_mission.description = """
         {p}This is just a test mission in a jungle.
         {p}la-la-la
     """
     test_mission.tags.update(set({'test', 'jungle'}))
+    test_mission.place = game.get_place('test_planet')
     missions_to_add.append(test_mission)
 
 label test_mission(mission):
@@ -105,6 +106,7 @@ label monsters_end:
 
 init python hide:
     test_battle_mission = Mission('test battle mission', 'test_gfx_mission', payment=10)
+    test_battle_mission.place = game.get_place('test_planet')
     missions_to_add.append(test_battle_mission)
 
 label test_gfx_mission(mission):
