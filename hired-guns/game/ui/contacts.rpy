@@ -1,8 +1,8 @@
 screen contacts:
     tag main_view
-    vbox:
+    frame ypos STATUS_PANEL_HEIGHT xfill True yfill True:
+        has vbox
         text "Contacts"
-        ypos STATUS_PANEL_HEIGHT
         viewport:
             draggable True
             mousewheel True

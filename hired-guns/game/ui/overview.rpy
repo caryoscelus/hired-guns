@@ -1,6 +1,7 @@
 screen overview_new:
     tag main_view
-    vbox:
+    frame ypos STATUS_PANEL_HEIGHT xfill True yfill True:
+        has vbox
         ypos STATUS_PANEL_HEIGHT
         text "Overview"
         hbox:

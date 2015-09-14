@@ -1,8 +1,8 @@
 screen jobs:
     tag main_view
     default job = None
-    hbox:
-        ypos STATUS_PANEL_HEIGHT
+    frame ypos STATUS_PANEL_HEIGHT xfill True yfill True:
+        has hbox
         vbox:
             text "Jobs"
             viewport:

@@ -1,8 +1,8 @@
 screen travel(travel_target=None):
     default target = travel_target
     tag main_view
-    hbox:
-        ypos STATUS_PANEL_HEIGHT
+    frame ypos STATUS_PANEL_HEIGHT xfill True yfill True:
+        has hbox
         vbox:
             text "Travel to"
             viewport:
