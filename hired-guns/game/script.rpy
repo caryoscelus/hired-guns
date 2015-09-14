@@ -33,18 +33,6 @@ label start:
         world.pc.set_skill('telepathy', 1)
         world.pc.set_skill('mechanics', 1)
         world.pc.maxpsy = 20
-        
-        pacifist = Merc('pacifist')
-        pacifist.add_trait('pacifist')
-        pacifist.set_skill('stealth', 4)
-        pacifist.maxpsy = 15
-        pacifist.cost = 10
-        world.mercs.append(pacifist)
-        
-        brute = Merc('brute')
-        brute.set_skill('unarmed_combat', 5)
-        brute.cost = 15
-        world.mercs.append(brute)
     $ renpy.show_screen('debug_all', world, _layer='debug')
     #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
 label loop:
