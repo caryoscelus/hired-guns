@@ -82,7 +82,7 @@ class HiredGunsWorld(object):
         self.time.pass_time(DAY)
         self.update_missions()
         ## TODO
-        self.pc.cleanup_tickets()
+        self.pc.cleanup_tickets(self.time)
     
     def pass_time_until(self, time):
         while time.t > self.time.t:
