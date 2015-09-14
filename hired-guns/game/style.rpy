@@ -1,3 +1,6 @@
+init python:
+    PORTRAIT_ZOOM = 0.3333
+
 init -1 python:
     class VNMode(object):
         def __init__(self, mode, **kwargs):
@@ -32,6 +35,19 @@ init -1 python:
                 raise ValueError('unknown mode {}'.format(_vn_mode))
 
 define narrator = CombinedCharacter(None, what_color='#000')
+define mission_chapter = Character(
+            None,
+            kind=adv,
+            what_size=40,
+            what_prefix="{cps=0}",
+            what_suffix="{/cps}",
+            what_outlines=[(1, "#000000", 0, 0)],
+            window_background=None,
+            window_yminimum=0,
+            window_xfill=False,
+            window_xalign=0.5,
+            window_yalign=0.5,
+        )
 
 style simple_frame:
     background Frame('images/ui/frame.png', 8, 8)
