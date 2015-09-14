@@ -1,5 +1,6 @@
 label mission(mission):
     $ world.start_mission(mission)
+    hide screen main_view
     show screen mission_merc_list(mission)
     if mission.content:
         $ renpy.call(mission.content, mission)
