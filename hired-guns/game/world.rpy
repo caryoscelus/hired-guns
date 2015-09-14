@@ -14,9 +14,11 @@ init -5 python:
     
     def init_world():
         #pc_name = renpy.input(_("What is your name?"))
-        pc_name = 'pc'
+        pc_name = 'You'
+        pc = Merc('pc')
+        pc.name = pc_name
         global world
-        world = HiredGunsWorld(Merc(pc_name))
+        world = HiredGunsWorld(pc)
         for mission in missions_to_add:
             world.add_mission(mission)
         for merc in game.mercs:
