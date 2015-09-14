@@ -12,3 +12,7 @@ screen overview_new:
             text "You are on {} mission".format(world.active_mission.name)
         else:
             text "You are not on a mission"
+        text "Your team"
+        hbox:
+            for merc in world.pc.team:
+                add merc.image zoom PORTRAIT_ZOOM
