@@ -59,19 +59,6 @@ class Hire(Entity):
             return False
         return True
 
-class Employ(Entity):
-    @unbound
-    def _init(self):
-        self.dynamic_property('team', list())
-    
-    @unbound
-    def employ(self, other):
-        self.team.append(other)
-    
-    @unbound
-    def unemploy(self, other):
-        self.team.remove(other)
-
 class Money(Entity):
     @unbound
     def _init(self):
@@ -87,6 +74,21 @@ class Money(Entity):
             self.money -= amount
             return True
         return False
+
+@mod_dep(Money)
+class Employ(Entity):
+    @unbound
+    def _init(self):
+        self.dynamic_property('team', list())
+    
+    @unbound
+    def employ(self, other):
+        if self.spend_money(other.cost):
+            self.team.append(other)
+    
+    @unbound
+    def unemploy(self, other):
+        self.team.remove(other)
 
 @mod_dep(Money)
 class Tickets(Entity):
