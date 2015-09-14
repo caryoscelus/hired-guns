@@ -30,5 +30,5 @@ screen mission_merc_list(mission):
         xalign 0.5
         if not mission.mercs:
             text "You've got no mercs on mission! You're quite doomed!"
-        for merc in mission.mercs:
+        for merc in [world.pc]+world.pc.team:
             use merc_default(merc, Function(mission.select_merc, merc), get_selected=curry.curry(merc_is_selected)(merc, mission))
