@@ -7,7 +7,9 @@ init -1 python:
             self.mode = mode
             self.margins = kwargs
     
-    renpy.store._mode_stack = [VNMode('adv', left=0, right=0, bottom=0, top=0)]
+    def init_vn_modes():
+        renpy.store._mode_stack = [VNMode('adv', left=0, right=0)]
+    
     def vn_mode():
         return renpy.store._mode_stack[-1]
     
@@ -34,7 +36,10 @@ init -1 python:
             else:
                 raise ValueError('unknown mode {}'.format(_vn_mode))
 
-define narrator = CombinedCharacter(None, what_color='#000')
+define narrator = CombinedCharacter(
+            None,
+            what_color='#000',
+        )
 define mission_chapter = Character(
             None,
             kind=adv,
@@ -58,3 +63,6 @@ style filled_frame:
 style empty:
     background None
     foreground None
+
+style ui_small is text:
+    size 16

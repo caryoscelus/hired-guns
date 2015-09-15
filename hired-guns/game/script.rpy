@@ -11,8 +11,9 @@ label start:
         adv_menu = menu
         menu = nvl_menu
         
+        init_vn_modes()
         init_world()
-        world.pc.money = 115
+        world.pc.money = 4000
         world.add_mission(Mission('cheese mission', 'cheese_mission', payment=20))
         world.update_missions()
         
