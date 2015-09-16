@@ -21,12 +21,14 @@
 """Mission"""
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity
+from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.encounter import Encounter
 from dracykeiton.tb.turnman import Turnman
+from dracykeiton.common import Description
 from .merc import Merc
 
+@mod_dep(Description)
 class Mission(Entity):
     """Mission
     
@@ -35,7 +37,6 @@ class Mission(Entity):
     def _init(self, name, content=None, description='', payment=None, timeout=None):
         self.dynamic_property('name', name)
         self.dynamic_property('content', content)
-        self.dynamic_property('description', description)
         self.dynamic_property('payment', payment)
         self.dynamic_property('mercs', set())
         self.dynamic_property('battleman', None)
