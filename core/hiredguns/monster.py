@@ -22,7 +22,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
-from dracykeiton.common import RoundingHp, Hp, Living, Name, Id
+from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description
 from .tactics import BattleTactic, TACTICS
 
 @mod_dep(Hp)
@@ -105,6 +105,7 @@ class PsyPoints(Entity):
     # misc
     Name,
     Id,
+    Description,
 )
 class Monster(Entity):
     """Base class for entities in battle (including mercs)"""
