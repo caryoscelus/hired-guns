@@ -15,7 +15,8 @@ screen contacts:
                                 add contact.target.image zoom 0.333
                             text contact.name
                         vbox:
-                            text "Here goes non-existant contact description.."
+                            if contact.type != 'unknown':
+                                text contact.target.description
                             hbox:
                                 if contact.type == 'merc':
                                     textbutton "Hire" action Function(world.pc.employ, contact.target)
