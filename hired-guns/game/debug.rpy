@@ -52,7 +52,7 @@ screen debug_entity(entity):
         has vbox
         label "All properties"
         for prop in entity._props:
-            label '{} : {}'.format(prop, getattr(entity, prop)).replace('{', '{{')
+            label '{} : {}'.format(prop, getattr(entity, prop)).replace('{', '{{').replace('[', '[[')
 
 screen debug_entity_window(entity):
     drag:
