@@ -24,8 +24,7 @@ screen debug_missions(missions):
     if not missions:
         label "There are none.. Good job!"
     for mission in missions:
-        if missions[mission] == 'available':
-            use debug_mission(mission)
+        use debug_mission(mission)
 
 screen debug_mission(mission):
     frame:
