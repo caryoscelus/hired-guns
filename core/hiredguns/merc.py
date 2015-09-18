@@ -129,6 +129,30 @@ class Tickets(Entity):
                     if t >= time.t
         }
 
+class Preferences(Entity):
+    """Describes where mercs prefers to go, what to use, etc"""
+    @unbound
+    def _init(self):
+        self.dynamic_property('preferences', dict())
+    
+    @unbound
+    def add_preference(self, pref, value):
+        self.preferences[pref] = value
+    
+    @unbound
+    def choose(self, pref_list):
+        """Choose from given list.
+        
+        For now, it chooses option with highest preference according to sorted.
+        I.e. when there are few equally highest values, one will be chosen based on results of 'sorted'.
+        TODO: use proper random instead.
+        """
+        prefs = {
+            pref : self.preferences.get(pref, 0)
+                for pref in pref_list
+        }
+        return sorted(prefs, key=prefs.get)[-1]
+
 @mod_dep(
     # basic battle stuff
     Monster,
@@ -144,6 +168,7 @@ class Tickets(Entity):
     Money,
     Contacts,
     Tickets,
+    Preferences,
 )
 class Merc(Entity):
     """Main mercenary class"""
