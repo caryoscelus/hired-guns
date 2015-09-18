@@ -83,8 +83,11 @@ class Employ(Entity):
     
     @unbound
     def employ(self, other):
+        if other in self.team:
+            return
         if self.spend_money(other.cost):
             self.team.append(other)
+            other.be_born()
     
     @unbound
     def unemploy(self, other):
