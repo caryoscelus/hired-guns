@@ -2,7 +2,7 @@
     #@ID:971dda3a-de1b-4608-878a-7b928a7bce78
     #@LABEL:Mission beginning
 label cheese_mission(mission):
-    $ push_mode('nvl')
+    $ push_mode('nvl', None)
     $ define_var('stealth_penalty', 0)
     $ define_var('time_left', 30)
     $ world.pc.set_skill('unarmed', 2)

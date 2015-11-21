@@ -9,7 +9,7 @@ init python hide:
     missions_to_add.append(test_mission)
 
 label test_mission(mission):
-    $ push_mode('nvl', left=40, right=620)
+    $ push_mode('nvl', {'left':40, 'right':620})
     nvl clear
     "mission [mission.name] start"
     show jungle00:
