@@ -54,10 +54,10 @@ screen merc_default(merc, action, selected=False, get_selected=None):
     button action action style 'filled_frame':
         has vbox
         if merc.image:
-            add merc.image zoom 0.333
-        text "hp: {0.hp} / {0.maxhp}".format(merc)
-        text "psy: {0.psy} / {0.maxpsy}".format(merc)
-        text "attitude: {0.attitude}".format(merc)
+            add merc.image zoom 0.25
+        text "hp: {0.hp} / {0.maxhp}".format(merc) style 'ui_small'
+        text "psy: {0.psy} / {0.maxpsy}".format(merc) style 'ui_small'
+        text "attitude: {0.attitude}".format(merc) style 'ui_small'
         text merc.name bold (get_selected() if get_selected else selected)
 
 screen merc_chooser(mercs):
@@ -94,3 +94,9 @@ screen hire_mercs(mission, mercs):
             for merc in mercs:
                 use hire_merc(merc, mission, chosen)
         textbutton "Ok!" action Return(chosen)
+
+screen team_view():
+    frame:
+        has hbox
+        for merc in [world.pc]+world.pc.team:
+            add merc.image zoom PORTRAIT_ZOOM
