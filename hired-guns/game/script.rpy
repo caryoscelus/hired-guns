@@ -7,6 +7,7 @@ image white = Solid('#ffffff')
 # starting here
 label start:
     scene white
+    
     python:
         adv_menu = menu
         menu = nvl_menu
@@ -34,6 +35,13 @@ label start:
         world.pc.set_skill('telepathy', 1)
         world.pc.set_skill('mechanics', 1)
         world.pc.maxpsy = 20
+    
+    menu:
+        "main":
+            pass
+        "bloody intro":
+            call let_the_blood_spill
+    
     $ renpy.show_screen('debug_all', world, _layer='debug')
     #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
 label loop:
