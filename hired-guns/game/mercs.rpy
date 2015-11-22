@@ -13,6 +13,11 @@ init python:
         @unbound
         def _init(self):
             self.dynamic_property('speaker', CombinedCharacter(self.name))
+            self.add_listener_node('name', self.name_changed())
+        
+        @listener
+        def name_changed(self, target, value):
+            self.speaker = CombinedCharacter(self.name)
     
     Merc.global_mod(MercSpeaker)
     
@@ -97,6 +102,9 @@ screen hire_mercs(mission, mercs):
 
 screen team_view():
     frame:
+        xalign 0.5
+        yalign 1.0
+        background Solid('#2223')
         has hbox
         for merc in [world.pc]+world.pc.team:
             add merc.image zoom PORTRAIT_ZOOM
