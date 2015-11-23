@@ -41,7 +41,7 @@ class HGBattle(object):
         self.enemies.append(enemy)
     
     def generate(self):
-        mercs = self.world.active_mission.mercs
+        mercs = [self.world.pc]+self.world.pc.team
         self.gen.add_side('pc', UserController, len(mercs), predefined=mercs)
         self.gen.add_side('enemy', HGBattleAIController, len(self.enemies), predefined=self.enemies)
         return self.gen.generate()
@@ -71,3 +71,7 @@ class HGBattleUIManager(BattleUIManager):
         else:
             if side is self.active_controller().entity:
                 self.selected = entity
+    
+    def roll_turn(self):
+        self.active_controller().end_turn()
+        self.turnman.planned()
