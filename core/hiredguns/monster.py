@@ -22,7 +22,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
-from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint
+from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable
 from .tactics import BattleTactic, TACTICS
 
 @mod_dep(Hp)
@@ -103,6 +103,7 @@ class PsyPoints(Entity):
     Tactics,
     Target,
     ActionPoint,
+    Movable,
     # misc
     Name,
     Id,
@@ -114,3 +115,4 @@ class Monster(Entity):
     def _init(self, name='monster'):
         self.name = name
         self.maxhp = 1
+        self.maxap = 1

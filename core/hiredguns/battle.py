@@ -67,7 +67,7 @@ class HGBattleUIManager(BattleUIManager):
             if self.selected is merc:
                 self.deselect()
             elif merc is None:
-                field.put_on(x, y, self.selected)
+                self.do_action(self.selected.move(x, y))
         else:
             if side is self.active_controller().entity:
                 self.selected = merc
