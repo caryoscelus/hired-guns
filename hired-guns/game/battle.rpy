@@ -39,7 +39,7 @@ screen battle_cell(manager, x, y):
         if merc:
             vbox:
                 hbox:
-                    add merc.image zoom 0.25
+                    add (merc.image or 'unknown') zoom 0.25
                 text "ap [merc.ap] / [merc.maxap]" size 12
                 text "hp [merc.hp] / [merc.maxhp]" size 12
         hbox:
