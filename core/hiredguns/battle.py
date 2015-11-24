@@ -22,10 +22,10 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, listener, mod_dep
-from dracykeiton.common import SimpleField
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.ui.battleuimanager import BattleUIManager
+from dracykeiton.common.battlefield import GridField
 from .tactics import BattleTactic
 
 class HGBattleAIController(Controller):
@@ -33,7 +33,7 @@ class HGBattleAIController(Controller):
 
 class HGBattle(object):
     def __init__(self, turnman_c, world):
-        self.gen = BattleGen(turnman_c)
+        self.gen = BattleGen(turnman_c, GridField, w=5, h=4)
         self.world = world
         self.enemies = list()
     
@@ -47,31 +47,27 @@ class HGBattle(object):
         return self.gen.generate()
 
 class HGBattleUIManager(BattleUIManager):
-    def get_tactics(self, entity):
-        return [BattleTactic('defend'), BattleTactic('attack')]
+    def start(self):
+        field = self.turnman.world
+        field.put_on(0, 0, field.sides['pc'].members[0])
+        super(HGBattleUIManager, self).start()
     
-    def set_tactic(self, side, entity, tactic):
-        if self.active_controller().entity == side:
-            def f():
-                entity.tactic = tactic
-            return f
-        else:
-            return None
-    
-    def clicked(self, side, entity):
+    def clicked(self, side, xy):
         """Process simple click on entity.
         
-        Right now, it selects player entity and sets target if entity is enemy
+        Right now, it can do following:
+            * select/deselect player entity
+            * move player entity to free cell
         """
+        field = self.turnman.world
+        x, y = xy
+        cell = field.grid[y][x]
+        merc = cell.get()
         if self.selected:
-            if self.selected == entity:
+            if self.selected is merc:
                 self.deselect()
-            elif not (side is self.active_controller().entity):
-                self.selected.target = entity
+            elif merc is None:
+                field.put_on(x, y, self.selected)
         else:
             if side is self.active_controller().entity:
-                self.selected = entity
-    
-    def roll_turn(self):
-        self.active_controller().end_turn()
-        self.turnman.planned()
+                self.selected = merc

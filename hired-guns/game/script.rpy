@@ -41,6 +41,8 @@ label start:
             pass
         "bloody intro":
             call let_the_blood_spill
+        "test battle":
+            call test_battle
     
     $ renpy.show_screen('debug_all', world, _layer='debug')
     #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."

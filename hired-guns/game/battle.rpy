@@ -10,52 +10,39 @@ init python:
 screen battle(manager):
     if manager:
         $ turnman = manager.turnman
-        frame:
+        $ field = turnman.world
+        $ w, h = field.size
+        frame yfill True:
             has vbox
-            grid 2 1:
+            grid w h:
                 xfill True
-                frame:
-                    xalign 0.0
-                    has vbox
-                    label "left"
-                    use battle_side(manager, turnman.world.sides['pc'])
-                frame:
-                    xalign 1.0
-                    has vbox
-                    label "right"
-                    use battle_side(manager, turnman.world.sides['enemy'])
+                for y in range(h):
+                    for x in range(w):
+                        frame:
+                            ysize 120
+                            use battle_cell(manager, x, y)
             button:
-                text "Roll!"
+                text "End Turn!"
+                action Function(manager.end_turn)
     textbutton "Force quit" yalign 1.0 action Return()
 
-screen battle_side(manager, side):
-    default proxies = {}
-    frame:
+screen battle_cell(manager, x, y):
+    $ turnman = manager.turnman
+    $ field = turnman.world
+    $ merc = field.grid[y][x].get()
+    button action Function(manager.clicked, field.sides['pc'], (x, y)):
         has vbox
-        for entity in side.members:
-            if not entity in proxies:
-                $ proxy = ProxyMonster(entity)
-                $ proxies[entity] = proxy
-            else:
-                $ proxy = proxies[entity]
-            button:
-                hbox:
-                    if proxy.image:
-                        add proxy.image zoom 0.333
-                    vbox:
-                        text proxy.name bold (proxy == manager.selected)
-                        hbox:
-                            $ tactics = manager.get_tactics(proxy)
-                            for tactic in tactics:
-                                $ f = manager.set_tactic(side, proxy, tactic)
-                                if f:
-                                    $ f = Function(f)
-                                button:
-                                    text tactic.name bold (proxy.tactic and proxy.tactic.name == tactic.name)
-                                    action f
-                        text "target: {}".format(proxy.target and proxy.target.name)
-                        hbox:
-                            add EntityText(proxy, "hp {0.hp:.0f}/{0.maxhp:.0f}")
-                            bar value EntityValue(proxy, 'hp', proxy.maxhp)
-                
-                action Function(manager.clicked, side, proxy)
+        hbox:
+            text "[x]:[y]"
+            if merc:
+                text "[merc.name]" bold (merc is manager.selected)
+        if merc:
+            hbox:
+                add merc.image zoom 0.25
+
+label test_battle:
+    show screen debug_all(world, _layer='debug')
+    $ battle = HGBattle(Turnman, world)
+    $ battle.add_enemy(Monster('low monster'))
+    $ start_battle(battle)
+    return
