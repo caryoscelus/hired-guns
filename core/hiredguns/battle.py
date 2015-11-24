@@ -49,7 +49,17 @@ class HGBattle(object):
 class HGBattleUIManager(BattleUIManager):
     def start(self):
         field = self.turnman.world
-        field.put_on(0, 0, field.sides['pc'].members[0])
+        w, h = field.size
+        i = 0
+        for merc in field.sides['pc'].members:
+            x, y = i / h, i % h
+            field.put_on(x, y, merc)
+            i += 1
+        i = h * w - 1
+        for merc in field.sides['enemy'].members:
+            x, y = i / h, i % h
+            field.put_on(x, y, merc)
+            i -= 1
         super(HGBattleUIManager, self).start()
     
     def clicked(self, side, xy):
