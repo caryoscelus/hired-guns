@@ -13,13 +13,15 @@ screen battle(manager):
         $ field = turnman.world
         $ w, h = field.size
         frame yfill True:
+            xmargin 0 ymargin 0 xpadding 0 ypadding 0
             has vbox
             grid w h:
                 xfill True
                 for y in range(h):
                     for x in range(w):
                         frame:
-                            ysize 120
+                            xmargin 0 ymargin 0 xpadding 0 ypadding 0
+                            ysize 160
                             use battle_cell(manager, x, y)
             button:
                 text "End Turn!"
@@ -30,15 +32,20 @@ screen battle_cell(manager, x, y):
     $ turnman = manager.turnman
     $ field = turnman.world
     $ merc = field.grid[y][x].get()
-    button action Function(manager.clicked, field.sides['pc'], (x, y)):
-        has vbox
+    button:
+        xpadding 0 ypadding 0
+        xfill True yfill True
+        action Function(manager.clicked, field.sides['pc'], (x, y))
+        if merc:
+            vbox:
+                hbox:
+                    add merc.image zoom 0.25
+                text "ap [merc.ap] / [merc.maxap]" size 12
+                text "hp [merc.hp] / [merc.maxhp]" size 12
         hbox:
             text "[x]:[y]"
             if merc:
                 text "[merc.name]" bold (merc is manager.selected)
-        if merc:
-            hbox:
-                add merc.image zoom 0.25
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
