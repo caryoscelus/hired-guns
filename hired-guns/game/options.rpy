@@ -25,6 +25,8 @@ init python:
     # How far from the left menu choices should be indented. 
     style.nvl_menu_choice_button.left_margin = 20
     style.nvl_menu_choice_button.right_margin = 20
+    
+    style.nvl_window.top_margin = 20
 
 init -1 python hide:
 
@@ -171,7 +173,8 @@ init -1 python hide:
 
     ## The file containing the default font.
 
-    # style.default.font = "DejaVuSans.ttf"
+    #style.default.font = 'fonts/LiberationSerif-Regular.ttf'
+    style.default.font = 'fonts/Averia-Regular.ttf'
 
     ## The default size of text.
 
