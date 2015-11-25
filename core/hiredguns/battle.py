@@ -39,7 +39,7 @@ class HGField(Entity):
         self.init_grid(w, h)
     
     @unbound
-    def perform_action(self, target, tool):
+    def perform_action(self, actor, target, tool):
         if tool.has_mod(Weapon):
             target.get().hurt(tool.power)
 

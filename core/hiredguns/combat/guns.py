@@ -30,7 +30,7 @@ class GunCombat(Entity):
     @category('combat')
     @action
     def shoot(self, target):
-        self.perform_action(self, target, self.wielded)
+        self.perform_action(target, self.wielded)
     
     @unbound
     def can_shoot(self, target):
