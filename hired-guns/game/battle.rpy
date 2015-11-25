@@ -2,6 +2,7 @@ init python:
     from dracykeiton.entity import mod_dep
     from dracykeiton.proxyentity import ProxyEntity
     from dracykeiton.interpolate import InterpolatingCache
+    from dracykeiton.action import get_actions
     from hiredguns.combat import Gun
     
     @mod_dep(InterpolatingCache)
@@ -10,9 +11,12 @@ init python:
 
 screen battle(manager):
     if manager:
-        $ turnman = manager.turnman
-        $ field = turnman.world
-        $ w, h = field.size
+        python:
+            turnman = manager.turnman
+            field = turnman.world
+            w, h = field.size
+            selected = manager.selected
+            possible_actions = [name for name in get_actions(selected) if getattr(selected, 'check_'+name)()]
         frame yfill True:
             xmargin 0 ymargin 0 xpadding 0 ypadding 0
             has vbox
@@ -23,16 +27,20 @@ screen battle(manager):
                         frame:
                             xmargin 0 ymargin 0 xpadding 0 ypadding 0
                             ysize 160
-                            use battle_cell(manager, x, y)
+                            use battle_cell(manager, x, y, possible_actions)
             button:
                 text "End Turn!"
                 action Function(manager.end_turn)
     textbutton "Force quit" yalign 1.0 action Return()
 
-screen battle_cell(manager, x, y):
-    $ turnman = manager.turnman
-    $ field = turnman.world
-    $ merc = field.grid[y][x].get()
+screen battle_cell(manager, x, y, possible_actions):
+    python:
+        turnman = manager.turnman
+        field = turnman.world
+        cell = field.grid[y][x]
+        merc = cell.get()
+        selected = manager.selected
+        possible_actions = [name for name in possible_actions if getattr(selected, 'check_'+name)(cell)]
     button:
         xpadding 0 ypadding 0
         xfill True yfill True
@@ -44,13 +52,19 @@ screen battle_cell(manager, x, y):
                     vbox:
                         text "inv"
                         for item in merc.inv:
-                            text "[item.name]"
-                text "ap [merc.ap] / [merc.maxap]" size 12
-                text "hp [merc.hp] / [merc.maxhp]" size 12
-        hbox:
-            text "[x]:[y]"
-            if merc:
-                text "[merc.name]" bold (merc is manager.selected)
+                            textbutton "[item.name]" action Function(merc.wield, item) text_bold (item is merc.wielded)
+                hbox:
+                    vbox:
+                        text "ap [merc.ap] / [merc.maxap]" size 12
+                        text "hp [merc.hp] / [merc.maxhp]" size 12
+        vbox:
+            hbox:
+                text "[x]:[y]"
+                if merc:
+                    text "[merc.name]" bold (merc is manager.selected)
+            hbox:
+                for name in possible_actions:
+                    textbutton "[name]" action Function(lambda selected, name, cell: manager.do_action(getattr(selected, name)(cell)), selected, name, cell)
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
