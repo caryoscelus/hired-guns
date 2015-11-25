@@ -49,7 +49,11 @@ screen battle_cell(manager, x, y):
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
+    $ world.pc.employ(game.mercs_named['nya'])
+    $ world.pc.employ(game.mercs_named['madninja'])
     $ battle = HGBattle(Turnman, world)
+    $ battle.add_enemy(Monster('low monster'))
+    $ battle.add_enemy(Monster('low monster'))
     $ battle.add_enemy(Monster('low monster'))
     $ start_battle(battle)
     return
