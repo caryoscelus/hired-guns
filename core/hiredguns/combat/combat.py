@@ -21,6 +21,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.common.battlefield import BattlefieldEntity, GridEntity
+from dracykeiton.common import Name
 
 @mod_dep(BattlefieldEntity, GridEntity)
 class Combat(Entity):

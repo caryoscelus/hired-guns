@@ -22,17 +22,21 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.action import action, category
 from dracykeiton.common import ActionPoint, Name
+from .combat import Combat, Weapon
 from ..skills import Skills
 
 @mod_dep(Skills, Combat, ActionPoint)
 class GunCombat(Entity):
     @category('combat')
     @action
-    def shoot(self, target, tool):
-        self.perform_action(self, target, tool)
+    def shoot(self, target):
+        self.perform_action(self, target, self.wielded)
     
     @unbound
-    def can_shoot(self, target, tool):
+    def can_shoot(self, target):
+        tool = self.wielded
+        if not tool or not tool.has_mod(Gun):
+            return False
         if self.get_skill(tool.skill) < tool.level:
             return False
         return self.spend_ap(1)
