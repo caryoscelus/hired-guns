@@ -22,8 +22,9 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
-from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable
+from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory
 from .tactics import BattleTactic, TACTICS
+from .skills import Skills
 
 @mod_dep(Hp)
 class DamageType(Entity):
@@ -99,11 +100,13 @@ class PsyPoints(Entity):
     RoundingHp,
     DamageType,
     PsyPoints,
-    # battle
+    SimpleInventory,
+    # combat
     Tactics,
     Target,
     ActionPoint,
     Movable,
+    Skills,
     # misc
     Name,
     Id,

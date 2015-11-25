@@ -24,7 +24,6 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
 from .nation import Nation
 from .traits import Traits, TraitAttitude, Attitude
-from .skills import Skills
 from .monster import Monster
 from .contacts import Contacts
 from .time import Time
@@ -164,7 +163,6 @@ class Preferences(Entity):
     Nation,
     MercStatus,
     Traits,
-    Skills,
     TraitAttitude,
     Hire,
     Employ,
