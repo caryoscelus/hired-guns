@@ -34,12 +34,18 @@ class GunCombat(Entity):
     
     @unbound
     def can_shoot(self, target):
+        if not self.check_shoot(target):
+            return False
+        return self.spend_ap(1)
+    
+    @unbound
+    def check_shoot(self, target=None):
         tool = self.wielded
         if not tool or not tool.has_mod(Gun):
             return False
         if self.get_skill(tool.skill) < tool.level:
             return False
-        return self.spend_ap(1)
+        return True
 
 @mod_dep(Weapon)
 class Gun(Entity):
