@@ -2,6 +2,7 @@ init python:
     from dracykeiton.entity import mod_dep
     from dracykeiton.proxyentity import ProxyEntity
     from dracykeiton.interpolate import InterpolatingCache
+    from hiredguns.combat import Gun
     
     @mod_dep(InterpolatingCache)
     class ProxyMonster(ProxyEntity):
@@ -40,6 +41,10 @@ screen battle_cell(manager, x, y):
             vbox:
                 hbox:
                     add (merc.image or 'unknown') zoom 0.25
+                    vbox:
+                        text "inv"
+                        for item in merc.inv:
+                            text "[item.name]"
                 text "ap [merc.ap] / [merc.maxap]" size 12
                 text "hp [merc.hp] / [merc.maxhp]" size 12
         hbox:
@@ -49,11 +54,13 @@ screen battle_cell(manager, x, y):
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
-    $ world.pc.employ(game.mercs_named['nya'])
-    $ world.pc.employ(game.mercs_named['madninja'])
-    $ battle = HGBattle(Turnman, world)
-    $ battle.add_enemy(Monster('low monster'))
-    $ battle.add_enemy(Monster('low monster'))
-    $ battle.add_enemy(Monster('low monster'))
-    $ start_battle(battle)
+    python:
+        world.pc.put_to_inv(Gun())
+        world.pc.employ(game.mercs_named['nya'])
+        world.pc.employ(game.mercs_named['madninja'])
+        battle = HGBattle(Turnman, world)
+        battle.add_enemy(Monster('low monster'))
+        battle.add_enemy(Monster('low monster'))
+        battle.add_enemy(Monster('low monster'))
+        start_battle(battle)
     return
