@@ -27,13 +27,25 @@ from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.ui.battleuimanager import BattleUIManager
 from dracykeiton.common.battlefield import GridField
 from .tactics import BattleTactic
+from .combat import Weapon
 
 class HGBattleAIController(Controller):
     pass
 
+@mod_dep(GridField)
+class HGField(Entity):
+    @unbound
+    def _init(self, w=1, h=1):
+        self.init_grid(w, h)
+    
+    @unbound
+    def perform_action(self, target, tool):
+        if tool.has_mod(Weapon):
+            target.get().hurt(tool.power)
+
 class HGBattle(object):
     def __init__(self, turnman_c, world):
-        self.gen = BattleGen(turnman_c, GridField, w=5, h=4)
+        self.gen = BattleGen(turnman_c, HGField, w=5, h=4)
         self.world = world
         self.enemies = list()
     
