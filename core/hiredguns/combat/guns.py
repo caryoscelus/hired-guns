@@ -45,6 +45,8 @@ class GunCombat(Entity):
             return False
         if self.get_skill(tool.skill) < tool.level:
             return False
+        if target and not target.get():
+            return False
         return True
 
 @mod_dep(Weapon)
