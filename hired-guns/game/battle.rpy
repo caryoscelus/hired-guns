@@ -63,8 +63,10 @@ screen battle_cell(manager, x, y, possible_actions):
                 if merc:
                     text "[merc.name]" bold (merc is manager.selected)
             hbox:
-                for name in possible_actions:
-                    textbutton "[name]" action Function(lambda selected, name, cell: manager.do_action(getattr(selected, name)(cell)), selected, name, cell)
+                if merc and selected:
+                    textbutton "shoot":
+                        action Function(merc.apply_hurt, selected)
+                        hovered Function(selected.aim, merc)
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
