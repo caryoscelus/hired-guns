@@ -40,7 +40,7 @@ screen battle_cell(manager, x, y, possible_actions):
         cell = field.grid[y][x]
         merc = cell.get()
         selected = manager.selected
-        possible_actions = [name for name in possible_actions if getattr(selected, 'check_'+name)(cell)]
+        possible_actions = [name for name in possible_actions if getattr(selected, 'check_'+name)(target=cell)]
     button:
         xpadding 0 ypadding 0
         xfill True yfill True
@@ -63,10 +63,10 @@ screen battle_cell(manager, x, y, possible_actions):
                 if merc:
                     text "[merc.name]" bold (merc is manager.selected)
             hbox:
-                if merc and selected:
-                    textbutton "shoot":
-                        action Function(merc.apply_hurt, selected)
-                        hovered Function(selected.aim, merc)
+                for name in possible_actions:
+                    textbutton "[name]":
+                        hovered Function(selected.aim, cell)
+                        action Function(lambda selected, name: manager.do_action(getattr(selected, name)()), selected, name)
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
