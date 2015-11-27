@@ -16,7 +16,7 @@ screen battle(manager):
             field = turnman.world
             w, h = field.size
             selected = manager.selected
-            possible_actions = [name for name in get_actions(selected) if getattr(selected, 'check_'+name)()]
+            possible_actions = [name for name in get_actions(selected) if getattr(selected, 'check_'+name)(ignore_target=True)]
         frame yfill True:
             xmargin 0 ymargin 0 xpadding 0 ypadding 0
             has vbox
@@ -45,6 +45,8 @@ screen battle_cell(manager, x, y, possible_actions):
         xpadding 0 ypadding 0
         xfill True yfill True
         action Function(manager.clicked, field.sides['pc'], (x, y))
+        if selected:
+            hovered Function(selected.aim, cell)
         if merc:
             vbox:
                 hbox:
@@ -57,6 +59,10 @@ screen battle_cell(manager, x, y, possible_actions):
                     vbox:
                         text "ap [merc.ap] / [merc.maxap]" size 12
                         text "hp [merc.hp] / [merc.maxhp]" size 12
+                    if selected and selected.aim_target == cell:
+                        vbox:
+                            text "hit chance [selected.hit_chance]" size 12
+                            text "hit damage [selected.hit_damage]" size 12
         vbox:
             hbox:
                 text "[x]:[y]"
@@ -65,7 +71,6 @@ screen battle_cell(manager, x, y, possible_actions):
             hbox:
                 for name in possible_actions:
                     textbutton "[name]":
-                        hovered Function(selected.aim, cell)
                         action Function(lambda selected, name: manager.do_action(getattr(selected, name)()), selected, name)
 
 label test_battle:

@@ -39,15 +39,14 @@ class GunCombat(Entity):
         return self.spend_ap(1)
     
     @unbound
-    def check_shoot(self, weapon=None, target=None, strict=False):
+    def check_shoot(self, weapon=None, target=None, strict=False, ignore_target=False):
         weapon = weapon or self.wielded
         target = target or self.aim_target
         if strict and (not weapon or not target):
-            print('{}, {}'.format(self.wielded, self.aim_target))
             return False
         if weapon and not weapon.has_mod(Gun):
             return False
-        if target and not target.get():
+        if target and not target.get() and not ignore_target:
             return False
         return True
 
