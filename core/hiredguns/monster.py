@@ -24,7 +24,7 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
 from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory, Wield
 from .tactics import BattleTactic, TACTICS
-from .combat import Combat
+from .combat import Combat, GunCombat
 from .skills import Skills
 
 @mod_dep(Hp)
@@ -109,6 +109,7 @@ class PsyPoints(Entity):
     Movable,
     Skills,
     Combat,
+    GunCombat,
     # misc
     Name,
     Id,

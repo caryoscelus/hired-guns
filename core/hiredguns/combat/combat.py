@@ -85,7 +85,7 @@ class WieldWeapon(Entity):
 @mod_dep(Hp)
 class HurtBy(Entity):
     @unbound
-    def apply_hurt(self, attacker):
+    def hurt_by(self, attacker):
         missed = random.random() > attacker.hit_chance
         if missed:
             return

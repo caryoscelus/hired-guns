@@ -58,5 +58,5 @@ def test_hurt():
     weapon.base_accuracy = 1.0
     aggressor.aim(victim)
     assert victim.hp == victim.maxhp
-    victim.apply_hurt(aggressor)
+    victim.hurt_by(aggressor)
     assert victim.hp < victim.maxhp
