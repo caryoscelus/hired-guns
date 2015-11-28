@@ -31,13 +31,20 @@ init -1 python:
         renpy.store._mode_stack[-1].kwargs['window_xoffset'] = x
         renpy.store._mode_stack[-1].kwargs['window_yoffset'] = y
     
+    def set_text_color(color):
+        renpy.store._mode_stack[-1].kwargs['what_color'] = color
+    
     def pop_mode():
         renpy.store._mode_stack.pop()
     
     class CombinedCharacter(object):
         def __init__(self, *args, **kwargs):
             self.args = args
-            self.kwargs = kwargs
+            self.kwargs = dict({
+                'what_prefix' : '"',
+                'what_suffix' : '"',
+            })
+            self.kwargs.update(kwargs)
         def __call__(self, *args, **kwargs):
             kwargs_copy = self.kwargs.copy()
             kwargs_copy.update(vn_mode().kwargs)
@@ -54,6 +61,8 @@ define narrator = CombinedCharacter(
             None,
             what_color='#333',
             what_size=26,
+            what_prefix='',
+            what_suffix='',
         )
 define mission_chapter = Character(
             None,
