@@ -20,6 +20,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, depends, simplenode, properties, data_node
+from dracykeiton.action import action, category
 from dracykeiton.common import Name, Wield, Hp, XY
 import dracykeiton.random as random
 from ..skills import Skills
@@ -123,12 +124,46 @@ class AccuracyHitChance(Entity):
     def get_accuracy_hit_chance(value, accuracy):
         return value * accuracy
 
+@properties({'action_mod' : None})
+class ModActions(Entity):
+    @unbound
+    def plan_action(self, mod):
+        if self.action_mod == mod:
+            return
+        if self.action_mod:
+            self.action_mod.disable(self)
+        self.action_mod = mod
+        if self.action_mod:
+            self.action_mod.enable(self, True)
+
+@mod_dep(ModActions, Hurt)
+class CombatActions(Entity):
+    @category('combat')
+    @action
+    def combat_action(self):
+        self.aim_target.get().hurt_by(self)
+    
+    @unbound
+    def can_combat_action(self):
+        if not self.action_mod:
+            return False
+        if not self.check_action():
+            return False
+        return self.spend_ap(1)
+
+@properties({'known_actions' : list})
+class KnownActions(Entity):
+    def learn_action(self, action_mod):
+        self.known_actions.append(action_mod)
+
 @mod_dep(
     AimWeapon,
     WieldWeapon,
     WeaponAccuracy,
     AccuracyHitChance,
     HurtBy,
+    CombatActions,
+    KnownActions,
 )
 class Combat(Entity):
     pass

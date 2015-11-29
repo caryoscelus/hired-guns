@@ -109,5 +109,14 @@ class HGBattleUIManager(BattleUIManager):
         """Process clicking on inventory item"""
         merc.wield(item)
     
-    def clicked_action(self, name):
-        self.do_action(getattr(self.selected, name)())
+    def get_combat_actions(self):
+        if self.selected:
+            return self.selected.known_actions
+        return ()
+    
+    def hovered_action(self, action):
+        self.selected.plan_action(action)
+    
+    def clicked_action(self, action):
+        self.hovered_action(action)
+        self.do_action(self.selected.combat_action())

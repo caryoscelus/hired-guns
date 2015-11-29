@@ -25,29 +25,9 @@ from dracykeiton.common import ActionPoint, Name
 from .combat import Combat, Weapon
 from ..skills import Skills
 
-@mod_dep(Combat, ActionPoint)
-class GunCombat(Entity):
-    @category('combat')
-    @action
-    def shoot(self):
-        self.aim_target.get().hurt_by(self)
-    
+class GunShoot(Entity):
     @unbound
-    def can_shoot(self):
-        if not self.check_shoot(strict=True):
-            return False
-        return self.spend_ap(1)
-    
-    @unbound
-    def check_shoot(self, weapon=None, target=None, strict=False, ignore_target=False):
-        weapon = weapon or self.wielded
-        target = target or self.aim_target
-        if strict and (not weapon or not target):
-            return False
-        if weapon and not weapon.has_mod(Gun):
-            return False
-        if target and not target.get() and not ignore_target:
-            return False
+    def check_action(self):
         return True
 
 @mod_dep(Weapon)

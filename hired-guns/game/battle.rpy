@@ -14,7 +14,7 @@ screen battle(manager):
             field = turnman.world
             w, h = field.size
             selected = manager.selected
-            possible_actions = [name for name in get_actions(selected) if getattr(selected, 'check_'+name)(ignore_target=True)]
+            possible_actions = manager.get_combat_actions()
         frame yfill True:
             xmargin 0 ymargin 0 xpadding 0 ypadding 0
             has vbox
@@ -38,7 +38,7 @@ screen battle_cell(manager, x, y, possible_actions):
         cell = field.grid[y][x]
         merc = cell.get()
         selected = manager.selected
-        possible_actions = [name for name in possible_actions if getattr(selected, 'check_'+name)(target=cell)]
+        #possible_actions = [name for name in possible_actions if getattr(selected, 'check_'+name)(target=cell)]
         side = field.sides['pc']
     button:
         xpadding 0 ypadding 0
@@ -67,9 +67,10 @@ screen battle_cell(manager, x, y, possible_actions):
                 if merc:
                     text "[merc.name]" bold (merc is manager.selected)
             hbox:
-                for name in possible_actions:
-                    textbutton "[name]":
-                        action Function(manager.clicked_action, name)
+                for action in possible_actions:
+                    textbutton "[action.__name__]":
+                        hovered Function(manager.hovered_action, action)
+                        action Function(manager.clicked_action, action)
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
