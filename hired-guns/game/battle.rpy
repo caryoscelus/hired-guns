@@ -1,7 +1,5 @@
 init python:
-    from dracykeiton.entity import mod_dep
-    from dracykeiton.proxyentity import ProxyEntity
-    from dracykeiton.interpolate import InterpolatingCache
+    from dracykeiton.entity import mod_dep, ProxyEntity, InterpolatingCache
     from dracykeiton.action import get_actions
     from hiredguns.combat import Gun
     
