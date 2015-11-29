@@ -41,12 +41,12 @@ screen battle_cell(manager, x, y, possible_actions):
         merc = cell.get()
         selected = manager.selected
         possible_actions = [name for name in possible_actions if getattr(selected, 'check_'+name)(target=cell)]
+        side = field.sides['pc']
     button:
         xpadding 0 ypadding 0
         xfill True yfill True
-        action Function(manager.clicked, field.sides['pc'], (x, y))
-        if selected:
-            hovered Function(selected.aim, cell)
+        action Function(manager.clicked, side, (x, y))
+        hovered Function(manager.hovered, side, (x, y))
         if merc:
             vbox:
                 hbox:

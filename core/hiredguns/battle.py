@@ -75,7 +75,7 @@ class HGBattleUIManager(BattleUIManager):
         super(HGBattleUIManager, self).start()
     
     def clicked(self, side, xy):
-        """Process simple click on entity.
+        """Process simple click on battle cell.
         
         Right now, it can do following:
             * select/deselect player entity
@@ -93,3 +93,11 @@ class HGBattleUIManager(BattleUIManager):
         else:
             if side is self.active_controller().entity:
                 self.selected = merc
+    
+    def hovered(self, side, xy):
+        """Process hover on battle cell.
+        """
+        if self.selected:
+            x, y = xy
+            cell = self.turnman.world.grid[y][x]
+            self.selected.aim(cell)
