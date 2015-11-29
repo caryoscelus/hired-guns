@@ -52,7 +52,7 @@ screen battle_cell(manager, x, y, possible_actions):
                     vbox:
                         text "inv"
                         for item in merc.inv:
-                            textbutton "[item.name]" action Function(merc.wield, item) text_bold (item is merc.wielded)
+                            textbutton "[item.name]" action Function(manager.clicked_inventory, merc, item) text_bold (item is merc.wielded)
                 hbox:
                     vbox:
                         text "ap [merc.ap] / [merc.maxap]" size 12
@@ -69,7 +69,7 @@ screen battle_cell(manager, x, y, possible_actions):
             hbox:
                 for name in possible_actions:
                     textbutton "[name]":
-                        action Function(lambda selected, name: manager.do_action(getattr(selected, name)()), selected, name)
+                        action Function(manager.clicked_action, name)
 
 label test_battle:
     show screen debug_all(world, _layer='debug')

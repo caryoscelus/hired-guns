@@ -104,3 +104,10 @@ class HGBattleUIManager(BattleUIManager):
             x, y = xy
             cell = self.turnman.world.grid[y][x]
             self.selected.aim(cell)
+    
+    def clicked_inventory(self, merc, item):
+        """Process clicking on inventory item"""
+        merc.wield(item)
+    
+    def clicked_action(self, name):
+        self.do_action(getattr(self.selected, name)())
