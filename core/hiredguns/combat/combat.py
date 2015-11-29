@@ -19,42 +19,42 @@
 ##
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep, depends, simplenode
+from dracykeiton.entity import Entity, mod_dep, depends, simplenode, properties, data_node
 from dracykeiton.common import Name, Wield, Hp, XY
 import dracykeiton.random as random
 from ..skills import Skills
 
+@properties({
+    'hit_chance' : 1.0,
+    'hit_damage' : 0,
+    'crit_chance' : 1.0,
+})
 class Hurt(Entity):
-    @unbound
-    def _init(self):
-        self.dynamic_property('hit_chance', 1.0)
-        self.dynamic_property('hit_damage', 0)
-        self.dynamic_property('crit_chance', 1.0)
+    pass
 
-@mod_dep(XY)
-class Aim(Entity):
-    @unbound
-    def _init(self):
-        self.dynamic_property('aim_target', None)
-        self.dynamic_property('aim_range', None)
-    
-    @unbound
-    def _load(self):
-        self.add_get_node('aim_range', self.get_aim_range())
-    
-    @depends('x', 'y')
-    @depends('aim_target')
-    @simplenode
-    def get_aim_range(value, aim_target, x, y):
-        if not aim_target:
-            return None
-        if None in (x, y, aim_target.x, aim_target.y):
-            return None
-        return max(abs(x-aim_target.x), abs(y-aim_target.y))
-    
+@properties({
+    'aim_target' : None,
+})
+class AimTarget(Entity):
     @unbound
     def aim(self, target):
         self.aim_target = target
+
+@mod_dep(XY, AimTarget)
+@properties({
+    'aim_range' : None,
+})
+@data_node('get', 'aim_range', deps=('aim_target', 'x', 'y'))
+def AimRange(value, aim_target, x, y):
+    if not aim_target:
+        return None
+    if None in (x, y, aim_target.x, aim_target.y):
+        return None
+    return max(abs(x-aim_target.x), abs(y-aim_target.y))
+
+@mod_dep(AimTarget, AimRange)
+class Aim(Entity):
+    pass
 
 @mod_dep(Wield, Aim, Hurt)
 class AimWeapon(Entity):
