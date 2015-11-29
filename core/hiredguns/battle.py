@@ -60,19 +60,22 @@ class HGBattle(object):
 
 class HGBattleUIManager(BattleUIManager):
     def start(self):
+        self.spawn_side('pc', 'left')
+        self.spawn_side('enemy', 'right')
+        super(HGBattleUIManager, self).start()
+    
+    def spawn_side(self, who, where):
         field = self.turnman.world
         w, h = field.size
-        i = 0
-        for merc in field.sides['pc'].members:
+        where_d = {
+            'left' : (0, 1),
+            'right' : (w*h-1, -1),
+        }
+        i, k = where_d[where]
+        for merc in field.sides[who].members:
             x, y = i / h, i % h
             field.put_on(x, y, merc)
-            i += 1
-        i = h * w - 1
-        for merc in field.sides['enemy'].members:
-            x, y = i / h, i % h
-            field.put_on(x, y, merc)
-            i -= 1
-        super(HGBattleUIManager, self).start()
+            i += k
     
     def clicked(self, side, xy):
         """Process simple click on battle cell.
