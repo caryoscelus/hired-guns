@@ -19,13 +19,28 @@
 ##
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep
+from dracykeiton.entity import Entity, mod_dep, data_node, properties
 from dracykeiton.action import action, category
-from dracykeiton.common import ActionPoint, Name
+from dracykeiton.common import ActionPoint, Name, Wield
 from .combat import Combat, Weapon
 from ..skills import Skills
 
 class GunShoot(Entity):
+    @unbound
+    def check_action(self):
+        return True
+
+@mod_dep(Wield)
+@data_node('get', 'accuracy', deps=['wielded'])
+def SniperAccuracy(value, wielded):
+    """Enchance accuracy if weapon has optical scope"""
+    if not wielded or not wielded.has_mod(OpticalScope):
+        return value
+    else:
+        return value ** (1/wielded.optical_scope)
+
+@mod_dep(SniperAccuracy)
+class SniperShoot(Entity):
     @unbound
     def check_action(self):
         return True
@@ -38,3 +53,16 @@ class Gun(Entity):
         self.name = 'gun'
         self.base_damage = 2
         self.base_accuracy = 0.5
+
+@properties({'optical_scope' : 1})
+class OpticalScope(Entity):
+    pass
+
+@mod_dep(Gun, OpticalScope)
+class SniperRifle(Entity):
+    @unbound
+    def _init(self):
+        self.name = 'sniper rifle'
+        self.base_damage = 10
+        self.base_accuracy = 0.3
+        self.optical_scope = 10

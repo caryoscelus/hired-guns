@@ -1,7 +1,7 @@
 init python:
     from dracykeiton.entity import mod_dep, ProxyEntity, InterpolatingCache
     from dracykeiton.action import get_actions
-    from hiredguns.combat import Gun
+    from hiredguns.combat import Gun, SniperRifle
     
     @mod_dep(InterpolatingCache)
     class ProxyMonster(ProxyEntity):
@@ -78,6 +78,8 @@ label test_battle:
         world.pc.put_to_inv(Gun())
         world.pc.employ(game.mercs_named['nya'])
         world.pc.employ(game.mercs_named['madninja'])
+        game.mercs_named['nya'].put_to_inv(Gun())
+        game.mercs_named['nya'].put_to_inv(SniperRifle())
         battle = HGBattle(Turnman, world)
         battle.add_enemy(Monster('low monster'))
         battle.add_enemy(Monster('low monster'))

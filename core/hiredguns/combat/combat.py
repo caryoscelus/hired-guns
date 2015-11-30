@@ -131,10 +131,10 @@ class ModActions(Entity):
         if self.action_mod == mod:
             return
         if self.action_mod:
-            self.action_mod.disable(self)
+            self.del_mod(self.action_mod)
         self.action_mod = mod
         if self.action_mod:
-            self.action_mod.enable(self, True)
+            self.add_mod(self.action_mod)
 
 @mod_dep(ModActions, Hurt)
 class CombatActions(Entity):
