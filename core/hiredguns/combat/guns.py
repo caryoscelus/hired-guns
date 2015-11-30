@@ -37,7 +37,7 @@ def SniperAccuracy(value, wielded):
     if not wielded or not wielded.has_mod(OpticalScope):
         return value
     else:
-        return value ** (1/wielded.optical_scope)
+        return value ** (1.0/wielded.optical_scope)
 
 @mod_dep(SniperAccuracy)
 class SniperShoot(Entity):
