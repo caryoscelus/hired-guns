@@ -137,6 +137,7 @@ class ModActions(Entity):
             self.add_mod(self.action_mod)
 
 @mod_dep(ModActions, Hurt)
+@properties({'combat_action_ap' : 0})
 class CombatActions(Entity):
     @category('combat')
     @action
@@ -149,7 +150,7 @@ class CombatActions(Entity):
             return False
         if not self.check_action():
             return False
-        return self.spend_ap(1)
+        return self.spend_ap(self.combat_action_ap)
 
 @properties({'known_actions' : list})
 class KnownActions(Entity):
@@ -168,6 +169,15 @@ class KnownActions(Entity):
 class Combat(Entity):
     pass
 
+@mod_dep(CombatActions)
+@data_node('get', 'combat_action_ap')
+def ConsumeAP1(value):
+    return 1
+
+@mod_dep(CombatActions)
+@data_node('get', 'combat_action_ap')
+def ConsumeAP2(value):
+    return 2
 
 @mod_dep(Name)
 class Weapon(Entity):
