@@ -72,7 +72,7 @@ screen battle_cell(manager, x, y, possible_actions):
                         action Function(manager.clicked_inventory, merc, item) text_bold (item is merc.wielded) text_size 18
         
         if merc:
-            text "ap [merc.ap]/[merc.maxap]":
+            text "ap {} ({})/{}".format(merc.ap, merc.ap-merc.combat_action_ap, merc.maxap):
                 xalign 1.0 yalign 1.0
                 size 18
         
