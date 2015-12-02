@@ -40,7 +40,10 @@ class Contact(Entity):
             if type == 'unknown':
                 return 'anonymous'
             else:
-                return target.name
+                try:
+                    return target.name
+                except AttributeError:
+                    return value
         return value
 
 class Contacts(Entity):
