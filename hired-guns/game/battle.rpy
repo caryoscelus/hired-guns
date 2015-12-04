@@ -39,6 +39,7 @@ screen battle_cell(manager, x, y, possible_actions):
         merc = cell.get()
         selected = manager.selected
         side = field.sides['pc']
+        possible_actions = [action for action in possible_actions if action.check_action(selected)]
     button:
         xpadding 0 ypadding 0
         xfill True yfill True
