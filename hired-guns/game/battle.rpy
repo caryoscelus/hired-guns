@@ -86,14 +86,15 @@ screen battle_cell(manager, x, y, possible_actions):
                 text "hit chance: {:.1f}%".format(selected.hit_chance*100) size 12
                 text "hit damage: {}".format(selected.hit_damage) size 12
         
-        hbox:
-            xalign 0.0 yalign 1.0
-            for action in possible_actions:
-                imagebutton:
-                    idle "images/ui/action.png"
-                    hovered Function(manager.hovered_action, action)
-                    unhovered Function(manager.unhovered_action, action)
-                    action Function(manager.clicked_action, action)
+        if selected and selected.aim_target is cell:
+            hbox:
+                xalign 0.0 yalign 1.0
+                for action in possible_actions:
+                    imagebutton:
+                        idle "images/ui/action.png"
+                        hovered Function(manager.hovered_action, action)
+                        unhovered Function(manager.unhovered_action, action)
+                        action Function(manager.clicked_action, action)
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
