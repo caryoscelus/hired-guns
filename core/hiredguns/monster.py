@@ -96,6 +96,18 @@ class PsyPoints(Entity):
         if value == 'alive':
             self.full_psy()
 
+@mod_dep(Movable)
+class AdjacentMovable(Entity):
+    @unbound
+    def _init(self):
+        self.add_move_constraint(self.adjacent_can_move)
+    
+    @unbound
+    def adjacent_can_move(self, x, y):
+        if abs(x-self.x)+abs(y-self.y) > 1:
+            return False
+        return True
+
 @mod_dep(
     # base attributes
     RoundingHp,
@@ -106,7 +118,7 @@ class PsyPoints(Entity):
     Tactics,
     Target,
     ActionPoint,
-    Movable,
+    AdjacentMovable,
     Skills,
     Combat,
     # misc
