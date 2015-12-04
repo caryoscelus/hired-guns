@@ -29,7 +29,7 @@ from ..skills import Skills
 class GunShoot(Entity):
     @unbound
     def check_action(self):
-        return True
+        return self.wielded and self.wielded.has_mod(Gun) and 0 < self.aim_range < 4
 
 @mod_dep(Wield)
 @data_node('get', 'accuracy', deps=['wielded'])
@@ -44,7 +44,7 @@ def SniperAccuracy(value, wielded):
 class SniperShoot(Entity):
     @unbound
     def check_action(self):
-        return True
+        return self.wielded and self.wielded.has_mod(OpticalScope) and self.aim_range > 1
 
 @mod_dep(Weapon)
 class Gun(Entity):
