@@ -8,27 +8,29 @@ init python:
         pass
 
 screen battle(manager):
-    if manager:
-        python:
-            turnman = manager.turnman
-            field = turnman.world
-            w, h = field.size
-            selected = manager.selected
-            possible_actions = manager.get_combat_actions()
-        frame yfill True:
-            xmargin 0 ymargin 0 xpadding 0 ypadding 0
-            has vbox
-            grid w h:
-                xfill True
-                for y in range(h):
-                    for x in range(w):
-                        frame:
-                            xmargin 0 ymargin 0 xpadding 0 ypadding 0
-                            ysize 160
-                            use battle_cell(manager, x, y, possible_actions)
-            button:
-                text "End Turn!"
+    python:
+        turnman = manager.turnman
+        field = turnman.world
+        w, h = field.size
+        selected = manager.selected
+        possible_actions = manager.get_combat_actions()
+    frame yfill True:
+        xmargin 0 ymargin 0 xpadding 0 ypadding 0
+        has vbox
+        grid w h:
+            xfill True
+            for y in range(h):
+                for x in range(w):
+                    frame:
+                        xmargin 0 ymargin 0 xpadding 0 ypadding 0
+                        ysize 160
+                        use battle_cell(manager, x, y, possible_actions)
+        hbox:
+            textbutton "End turn":
                 action Function(manager.end_turn)
+            if manager.can_finish():
+                textbutton "Finish encounter":
+                    action [Function(manager.end_encounter), Return()]
     textbutton "Force quit" yalign 1.0 action Return()
 
 screen battle_cell(manager, x, y, possible_actions):

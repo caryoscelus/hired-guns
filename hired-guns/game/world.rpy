@@ -49,8 +49,18 @@ label roll_skill_hurt_loop:
 label roll_skill_hurt_end:
     return
 
+init python:
+    from dracykeiton.util import curry
+    def check_if_dead(e, side):
+        return e.living == 'dead'
+    
+    def check_if_empty(side):
+        return side.empty_side()
+
 label start_battle(battle):
     $ turnman = battle.generate()
+    $ turnman.world.add_lose_condition('pc', curry.curry(check_if_empty)())
+    $ turnman.world.add_lose_condition('enemy', curry.curry(check_if_empty)())
     $ manager = HGBattleUIManager(turnman)
     $ manager.start()
     call screen battle(manager)
