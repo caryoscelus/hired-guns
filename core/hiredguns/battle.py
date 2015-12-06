@@ -21,18 +21,19 @@
 """Battle state & other related stuff"""
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, listener, mod_dep
+from dracykeiton.entity import Entity, listener, mod_dep, properties
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.ui.battleuimanager import BattleUIManager
-from dracykeiton.common.battlefield import GridField
+from dracykeiton.common.battlefield import GridField, FieldRange
 from .tactics import BattleTactic
 from .combat import Weapon
 
 class HGBattleAIController(Controller):
     pass
 
-@mod_dep(GridField)
+@properties({'joined_cells' : set})
+@mod_dep(GridField, FieldRange)
 class HGField(Entity):
     @unbound
     def _init(self, w=1, h=1):
@@ -42,6 +43,25 @@ class HGField(Entity):
     def perform_action(self, actor, target, tool):
         if tool.has_mod(Weapon):
             target.get().hurt(tool.power)
+    
+    @unbound
+    def get_range(self, axy, bxy):
+        if (axy, bxy) in self.joined_cells:
+            return 0
+        else:
+            return abs(axy[0]-bxy[0])+abs(axy[1]-bxy[1])
+    
+    @unbound
+    def join_cells(self, axy, bxy):
+        """Join two cells so that distance between them is zero
+        
+        `axy` and `bxy` should be coordinate tuples (x, y)
+        """
+        self.joined_cells.add((axy, bxy))
+    
+    @unbound
+    def unjoin_cells(self, axy, bxy):
+        self.joined_cells.remove((axy, bxy))
 
 class HGBattle(object):
     def __init__(self, turnman_c, world):

@@ -20,7 +20,6 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, data_node, properties
-from dracykeiton.action import action, category
 from dracykeiton.common import ActionPoint, Name, Wield
 from .combat import Combat, Weapon, ConsumeAP1, ConsumeAP2
 from ..skills import Skills

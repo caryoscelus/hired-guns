@@ -21,7 +21,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, depends, simplenode, properties, data_node
 from dracykeiton.action import action, category
-from dracykeiton.common import Name, Wield, Hp, XY
+from dracykeiton.common import Name, Wield, Hp, XY, BattlefieldEntity
 import dracykeiton.random as random
 from ..skills import Skills
 
@@ -41,17 +41,17 @@ class AimTarget(Entity):
     def aim(self, target):
         self.aim_target = target
 
-@mod_dep(XY, AimTarget)
+@mod_dep(XY, AimTarget, BattlefieldEntity)
 @properties({
     'aim_range' : None,
 })
-@data_node('get', 'aim_range', deps=('aim_target', 'x', 'y'))
-def AimRange(value, aim_target, x, y):
+@data_node('get', 'aim_range', deps=('aim_target', 'x', 'y', 'field'))
+def AimRange(value, aim_target, x, y, field):
     if not aim_target:
         return None
     if None in (x, y, aim_target.x, aim_target.y):
         return None
-    return max(abs(x-aim_target.x), abs(y-aim_target.y))
+    return field.get_range((x, y), (aim_target.x, aim_target.y))
 
 @mod_dep(AimTarget, AimRange)
 class Aim(Entity):
