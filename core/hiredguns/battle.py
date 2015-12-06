@@ -33,16 +33,11 @@ class HGBattleAIController(Controller):
     pass
 
 @properties({'joined_cells' : set})
-@mod_dep(GridField, FieldRange)
+@mod_dep(GridField)
 class HGField(Entity):
     @unbound
     def _init(self, w=1, h=1):
         self.init_grid(w, h)
-    
-    @unbound
-    def perform_action(self, actor, target, tool):
-        if tool.has_mod(Weapon):
-            target.get().hurt(tool.power)
     
     @unbound
     def get_range(self, axy, bxy):
@@ -144,3 +139,20 @@ class HGBattleUIManager(BattleUIManager):
     def clicked_action(self, action):
         self.hovered_action(action)
         self.do_action(self.selected.combat_action())
+    
+    def hovered_melee(self):
+        pass
+    
+    def unhovered_melee(self):
+        pass
+    
+    def clicked_melee(self):
+        self.do_action(self.selected.melee_grab())
+    
+    def change_melee_action(self):
+        if self.selected:
+            if self.selected.aim_range == 0:
+                pass
+            elif self.selected.aim_range == 1:
+                return True
+        return False

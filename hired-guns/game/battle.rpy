@@ -97,6 +97,12 @@ screen battle_cell(manager, x, y, possible_actions):
                         hovered Function(manager.hovered_action, action)
                         unhovered Function(manager.unhovered_action, action)
                         action Function(manager.clicked_action, action)
+                if manager.change_melee_action():
+                    imagebutton:
+                        idle "images/ui/action.png"
+                        hovered Function(manager.hovered_melee)
+                        unhovered Function(manager.unhovered_melee)
+                        action Function(manager.clicked_melee)
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
