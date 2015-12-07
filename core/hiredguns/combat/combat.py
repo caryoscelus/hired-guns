@@ -25,26 +25,26 @@ from dracykeiton.common import Name, Wield, Hp, XY, BattlefieldEntity
 import dracykeiton.random as random
 from ..skills import Skills
 
-@properties({
-    'hit_chance' : 1.0,
-    'hit_damage' : 0,
-    'crit_chance' : 1.0,
-})
+@properties(
+    hit_chance=1.0,
+    hit_damage=0,
+    crit_chance=1.0,
+)
 class Hurt(Entity):
     pass
 
-@properties({
-    'aim_target' : None,
-})
+@properties(
+    aim_target=None,
+)
 class AimTarget(Entity):
     @unbound
     def aim(self, target):
         self.aim_target = target
 
 @mod_dep(XY, AimTarget, BattlefieldEntity)
-@properties({
-    'aim_range' : None,
-})
+@properties(
+    aim_range=None,
+)
 @data_node('get', 'aim_range', deps=('aim_target', 'x', 'y', 'field'))
 def AimRange(value, aim_target, x, y, field):
     if not aim_target:
@@ -124,7 +124,7 @@ class AccuracyHitChance(Entity):
     def get_accuracy_hit_chance(value, accuracy):
         return value * accuracy
 
-@properties({'action_mod' : None})
+@properties(action_mod=None)
 class ModActions(Entity):
     @unbound
     def plan_action(self, mod):
@@ -137,7 +137,7 @@ class ModActions(Entity):
             self.add_mod(self.action_mod)
 
 @mod_dep(ModActions, Hurt)
-@properties({'combat_action_ap' : 0})
+@properties(combat_action_ap=0)
 class CombatActions(Entity):
     @category('combat')
     @action
@@ -152,7 +152,7 @@ class CombatActions(Entity):
             return False
         return self.spend_ap(self.combat_action_ap)
 
-@properties({'known_actions' : list})
+@properties(known_actions=list)
 class KnownActions(Entity):
     def learn_action(self, action_mod):
         self.known_actions.append(action_mod)

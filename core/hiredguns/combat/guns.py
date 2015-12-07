@@ -54,7 +54,7 @@ class Gun(Entity):
         self.base_damage = 2
         self.base_accuracy = 0.5
 
-@properties({'optical_scope' : 1})
+@properties(optical_scope=1)
 class OpticalScope(Entity):
     pass
 

@@ -32,7 +32,7 @@ from .combat import Weapon
 class HGBattleAIController(Controller):
     pass
 
-@properties({'joined_cells' : set})
+@properties(joined_cells=set)
 @mod_dep(GridField)
 class HGField(Entity):
     @unbound
