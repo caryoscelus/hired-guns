@@ -51,6 +51,8 @@ def AimRange(value, aim_target, x, y, field):
         return None
     if None in (x, y, aim_target.x, aim_target.y):
         return None
+    if not field:
+        return None
     return field.get_range((x, y), (aim_target.x, aim_target.y))
 
 @mod_dep(AimTarget, AimRange)
