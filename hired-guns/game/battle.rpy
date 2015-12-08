@@ -50,7 +50,13 @@ screen battle_cell(manager, x, y, possible_actions):
         action Function(manager.clicked, side, (x, y))
         hovered Function(manager.hovered, side, (x, y))
         
-        text merc and merc.name or ''
+        textbutton merc and merc.name or '':
+            background None
+            xmargin 0 ymargin 0
+            xpadding 0 ypadding 0
+            text_hover_bold True
+            if merc:
+                action Show('unit_description', unit=merc)
         add merc and (merc.image or 'unknown'):
             zoom 0.25
             xalign 0.0 yalign 1.0
