@@ -42,6 +42,8 @@ screen battle_cell(manager, x, y, possible_actions):
         selected = manager.selected
         side = field.sides['pc']
         possible_actions = [action for action in possible_actions if action.check_action(selected)]
+        if merc:
+            mode = 'self' if merc.ally_group == 'pc' else 'invisible'
     button:
         xpadding 0 ypadding 0
         xfill True yfill True
@@ -56,7 +58,7 @@ screen battle_cell(manager, x, y, possible_actions):
             xpadding 0 ypadding 0
             text_hover_bold True
             if merc:
-                action Show('unit_description', unit=merc)
+                action Show('unit_description', unit=merc, mode=mode)
         add merc and (merc.image or 'unknown'):
             zoom 0.25
             xalign 0.0 yalign 1.0
