@@ -27,7 +27,7 @@ from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.ui.battleuimanager import BattleUIManager
 from dracykeiton.common.battlefield import GridField, FieldRange
 from .tactics import BattleTactic
-from .combat import Weapon
+from .combat import Weapon, MeleeGrab
 
 class HGBattleAIController(Controller):
     pass
@@ -141,12 +141,13 @@ class HGBattleUIManager(BattleUIManager):
         self.do_action(self.selected.combat_action())
     
     def hovered_melee(self):
-        pass
+        self.selected.action_mod = MeleeGrab
     
     def unhovered_melee(self):
-        pass
+        self.selected.action_mod = None
     
     def clicked_melee(self):
+        self.unhovered_melee()
         self.do_action(self.selected.melee_grab())
     
     def change_melee_action(self):
