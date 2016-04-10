@@ -45,6 +45,8 @@ label start:
             call test_battle
         "test unit description":
             call test_unit_description
+        "test universal party screen":
+            call test_universal_party
     
     $ renpy.show_screen('debug_all', world, _layer='debug')
     #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
