@@ -10,3 +10,5 @@ traceback.txt
 tmp/
 saves/
 cache/
+
+env/
