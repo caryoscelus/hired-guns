@@ -1,12 +1,13 @@
 import renpy
 from dracykeiton import random
+from hiredguns.world import HiredGunsWorld
 
 def random_merc(req_traits=()):
     """Get random merc from the team
     
     Optionally, filter only those having all req_traits
     """
-    mercs = [merc for merc in renpy.store.world.active_mission.mercs if merc.has_all_traits(req_traits)]
+    mercs = [merc for merc in HiredGunsWorld.instance().active_mission.mercs if merc.has_all_traits(req_traits)]
     if mercs:
         return random.choice(mercs)
     else:
@@ -14,15 +15,15 @@ def random_merc(req_traits=()):
 
 def selected_merc():
     """Returns currently selected merc"""
-    return renpy.store.world.active_mission.selected
+    return HiredGunsWorld.instance().active_mission.selected
 
 def affect_trait(trait, amount):
     """Affect trait on mission"""
-    for merc in renpy.store.world.active_mission.mercs:
+    for merc in HiredGunsWorld.instance().active_mission.mercs:
         merc.affect_trait(trait, amount)
 
 def get_team_skill(skill):
-    return sum([merc.get_skill(skill) for merc in renpy.store.world.active_mission.mercs])
+    return sum([merc.get_skill(skill) for merc in HiredGunsWorld.instance().active_mission.mercs])
 
 def mission_outcome(status):
     """Call this when mission is over
@@ -30,7 +31,7 @@ def mission_outcome(status):
     Right now, only calling mission_outcome('success') has effect.
     """
     if status == 'success':
-        renpy.store.world.pc.money += renpy.store.world.active_mission.payment
+        HiredGunsWorld.instance().pc.money += HiredGunsWorld.instance().active_mission.payment
     else:
         pass
 
@@ -40,7 +41,7 @@ def random_encounter(level=(0, float('inf')), with_tags=set(), without_tags=set(
     except TypeError:
         level = (level, level)
     encounters = [
-        encounter for encounter in renpy.store.world.encounter_pool
+        encounter for encounter in HiredGunsWorld.instance().encounter_pool
             if  level[0] <= encounter.level <= level[1] and
                 set(with_tags).issubset(encounter.tags) and
                 set(without_tags).isdisjoint(encounter.tags)
@@ -51,5 +52,5 @@ def random_encounter(level=(0, float('inf')), with_tags=set(), without_tags=set(
         return None
 
 def define_var(name, value=None):
-    renpy.store.world.active_mission.define_var(name)
+    HiredGunsWorld.instance().active_mission.define_var(name)
     setattr(renpy.store, name, value)
