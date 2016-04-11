@@ -189,27 +189,6 @@ class AdvancedMenuOption(object):
                 renpy.call(outcome.label)
                 break
 
-class AdvancedMenu(object):
-    def __init__(self):
-        self.caption = None
-        self.options = list()
-        self.active_option = None
-    
-    def __getattr__(self, name):
-        return getattr(self.active_option, name)
-    
-    def start(self, caption):
-        self.caption = caption
-        self.options = list()
-        self.active_option = None
-    
-    def option(self, name):
-        self.active_option = AdvancedMenuOption(name)
-        self.options.append(self.active_option)
-    
-    def launch(self):
-        pass
-
 def get_dice(want, exactly=None, atleast=1, atmost=None):
     try:
         want[0]
