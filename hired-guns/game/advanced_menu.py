@@ -27,18 +27,7 @@ import renpy.exports as renpy
 import renpy.store as store
 
 from collections import OrderedDict
-
-class AdvancedMenuOutcome(object):
-    def __init__(self):
-        self.condition = None
-        self.label = None
-
-class Requirement(object):
-    def check(self):
-        return False
-    
-    def pay(self):
-        pass
+from abstract_menu import AdvancedMenuOutcome, Requirement
 
 class RequireSkill(Requirement):
     def __str__(self):

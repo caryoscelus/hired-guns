@@ -1,5 +1,17 @@
 # generic parts of advanced menu
 
+class AdvancedMenuOutcome(object):
+    def __init__(self):
+        self.condition = None
+        self.label = None
+
+class Requirement(object):
+    def check(self):
+        return False
+    
+    def pay(self):
+        pass
+
 class AdvancedMenu(object):
     def __init__(self, option_class):
         self.option_class = option_class
