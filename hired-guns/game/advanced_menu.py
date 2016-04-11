@@ -21,12 +21,12 @@
 from dracykeiton.compat import *
 from dracykeiton.util import curry
 
-from mworld import selected_merc, get_team_skill, affect_trait
-
 import renpy.exports as renpy
 import renpy.store as store
 
 from collections import OrderedDict
+
+from hiredguns.utils import selected_merc, get_team_skill, affect_trait
 from hiredguns.encounter.abstract_menu import AdvancedMenuOutcome, Requirement, AdvancedMenu
 from hiredguns.encounter.requirements import *
 

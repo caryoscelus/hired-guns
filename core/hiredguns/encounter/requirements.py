@@ -22,9 +22,7 @@
 
 from .abstract_menu import Requirement
 from ..world import HiredGunsWorld
-
-# TODO: get rid of renpy deps!
-from mworld import selected_merc, get_team_skill
+from ..utils import selected_merc, get_team_skill
 
 class RequireSkill(Requirement):
     def __str__(self):
