@@ -25,6 +25,18 @@ class AdvancedMenuOutcome(object):
         self.condition = None
         self.label = None
 
+class AdvancedMenuOption(object):
+    def __init__(self):
+        super(AdvancedMenuOption, self).__init__()
+        self.requires = list()
+    
+    def can_do(self):
+        return all([req.check() for req in self.requires])
+    
+    def pay_costs(self):
+        for req in self.requires:
+            req.pay()
+
 class Requirement(object):
     def check(self):
         return False

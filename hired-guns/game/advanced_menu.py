@@ -24,58 +24,12 @@ from dracykeiton.util import curry
 import renpy.exports as renpy
 import renpy.store as store
 
-from collections import OrderedDict
-
 from hiredguns.utils import selected_merc, get_team_skill, affect_trait
-from hiredguns.encounter.abstract_menu import AdvancedMenuOutcome, Requirement, AdvancedMenu
-from hiredguns.encounter.requirements import *
+from hiredguns.encounter.advanced_menu import HiredGunsAdvancedMenuOption
+from hiredguns.encounter.abstract_menu import AdvancedMenu # reexport
 
-class AdvancedMenuOption(object):
-    def __init__(self, name):
-        self.name = name
-        self.requires = list()
-        self.outcomes = OrderedDict()
-        self.forced_conditions = OrderedDict()
-        self.roll_n = None
-    
-    def psy_cost(self, n):
-        self.requires.append(PsyCost(n))
-    
-    def money_cost(self, n):
-        self.requires.append(MoneyCost(n))
-    
-    def affect_trait(self, trait, amount):
-        self.requires.append(AffectTrait(trait, amount))
-    
-    def roll(self, n):
-        self.roll_n = n
-    
-    def require_trait(self, trait, who='merc'):
-        self.requires.append(RequireTrait(trait, who))
-    
-    def require_skill(self, skill, amount, who='merc'):
-        self.requires.append(RequireSkill(skill, amount, who))
-    
-    def force_outcome(self, name, condition):
-        self.forced_conditions[name] = condition
-    
-    def outcome_condition(self, name, condition):
-        if not name in self.outcomes:
-            self.outcomes[name] = AdvancedMenuOutcome()
-        self.outcomes[name].condition = condition
-    
-    def outcome_label(self, name, label):
-        if not name in self.outcomes:
-            self.outcomes[name] = AdvancedMenuOutcome()
-        self.outcomes[name].label = label
-    
-    def can_do(self):
-        return all([req.check() for req in self.requires])
-    
-    def pay_costs(self):
-        for req in self.requires:
-            req.pay()
-    
+
+class AdvancedMenuOption(HiredGunsAdvancedMenuOption):
     def launch(self):
         self.pay_costs()
         
