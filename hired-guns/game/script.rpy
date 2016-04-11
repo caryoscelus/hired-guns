@@ -47,6 +47,8 @@ label start:
             call test_unit_description
         "test universal party screen":
             call test_universal_party
+        "test encounter mission":
+            call test_encounter_mission
     
     $ renpy.show_screen('debug_all', world, _layer='debug')
     #"YOU ARE A HIRED GUN. ONE DAY YOU'RE GONNA DIE FOR A FEW COINS.."
@@ -56,4 +58,10 @@ label loop:
     ".."
     jump loop
     "YOU DIED FOR A FEW COINS. HOW UNLUCKY."
+    return
+
+label test_encounter_mission:
+    $ world.pc.employ(game.mercs_named['brute'])
+    $ world.pc.employ(game.mercs_named['pacifist'])
+    call mission(world.get_mission_by_label('test_mission'))
     return
