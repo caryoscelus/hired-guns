@@ -27,7 +27,19 @@ from .merc import Merc
 from .mission import Mission
 from .time import Time, DAY
 
-class HiredGunsWorld(object):
+class AlmostSingleton(object):
+    _instance = None
+    def __new__(cl, *args, **kwargs):
+        self = super(AlmostSingleton, cl).__new__(cl, *args, **kwargs)
+        if not cl._instance:
+            cl._instance = self
+        return self
+    
+    @classmethod
+    def instance(cl):
+        return cl._instance
+
+class HiredGunsWorld(AlmostSingleton):
     def __init__(self, pc):
         self.pc = pc
         self.mercs = list()
