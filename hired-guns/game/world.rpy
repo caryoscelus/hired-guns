@@ -3,7 +3,7 @@ init -5 python:
     from dracykeiton.tb.turnman import Turnman
     from hiredguns.world import HiredGunsWorld
     from hiredguns.mission import Mission
-    from hiredguns.encounter import Encounter
+    from hiredguns.encounter.encounter import Encounter
     from hiredguns.merc import Merc
     from hiredguns.battle import HGBattle, HGBattleUIManager
     from hiredguns.contacts import Contact

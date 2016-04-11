@@ -27,7 +27,7 @@ import renpy.exports as renpy
 import renpy.store as store
 
 from collections import OrderedDict
-from abstract_menu import AdvancedMenuOutcome, Requirement
+from hiredguns.encounter.abstract_menu import AdvancedMenuOutcome, Requirement, AdvancedMenu
 
 class RequireSkill(Requirement):
     def __str__(self):
