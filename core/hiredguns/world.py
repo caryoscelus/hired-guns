@@ -57,6 +57,12 @@ class HiredGunsWorld(object):
     def goto(self, place):
         self.now_place = place
     
+    def get_mission_by_label(self, label):
+        try:
+            return [m for m in self.mission_pool.keys()+self.missions if m.content == label][0]
+        except IndexError:
+            raise ValueError('mission with label "{}" not found'.format(label))
+    
     def start_mission(self, mission):
         mission.add_mercs((self.pc,))
         for merc in self.hired_mercs:
