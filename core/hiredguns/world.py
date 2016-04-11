@@ -1,8 +1,8 @@
 ##
-##  Copyright (C) 2015 caryoscelus
+##  Copyright (C) 2015-2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
-##  https://bitbucket.org/caryoscelus/hired-guns/
+##  https://github.com/caryoscelus/hired-guns/
 ##  
 ##  This program is free software: you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
