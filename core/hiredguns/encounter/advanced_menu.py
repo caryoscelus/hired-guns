@@ -21,11 +21,13 @@
 """Hired-guns specific menu option"""
 
 from .requirements import *
-from .abstract_menu import AdvancedMenuOption, AdvancedMenuOutcome
+from .abstract_menu import APIAdvancedMenuOption, AdvancedMenuOutcome
 
 from collections import OrderedDict
 
-class HiredGunsAdvancedMenuOption(AdvancedMenuOption):
+class HiredGunsAdvancedMenuOption(APIAdvancedMenuOption):
+    api_classes = list([RequireSkill, RequireTrait, MoneyCost, PsyCost, AffectTrait])
+    
     def __init__(self, name):
         super(HiredGunsAdvancedMenuOption, self).__init__()
         self.name = name
@@ -33,23 +35,8 @@ class HiredGunsAdvancedMenuOption(AdvancedMenuOption):
         self.forced_conditions = OrderedDict()
         self.roll_n = None
     
-    def psy_cost(self, n):
-        self.requires.append(PsyCost(n))
-    
-    def money_cost(self, n):
-        self.requires.append(MoneyCost(n))
-    
-    def affect_trait(self, trait, amount):
-        self.requires.append(AffectTrait(trait, amount))
-    
     def roll(self, n):
         self.roll_n = n
-    
-    def require_trait(self, trait, who='merc'):
-        self.requires.append(RequireTrait(trait, who))
-    
-    def require_skill(self, skill, amount, who='merc'):
-        self.requires.append(RequireSkill(skill, amount, who))
     
     def force_outcome(self, name, condition):
         self.forced_conditions[name] = condition

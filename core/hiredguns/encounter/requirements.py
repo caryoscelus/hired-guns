@@ -25,10 +25,12 @@ from ..world import HiredGunsWorld
 from ..utils import selected_merc, get_team_skill
 
 class RequireSkill(Requirement):
+    api_name = 'require_skill'
+    
     def __str__(self):
         return 'require {0.skill} {0.level} for {0.who}'.format(self)
     
-    def __init__(self, skill, level, who):
+    def __init__(self, skill, level, who='merc'):
         self.skill = skill
         self.level = level
         self.who = who
@@ -44,10 +46,12 @@ class RequireSkill(Requirement):
             raise ValueError('require_skill: "who" cannot be {}'.format(self.who))
 
 class RequireTrait(Requirement):
+    api_name = 'require_trait'
+    
     def __str__(self):
         return 'require {0.trait} for {0.who}'.format(self)
     
-    def __init__(self, trait, who):
+    def __init__(self, trait, who='merc'):
         self.trait = trait
         self.who = who
     
@@ -62,6 +66,8 @@ class RequireTrait(Requirement):
             raise ValueError('require_skill: "who" cannot be {}'.format(self.who))
 
 class MoneyCost(Requirement):
+    api_name = 'money_cost'
+    
     def __str__(self):
         return 'Costs {} moneys'.format(self.amount)
     
@@ -75,6 +81,8 @@ class MoneyCost(Requirement):
         HiredGunsWorld.instance().pc.money -= self.amount
 
 class PsyCost(Requirement):
+    api_name = 'psy_cost'
+    
     def __str__(self):
         return 'Costs {} psy'.format(self.amount)
     
@@ -88,6 +96,8 @@ class PsyCost(Requirement):
         selected_merc().spend_psy(self.amount)
 
 class AffectTrait(Requirement):
+    api_name = 'affect_trait'
+    
     def __str__(self):
         return 'Affects trait {} for {}'.format(self.trait, self.amount)
     

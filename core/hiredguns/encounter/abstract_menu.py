@@ -37,6 +37,25 @@ class AdvancedMenuOption(object):
         for req in self.requires:
             req.pay()
 
+class APIAdvancedMenuOption(AdvancedMenuOption):
+    """AdvancedMenuOption that automatically generates api.
+    
+    Inherit this and put list of Requirement classes into api_classes and
+    you'll get automatic api for adding requirements, based on
+    Requirement.api_name or __name__
+    """
+    
+    api_classes = list()
+    
+    def __getattr__(self, name):
+        for cl in self.api_classes:
+            api_name = getattr(cl, 'api_name', cl.__name__)
+            if api_name == name:
+                def f(*args, **kwargs):
+                    self.requires.append(cl(*args, **kwargs))
+                return f
+        raise AttributeError('no such attribute or api class: {}'.format(name))
+
 class Requirement(object):
     def check(self):
         return False
@@ -46,6 +65,7 @@ class Requirement(object):
 
 class AdvancedMenu(object):
     def __init__(self, option_class):
+        super(AdvancedMenu, self).__init__()
         self.option_class = option_class
         self.caption = None
         self.options = list()
