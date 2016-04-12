@@ -22,10 +22,30 @@
 
 from collections import OrderedDict
 
-class AdvancedMenuOutcome(object):
+class Outcome(object):
+    """Outcome for multi-outcome advanced menu"""
     def __init__(self):
         self.condition = None
+    
+    def set_result(self):
+        """Implement this to store outcome result to be used in launch.
+        
+        Can accept any number of args or kwargs - they are passed unchanged
+        """
+        pass
+    
+    def launch(self):
+        """This is called when outcome happens. Implement in your subclass."""
+        pass
+
+class LabelOutcome(Outcome):
+    """Outcome storing a simple label"""
+    def __init__(self):
+        super(LabelOutcome, self).__init__()
         self.label = None
+    
+    def set_result(self, label):
+        self.label = label
 
 class AdvancedMenuOption(object):
     def __init__(self):
@@ -42,6 +62,10 @@ class AdvancedMenuOption(object):
 class OutcomeAdvancedMenuOption(AdvancedMenuOption):
     """AdvancedMenuOption supporting various outcomes
     """
+    
+    """Which class to use for outcome storage."""
+    outcome_class = Outcome
+    
     def __init__(self):
         super(OutcomeAdvancedMenuOption, self).__init__()
         self.outcomes = OrderedDict()
@@ -52,13 +76,13 @@ class OutcomeAdvancedMenuOption(AdvancedMenuOption):
     
     def outcome_condition(self, name, condition):
         if not name in self.outcomes:
-            self.outcomes[name] = AdvancedMenuOutcome()
+            self.outcomes[name] = self.outcome_class()
         self.outcomes[name].condition = condition
     
-    def outcome_label(self, name, label):
+    def outcome_result(self, name, *args, **kwargs):
         if not name in self.outcomes:
-            self.outcomes[name] = AdvancedMenuOutcome()
-        self.outcomes[name].label = label
+            self.outcomes[name] = self.outcome_class()
+        self.outcomes[name].set_result(*args, **kwargs)
 
 class APIAdvancedMenuOption(AdvancedMenuOption):
     """AdvancedMenuOption that automatically generates api.

@@ -9,7 +9,7 @@ label encounter_lone_guard:
         "Play with his mind to convince him that you are not the intruders he is waiting for.^^\
             require_skill('telepathy', 1);\
             force_outcome('success', True);\
-            outcome_label('success', 'cheese_search_for_datajack');\
+            outcome_result('success', 'cheese_search_for_datajack');\
             ":
             pass
 

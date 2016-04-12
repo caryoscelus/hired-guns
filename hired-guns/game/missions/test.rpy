@@ -33,26 +33,26 @@ label monsters_loop:
         am.roll(4)
         am.require_trait('pacifist')
         am.outcome_condition('success', get_dice((4, 6), atleast=2))
-        am.outcome_label('success', 'monsters_pacified')
-        am.outcome_label('failure', 'monsters_not_pacified')
+        am.outcome_result('success', 'monsters_pacified')
+        am.outcome_result('failure', 'monsters_not_pacified')
         
         am.option(_("Kill everything!"))
-        am.outcome_label('success', 'monsters_killed')
+        am.outcome_result('success', 'monsters_killed')
         am.affect_trait('pacifist', -10)
         am.money_cost(10)
         am.force_outcome('success', lambda: get_team_skill('unarmed_combat') < 6)
         am.roll(3)
         am.require_skill('unarmed_combat', 3, 'sum')
         am.outcome_condition('success', get_dice((3, 6), atleast=1))
-        am.outcome_label('failure', 'monsters_not_killed')
+        am.outcome_result('failure', 'monsters_not_killed')
         
         am.option("Sneak out of this ambush!")
         am.force_outcome('success', lambda: selected_merc().get_skill('stealth') >= 6)
         am.roll(lambda: selected_merc().get_skill('stealth'))
         am.require_skill('stealth', 3)
         am.outcome_condition('success', get_dice((4, 6), atleast=3))
-        am.outcome_label('success', 'snuck_out')
-        am.outcome_label('failure', 'not_snuck_out')
+        am.outcome_result('success', 'snuck_out')
+        am.outcome_result('failure', 'not_snuck_out')
     menu:
         "^advanced^":
             pass

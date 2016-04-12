@@ -21,10 +21,11 @@
 """Hired-guns specific menu option"""
 
 from .requirements import *
-from .abstract_menu import APIAdvancedMenuOption, OutcomeAdvancedMenuOption
+from .abstract_menu import APIAdvancedMenuOption, OutcomeAdvancedMenuOption, LabelOutcome
 
 class HiredGunsAdvancedMenuOption(APIAdvancedMenuOption, OutcomeAdvancedMenuOption):
     api_classes = list([RequireSkill, RequireTrait, MoneyCost, PsyCost, AffectTrait])
+    outcome_class = LabelOutcome
     
     def __init__(self, name):
         super(HiredGunsAdvancedMenuOption, self).__init__()

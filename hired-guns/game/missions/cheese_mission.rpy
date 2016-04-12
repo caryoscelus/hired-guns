@@ -14,8 +14,8 @@ label cheese_mission(mission):
             roll(get_team_skill('unarmed_combat'));\
             require_skill('unarmed', 4);\
             outcome_condition('success', get_dice((4, 6), atleast=3));\
-            outcome_label('success', 'cheese_seize_ok');\
-            outcome_label('failure', 'cheese_seize_fail');\
+            outcome_result('success', 'cheese_seize_ok');\
+            outcome_result('failure', 'cheese_seize_fail');\
              ":
             pass
 
@@ -107,7 +107,7 @@ label cheese_entered:
         "Search for a datajack to gain access into the system^^\
             require_skill('hacking', 2);\
             force_outcome('success', True);\
-            outcome_label('success', 'cheese_search_for_datajack');\
+            outcome_result('success', 'cheese_search_for_datajack');\
             ":
             pass
 
