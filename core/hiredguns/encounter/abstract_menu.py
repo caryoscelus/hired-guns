@@ -47,9 +47,9 @@ class LabelOutcome(Outcome):
     def set_result(self, label):
         self.label = label
 
-class AdvancedMenuOption(object):
+class Option(object):
     def __init__(self):
-        super(AdvancedMenuOption, self).__init__()
+        super(Option, self).__init__()
         self.requires = list()
     
     def can_do(self):
@@ -59,7 +59,7 @@ class AdvancedMenuOption(object):
         for req in self.requires:
             req.pay()
 
-class OutcomeAdvancedMenuOption(AdvancedMenuOption):
+class OutcomeOption(Option):
     """AdvancedMenuOption supporting various outcomes
     """
     
@@ -67,7 +67,7 @@ class OutcomeAdvancedMenuOption(AdvancedMenuOption):
     outcome_class = Outcome
     
     def __init__(self):
-        super(OutcomeAdvancedMenuOption, self).__init__()
+        super(OutcomeOption, self).__init__()
         self.outcomes = OrderedDict()
         self.forced_conditions = OrderedDict()
     
@@ -84,7 +84,7 @@ class OutcomeAdvancedMenuOption(AdvancedMenuOption):
             self.outcomes[name] = self.outcome_class()
         self.outcomes[name].set_result(*args, **kwargs)
 
-class APIAdvancedMenuOption(AdvancedMenuOption):
+class APIOption(Option):
     """AdvancedMenuOption that automatically generates api.
     
     Inherit this and put list of Requirement classes into api_classes and

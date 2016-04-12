@@ -25,11 +25,11 @@ import renpy.exports as renpy
 import renpy.store as store
 
 from hiredguns.utils import selected_merc, get_team_skill, affect_trait
-from hiredguns.encounter.advanced_menu import HiredGunsAdvancedMenuOption
+from hiredguns.encounter.advanced_menu import HiredGunsOption
 from hiredguns.encounter.abstract_menu import AdvancedMenu # reexport
 
 
-class AdvancedMenuOption(HiredGunsAdvancedMenuOption):
+class AdvancedMenuOption(HiredGunsOption):
     def launch(self):
         self.pay_costs()
         
