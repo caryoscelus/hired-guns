@@ -21,17 +21,31 @@
 """Mission"""
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep
+from dracykeiton.entity import Entity, mod_dep, properties
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.tb.turnman import Turnman
-from dracykeiton.common import Name, Description, LocalVariables
+from dracykeiton.common import Name, Description, LocalVariables, Select
 from .merc import Merc
+
+@properties(mercs=set)
+class MercContainer(Entity):
+    def add_mercs(self, mercs):
+        self.mercs.update(mercs)
+        for merc in mercs:
+            merc.be_born()
+    
+    def finish(self):
+        for merc in self.mercs:
+            merc.be_unborn()
+        self.mercs = set()
 
 @mod_dep(
     Name,
     Description,
     LocalVariables,
+    MercContainer,
+    Select,
 )
 class Mission(Entity):
     """Mission
@@ -42,25 +56,10 @@ class Mission(Entity):
         self.name = name
         self.dynamic_property('content', content)
         self.dynamic_property('payment', payment)
-        self.dynamic_property('mercs', set())
         self.dynamic_property('battleman', None)
-        self.dynamic_property('selected', None)
         self.dynamic_property('tags', set())
         self.dynamic_property('timeout', timeout)
         self.dynamic_property('place', None)
-    
-    def add_mercs(self, mercs):
-        self.mercs.update(mercs)
-        for merc in mercs:
-            merc.be_born()
-    
-    def select_merc(self, merc):
-        self.selected = merc
-    
-    def finish(self):
-        for merc in self.mercs:
-            merc.be_unborn()
-        self.mercs = set()
     
     def prepare_battle(self):
         encounter = BattleGen(Turnman)
