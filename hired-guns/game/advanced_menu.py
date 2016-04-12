@@ -20,16 +20,16 @@
 
 from dracykeiton.compat import *
 from dracykeiton.util import curry
+from dracykeiton.encounter import advanced_menu
+from dracykeiton.encounter.advanced_menu import AdvancedMenu # re-export
 
 import renpy.exports as renpy
 import renpy.store as store
 
 from hiredguns.utils import selected_merc, get_team_skill, affect_trait
 from hiredguns.encounter.advanced_menu import HiredGunsOption
-from hiredguns.encounter import abstract_menu
-from hiredguns.encounter.abstract_menu import AdvancedMenu # reexport
 
-class RenpyLabelOutcome(abstract_menu.LabelOutcome):
+class RenpyLabelOutcome(advanced_menu.LabelOutcome):
     def launch(self):
         renpy.call(self.label)
 

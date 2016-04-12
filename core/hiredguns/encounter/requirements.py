@@ -20,7 +20,8 @@
 
 """Hired-guns specific Requirements"""
 
-from .abstract_menu import Requirement
+from dracykeiton.encounter.advanced_menu import Requirement
+
 from ..world import HiredGunsWorld
 from ..utils import selected_merc, get_team_skill
 
