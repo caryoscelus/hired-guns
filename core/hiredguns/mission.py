@@ -25,7 +25,7 @@ from dracykeiton.entity import Entity, mod_dep, properties
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.tb.turnman import Turnman
-from dracykeiton.common import Name, Description, LocalVariables, Select
+from dracykeiton.common import Name, Description, Tags, LocalVariables, Select
 from .merc import Merc
 
 @properties(mercs=set)
@@ -43,6 +43,7 @@ class MercContainer(Entity):
 @mod_dep(
     Name,
     Description,
+    Tags,
     LocalVariables,
     MercContainer,
     Select,
@@ -56,12 +57,5 @@ class Mission(Entity):
         self.name = name
         self.dynamic_property('content', content)
         self.dynamic_property('payment', payment)
-        self.dynamic_property('battleman', None)
-        self.dynamic_property('tags', set())
         self.dynamic_property('timeout', timeout)
         self.dynamic_property('place', None)
-    
-    def prepare_battle(self):
-        encounter = BattleGen(Turnman)
-        encounter.add_side('left', UserController, len(self.mercs), predefined=list(self.mercs))
-        encounter.add_side('right', Controller, (1, 4), possible=Merc)
