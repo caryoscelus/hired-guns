@@ -1,8 +1,8 @@
 ##
-##  Copyright (C) 2015 caryoscelus
+##  Copyright (C) 2015-2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
-##  https://bitbucket.org/caryoscelus/hired-guns/
+##  https://github.com/caryoscelus/hired-guns/
 ##  
 ##  This program is free software: you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -35,31 +35,8 @@ class RenpyLabelOutcome(abstract_menu.LabelOutcome):
 
 class AdvancedMenuOption(HiredGunsOption):
     outcome_class = RenpyLabelOutcome
-    def launch(self):
-        self.pay_costs()
-        
-        for name in self.forced_conditions:
-            cond = self.forced_conditions[name]
-            if callable(cond):
-                cond = cond()
-            if cond:
-                self.after_roll(forced=name)
-        
-        if self.roll_n != None:
-            if callable(self.roll_n):
-                self.roll_n = self.roll_n()
-            renpy.call('roll_dices_action', self.roll_n, self.after_roll)
-        else:
-            self.after_roll()
-    
-    def after_roll(self, result=None, forced=None):
-        if forced:
-            self.outcomes[forced].launch()
-            return
-        for outcome in self.outcomes.values():
-            if outcome.condition is None or outcome.condition(result):
-                outcome.launch()
-                break
+    def call_roll(self, n):
+        renpy.call('roll_dices_action', self.roll_n, self.after_roll)
 
 def get_dice(want, exactly=None, atleast=1, atmost=None):
     try:

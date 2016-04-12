@@ -84,6 +84,49 @@ class OutcomeOption(Option):
             self.outcomes[name] = self.outcome_class()
         self.outcomes[name].set_result(*args, **kwargs)
 
+class RollOutcomeOption(OutcomeOption):
+    """Option which outcome depends on rolls."""
+    def __init__(self):
+        super(RollOutcomeOption, self).__init__()
+        self.roll_n = None
+    
+    def roll(self, n):
+        """Set roll result"""
+        self.roll_n = n
+    
+    def call_roll(self, n):
+        """Roll n dices and call after_roll
+        
+        Implement this in your subclass.
+        """
+        self.after_roll()
+    
+    def launch(self):
+        self.pay_costs()
+        
+        for name in self.forced_conditions:
+            cond = self.forced_conditions[name]
+            if callable(cond):
+                cond = cond()
+            if cond:
+                self.after_roll(forced=name)
+        
+        if self.roll_n != None:
+            if callable(self.roll_n):
+                self.roll_n = self.roll_n()
+            self.call_roll(self.roll_n)
+        else:
+            self.after_roll()
+    
+    def after_roll(self, result=None, forced=None):
+        if forced:
+            self.outcomes[forced].launch()
+            return
+        for outcome in self.outcomes.values():
+            if outcome.condition is None or outcome.condition(result):
+                outcome.launch()
+                break
+
 class APIOption(Option):
     """AdvancedMenuOption that automatically generates api.
     
