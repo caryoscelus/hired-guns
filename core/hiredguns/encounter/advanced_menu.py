@@ -20,13 +20,13 @@
 
 """Hired-guns specific menu option"""
 
-from dracykeiton.encounter import advanced_menu
+from dracykeiton.encounter import option, outcome
 
 from .requirements import *
 
-class HiredGunsOption(advanced_menu.APIOption, advanced_menu.RollOutcomeOption):
+class HiredGunsOption(option.APIOption, option.RollOutcomeOption):
     api_classes = list([RequireSkill, RequireTrait, MoneyCost, PsyCost, AffectTrait])
-    outcome_class = advanced_menu.LabelOutcome
+    outcome_class = outcome.LabelOutcome
     
     def __init__(self, name):
         super(HiredGunsOption, self).__init__()

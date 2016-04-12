@@ -20,8 +20,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.util import curry
-from dracykeiton.encounter import advanced_menu
-from dracykeiton.encounter.advanced_menu import AdvancedMenu # re-export
+from dracykeiton.encounter import outcome, advanced_menu
 
 import renpy.exports as renpy
 import renpy.store as store
@@ -29,7 +28,7 @@ import renpy.store as store
 from hiredguns.utils import selected_merc, get_team_skill, affect_trait
 from hiredguns.encounter.advanced_menu import HiredGunsOption
 
-class RenpyLabelOutcome(advanced_menu.LabelOutcome):
+class RenpyLabelOutcome(outcome.LabelOutcome):
     def launch(self):
         renpy.call(self.label)
 
@@ -37,6 +36,9 @@ class AdvancedMenuOption(HiredGunsOption):
     outcome_class = RenpyLabelOutcome
     def call_roll(self, n):
         renpy.call('roll_dices_action', self.roll_n, self.after_roll)
+
+class AdvancedMenu(advanced_menu.AdvancedMenu):
+    option_class = AdvancedMenuOption
 
 def get_dice(want, exactly=None, atleast=1, atmost=None):
     try:
