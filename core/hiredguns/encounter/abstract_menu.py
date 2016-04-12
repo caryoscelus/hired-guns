@@ -20,6 +20,8 @@
 
 """Generic parts of advanced menu"""
 
+from collections import OrderedDict
+
 class AdvancedMenuOutcome(object):
     def __init__(self):
         self.condition = None
@@ -36,6 +38,27 @@ class AdvancedMenuOption(object):
     def pay_costs(self):
         for req in self.requires:
             req.pay()
+
+class OutcomeAdvancedMenuOption(AdvancedMenuOption):
+    """AdvancedMenuOption supporting various outcomes
+    """
+    def __init__(self):
+        super(OutcomeAdvancedMenuOption, self).__init__()
+        self.outcomes = OrderedDict()
+        self.forced_conditions = OrderedDict()
+    
+    def force_outcome(self, name, condition):
+        self.forced_conditions[name] = condition
+    
+    def outcome_condition(self, name, condition):
+        if not name in self.outcomes:
+            self.outcomes[name] = AdvancedMenuOutcome()
+        self.outcomes[name].condition = condition
+    
+    def outcome_label(self, name, label):
+        if not name in self.outcomes:
+            self.outcomes[name] = AdvancedMenuOutcome()
+        self.outcomes[name].label = label
 
 class APIAdvancedMenuOption(AdvancedMenuOption):
     """AdvancedMenuOption that automatically generates api.
