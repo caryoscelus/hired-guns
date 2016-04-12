@@ -22,6 +22,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
+from dracykeiton.common import Money
 from .nation import Nation
 from .traits import Traits, TraitAttitude, Attitude
 from .monster import Monster
@@ -57,22 +58,6 @@ class Hire(Entity):
         if self.attitude < 0:
             return False
         return True
-
-class Money(Entity):
-    @unbound
-    def _init(self):
-        self.dynamic_property('money', 0)
-    
-    @unbound
-    def pay(self, amount):
-        self.money -= amount
-    
-    @unbound
-    def spend_money(self, amount):
-        if amount <= self.money:
-            self.money -= amount
-            return True
-        return False
 
 @mod_dep(Money)
 class Employ(Entity):
