@@ -25,12 +25,13 @@ from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.tb.turnman import Turnman
-from dracykeiton.common import Name, Description
+from dracykeiton.common import Name, Description, LocalVariables
 from .merc import Merc
 
 @mod_dep(
     Name,
     Description,
+    LocalVariables,
 )
 class Mission(Entity):
     """Mission
@@ -45,7 +46,6 @@ class Mission(Entity):
         self.dynamic_property('battleman', None)
         self.dynamic_property('selected', None)
         self.dynamic_property('tags', set())
-        self.dynamic_property('locals', set())
         self.dynamic_property('timeout', timeout)
         self.dynamic_property('place', None)
     
@@ -66,6 +66,3 @@ class Mission(Entity):
         encounter = BattleGen(Turnman)
         encounter.add_side('left', UserController, len(self.mercs), predefined=list(self.mercs))
         encounter.add_side('right', Controller, (1, 4), possible=Merc)
-    
-    def define_var(self, name):
-        self.locals.add(name)

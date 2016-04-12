@@ -1,5 +1,6 @@
 init -5 python:
     from dracykeiton.compat import *
+    from dracykeiton.entity import Entity
     from dracykeiton.tb.turnman import Turnman
     from hiredguns.world import HiredGunsWorld
     from hiredguns.mission import Mission
@@ -10,6 +11,14 @@ init -5 python:
     from hiredguns.places import Place
     from hiredguns.utils import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill
     from mworld import define_var
+    
+    class RenpyDestroyVarsCallback(Entity):
+        @unbound
+        def _init(self):
+            def remove_var(name):
+                delattr(renpy.store, name)
+            self.add_var_destroy_callback(remove_var)
+    Mission.global_mod(RenpyDestroyVarsCallback)
     
     missions_to_add = list()
     
