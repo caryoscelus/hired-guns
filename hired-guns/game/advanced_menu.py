@@ -26,10 +26,15 @@ import renpy.store as store
 
 from hiredguns.utils import selected_merc, get_team_skill, affect_trait
 from hiredguns.encounter.advanced_menu import HiredGunsOption
+from hiredguns.encounter import abstract_menu
 from hiredguns.encounter.abstract_menu import AdvancedMenu # reexport
 
+class RenpyLabelOutcome(abstract_menu.LabelOutcome):
+    def launch(self):
+        renpy.call(self.label)
 
 class AdvancedMenuOption(HiredGunsOption):
+    outcome_class = RenpyLabelOutcome
     def launch(self):
         self.pay_costs()
         
@@ -49,11 +54,11 @@ class AdvancedMenuOption(HiredGunsOption):
     
     def after_roll(self, result=None, forced=None):
         if forced:
-            renpy.call(self.outcomes[forced].label)
+            self.outcomes[forced].launch()
             return
         for outcome in self.outcomes.values():
             if outcome.condition is None or outcome.condition(result):
-                renpy.call(outcome.label)
+                outcome.launch()
                 break
 
 def get_dice(want, exactly=None, atleast=1, atmost=None):
