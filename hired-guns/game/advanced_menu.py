@@ -19,7 +19,6 @@
 ##
 
 from dracykeiton.compat import *
-from dracykeiton.util import curry
 from dracykeiton.encounter import outcome, advanced_menu
 
 import renpy.exports as renpy
@@ -39,24 +38,3 @@ class AdvancedMenuOption(HiredGunsOption):
 
 class AdvancedMenu(advanced_menu.AdvancedMenu):
     option_class = AdvancedMenuOption
-
-def get_dice(want, exactly=None, atleast=1, atmost=None):
-    try:
-        want[0]
-    except TypeError:
-        want = (want, want)
-    
-    if not exactly is None:
-        try:
-            amount = (exactly[0], exactly[1])
-        except TypeError:
-            amount = (exactly, exactly)
-    elif not atmost is None:
-        amount = (0, atmost)
-    else:
-        amount = (atleast, float('inf'))
-    return curry.curry(get_dice_f)(want, amount)
-
-def get_dice_f(want, amount, roll_result):
-    r = [dice for dice in roll_result if want[0] <= dice <= want[1]]
-    return amount[0] <= len(r) <= amount[1]
