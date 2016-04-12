@@ -25,7 +25,7 @@ from dracykeiton.entity import Entity, mod_dep, properties
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.tb.turnman import Turnman
-from dracykeiton.common import Name, Description, Tags, LocalVariables, Select
+from dracykeiton.common import Name, Description, Tags, LocalVariables, Select, Payment
 from .merc import Merc
 
 @properties(mercs=set)
@@ -47,15 +47,16 @@ class MercContainer(Entity):
     LocalVariables,
     MercContainer,
     Select,
+    Payment,
 )
 class Mission(Entity):
     """Mission
     
     TODO: Duh, cleanup this mess
     """
-    def _init(self, name, content=None, description='', payment=None, timeout=None):
+    def _init(self, name, content=None, description='', payment=0, timeout=None):
         self.name = name
+        self.payment = payment
         self.dynamic_property('content', content)
-        self.dynamic_property('payment', payment)
         self.dynamic_property('timeout', timeout)
         self.dynamic_property('place', None)

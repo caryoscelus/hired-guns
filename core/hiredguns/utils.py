@@ -52,7 +52,7 @@ def mission_outcome(status):
     Right now, only calling mission_outcome('success') has effect.
     """
     if status == 'success':
-        HiredGunsWorld.instance().pc.money += HiredGunsWorld.instance().active_mission.payment
+        HiredGunsWorld.instance().active_mission.receive_payment(HiredGunsWorld.instance().pc)
     else:
         pass
 
