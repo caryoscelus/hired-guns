@@ -25,17 +25,20 @@ from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.tb.turnman import Turnman
-from dracykeiton.common import Description
+from dracykeiton.common import Name, Description
 from .merc import Merc
 
-@mod_dep(Description)
+@mod_dep(
+    Name,
+    Description,
+)
 class Mission(Entity):
     """Mission
     
     TODO: Duh, cleanup this mess
     """
     def _init(self, name, content=None, description='', payment=None, timeout=None):
-        self.dynamic_property('name', name)
+        self.name = name
         self.dynamic_property('content', content)
         self.dynamic_property('payment', payment)
         self.dynamic_property('mercs', set())
