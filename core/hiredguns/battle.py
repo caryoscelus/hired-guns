@@ -130,21 +130,22 @@ class HGBattleUIManager(BattleUIManager):
         return ()
     
     def hovered_action(self, action):
-        self.selected.plan_action(action)
+        self.selected.plan_action_mod(action)
     
     def unhovered_action(self, action):
         if action is self.selected.action_mod:
-            self.selected.plan_action(None)
+            self.selected.plan_action_mod(None)
     
     def clicked_action(self, action):
         self.hovered_action(action)
         self.do_action(self.selected.combat_action())
     
     def hovered_melee(self):
-        self.selected.action_mod = MeleeGrab
+        self.selected.plan_action_mod(MeleeGrab)
     
     def unhovered_melee(self):
-        self.selected.action_mod = None
+        if self.selected.action_mod is MeleeGrab:
+            self.selected.plan_action_mod(None)
     
     def clicked_melee(self):
         self.unhovered_melee()

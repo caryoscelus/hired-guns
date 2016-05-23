@@ -22,7 +22,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
-from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory, Wield
+from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory, Wield, Accuracy, Hit
 from .tactics import BattleTactic, TACTICS
 from .combat import Combat, GunShoot, SniperShoot, MeleeGrab
 from .skills import Skills
@@ -114,6 +114,8 @@ class AdjacentMovable(Entity):
     DamageType,
     PsyPoints,
     SimpleInventory,
+    Accuracy,
+    Hit,
     # combat
     Tactics,
     Target,
@@ -121,7 +123,6 @@ class AdjacentMovable(Entity):
     AdjacentMovable,
     Skills,
     Combat,
-    MeleeGrab,
     # misc
     Name,
     Id,

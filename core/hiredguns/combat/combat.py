@@ -21,17 +21,9 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, depends, simplenode, properties, data_node
 from dracykeiton.action import action, category
-from dracykeiton.common import Name, Wield, Hp, XY, BattlefieldEntity
+from dracykeiton.common import Name, Wield, Hp, XY, BattlefieldEntity, Hurt, ActionChance, Accuracy
 import dracykeiton.random as random
 from ..skills import Skills
-
-@properties(
-    hit_chance=1.0,
-    hit_damage=0,
-    crit_chance=1.0,
-)
-class Hurt(Entity):
-    pass
 
 @properties(
     aim_target=None,
@@ -96,40 +88,23 @@ class HurtBy(Entity):
         damage = attacker.hit_damage * (2**crit)
         self.hurt(damage)
 
-
-class Accuracy(Entity):
-    @unbound
-    def _init(self):
-        self.dynamic_property('accuracy', 1)
-
 @mod_dep(Skills, Wield, Accuracy)
-class WeaponAccuracy(Entity):
-    @unbound
-    def _load(self):
-        self.add_get_node('accuracy', self.get_weapon_accuracy())
-    
-    @depends('wielded')
-    @simplenode
-    def get_weapon_accuracy(value, wielded):
-        if wielded is None:
-            return value
-        return value * wielded.base_accuracy
+@data_node('get', 'accuracy', deps=['wielded'])
+def WeaponAccuracy(value, wielded):
+    print('accuracy: {}'.format(value))
+    if wielded is None:
+        return value
+    return value * wielded.base_accuracy
 
 @mod_dep(Accuracy, Hurt)
-class AccuracyHitChance(Entity):
-    @unbound
-    def _load(self):
-        self.add_get_node('hit_chance', self.get_accuracy_hit_chance())
-    
-    @depends('accuracy')
-    @simplenode
-    def get_accuracy_hit_chance(value, accuracy):
-        return value * accuracy
+@data_node('get', 'hit_chance', deps=['accuracy'])
+def AccuracyHitChance(value, accuracy):
+    return value * accuracy
 
 @properties(action_mod=None)
 class ModActions(Entity):
     @unbound
-    def plan_action(self, mod):
+    def plan_action_mod(self, mod):
         if self.action_mod == mod:
             return
         if self.action_mod:
@@ -164,6 +139,7 @@ class KnownActions(Entity):
     WieldWeapon,
     WeaponAccuracy,
     AccuracyHitChance,
+    ActionChance,
     HurtBy,
     CombatActions,
     KnownActions,

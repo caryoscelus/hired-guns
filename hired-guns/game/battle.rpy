@@ -93,7 +93,7 @@ screen battle_cell(manager, x, y, possible_actions):
                 background "#fbb"
                 has vbox
                 text "[selected.action_mod.__name__]" size 16
-                text "hit chance: {:.1f}%".format(selected.hit_chance*100) size 12
+                text "chance: {:.1f}%".format(selected.action_chance*100) size 12
                 text "hit damage: {}".format(selected.hit_damage) size 12
         
         if selected and selected.aim_target is cell:

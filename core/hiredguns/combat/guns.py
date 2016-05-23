@@ -20,11 +20,11 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, data_node, properties
-from dracykeiton.common import ActionPoint, Name, Wield
+from dracykeiton.common import ActionPoint, Name, Wield, HitAction
 from .combat import Combat, Weapon, ConsumeAP1, ConsumeAP2
 from ..skills import Skills
 
-@mod_dep(ConsumeAP1)
+@mod_dep(ConsumeAP1, HitAction)
 class GunShoot(Entity):
     @unbound
     def check_action(self):
@@ -39,7 +39,7 @@ def SniperAccuracy(value, wielded):
     else:
         return value ** (1.0/wielded.optical_scope)
 
-@mod_dep(ConsumeAP2, SniperAccuracy)
+@mod_dep(ConsumeAP2, SniperAccuracy, HitAction)
 class SniperShoot(Entity):
     @unbound
     def check_action(self):
