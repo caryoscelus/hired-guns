@@ -78,6 +78,8 @@ screen battle_cell(manager, x, y, possible_actions):
             frame:
                 xpos 130 ypos 40 xsize 120 ysize 108
                 has vbox
+                textbutton "<nothing>":
+                    action Function(manager.clicked_inventory, merc, None) text_bold (None is merc.wielded) text_size 18
                 for item in merc.inv:
                     textbutton "[item.name]":
                         action Function(manager.clicked_inventory, merc, item) text_bold (item is merc.wielded) text_size 18
