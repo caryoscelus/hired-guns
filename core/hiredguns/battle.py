@@ -1,5 +1,5 @@
 ##
-##  Copyright (C) 2015 caryoscelus
+##  Copyright (C) 2015-2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
 ##  https://bitbucket.org/caryoscelus/hired-guns/
@@ -26,6 +26,7 @@ from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
 from dracykeiton.ui.battleuimanager import BattleUIManager
 from dracykeiton.common.battlefield import GridField, FieldRange
+from dracykeiton.util import curry
 from .tactics import BattleTactic
 from .combat import Weapon, MeleeGrab
 
@@ -158,3 +159,17 @@ class HGBattleUIManager(BattleUIManager):
             elif self.selected.aim_range == 1:
                 return True
         return False
+
+def prepare_battle(battle):
+    turnman = battle.generate()
+    turnman.world.add_lose_condition('pc', curry.curry(check_if_empty)())
+    turnman.world.add_lose_condition('enemy', curry.curry(check_if_empty)())
+    manager = HGBattleUIManager(turnman)
+    manager.start()
+    return manager
+
+def check_if_dead(e, side):
+    return e.living == 'dead'
+
+def check_if_empty(side):
+    return side.empty_side()

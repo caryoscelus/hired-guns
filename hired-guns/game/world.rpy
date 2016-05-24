@@ -6,7 +6,7 @@ init -5 python:
     from hiredguns.mission import Mission
     from hiredguns.encounter.encounter import Encounter
     from hiredguns.merc import Merc
-    from hiredguns.battle import HGBattle, HGBattleUIManager
+    from hiredguns.battle import HGBattle, HGBattleUIManager, prepare_battle
     from hiredguns.contacts import Contact
     from hiredguns.places import Place
     from hiredguns.utils import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill
@@ -43,11 +43,7 @@ init -5 python:
         renpy.call('roll_skill_hurt', skill, want, atleast, damage)
     
     def start_battle(battle):
-        turnman = battle.generate()
-        turnman.world.add_lose_condition('pc', curry.curry(check_if_empty)())
-        turnman.world.add_lose_condition('enemy', curry.curry(check_if_empty)())
-        manager = HGBattleUIManager(turnman)
-        manager.start()
+        manager = prepare_battle(battle)
         renpy.call_screen('battle', manager)
 
 label roll_skill_hurt(skill, want, atleast, damage):
@@ -63,11 +59,3 @@ label roll_skill_hurt_loop:
     jump roll_skill_hurt_loop
 label roll_skill_hurt_end:
     return
-
-init python:
-    from dracykeiton.util import curry
-    def check_if_dead(e, side):
-        return e.living == 'dead'
-    
-    def check_if_empty(side):
-        return side.empty_side()
