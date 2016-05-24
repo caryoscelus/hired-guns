@@ -89,7 +89,7 @@ class HGBattleUIManager(BattleUIManager):
         }
         i, k = where_d[where]
         for merc in field.sides[who].members:
-            x, y = i / h, i % h
+            x, y = i // h, i % h
             field.put_on(x, y, merc)
             i += k
     
