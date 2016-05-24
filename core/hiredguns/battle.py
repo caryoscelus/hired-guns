@@ -149,7 +149,7 @@ class HGBattleUIManager(BattleUIManager):
             self.selected.plan_action_mod(None)
     
     def clicked_melee(self):
-        self.unhovered_melee()
+        self.hovered_melee()
         self.do_action(self.selected.melee_grab())
     
     def change_melee_action(self):
