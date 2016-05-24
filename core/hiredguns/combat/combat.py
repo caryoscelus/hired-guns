@@ -92,7 +92,6 @@ class HurtBy(Entity):
 @mod_dep(Skills, Wield, Accuracy)
 @data_node('get', 'accuracy', deps=['wielded'])
 def WeaponAccuracy(value, wielded):
-    print('accuracy: {}'.format(value))
     if wielded is None:
         return value
     return value * wielded.base_accuracy
