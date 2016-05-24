@@ -13,9 +13,17 @@ screen unit_description(unit, mode='invisible'):
                     text "[unit.description]"
                 text "hp: [unit.hp] / [unit.maxhp]"
                 text "psy: [unit.psy] / [unit.maxpsy]"
-                frame:
-                    if mode != 'invisible':
-                        use unit_inventory(unit, edit=(mode == 'self'))
+                
+                hbox:
+                    frame:
+                        xsize 300
+                        if mode != 'invisible':
+                            use unit_inventory(unit, edit=(mode == 'self'))
+                    frame:
+                        xsize 300
+                        if mode != 'invisible':
+                            use unit_skills(unit, edit=(mode =='self'))
+            
             textbutton "X" xalign 0.0 yalign 0.0 action Hide('unit_description')
 
 screen unit_inventory(unit, edit=False):
@@ -25,6 +33,17 @@ screen unit_inventory(unit, edit=False):
             textbutton "[item.name]":
                 background "#333"
                 action None
+
+screen unit_skills(unit, edit=False):
+    vbox:
+        text "Skills"
+        for skill in unit.skills:
+            $ value = unit.skills[skill]
+            hbox:
+                textbutton "[skill]":
+                    background "#333"
+                    action None
+                text "[value]"
 
 label test_unit_description:
     show screen unit_description(game.mercs_named['nya'])
