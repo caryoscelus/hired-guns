@@ -30,7 +30,8 @@ from .time import Time, DAY
 class AlmostSingleton(object):
     _instance = None
     def __new__(cl, *args, **kwargs):
-        self = super(AlmostSingleton, cl).__new__(cl, *args, **kwargs)
+        self = super(AlmostSingleton, cl).__new__(cl)
+        self.__init__(*args, **kwargs)
         if not cl._instance:
             cl._instance = self
         return self
