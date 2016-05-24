@@ -31,9 +31,24 @@ class MeleeGrab(Entity):
     
     @category('combat')
     @action
-    def melee_grab(self):
+    def melee_action(self):
         self.field.join_cells((self.x, self.y), (self.aim_target.x, self.aim_target.y))
     
     @unbound
-    def can_melee_grab(self):
+    def can_melee_action(self):
+        return self.spend_ap(2)
+
+@mod_dep(BattlefieldEntity, GridEntity)
+class MeleeFlee(Entity):
+    @unbound
+    def check_action(self):
+        return self.aim_range == 0 and (self.x, self.y) != (self.aim_target.x, self.aim_target.y)
+    
+    @category('combat')
+    @action
+    def melee_action(self):
+        self.field.unjoin_cells((self.x, self.y), (self.aim_target.x, self.aim_target.y))
+    
+    @unbound
+    def can_melee_action(self):
         return self.spend_ap(2)

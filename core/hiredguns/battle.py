@@ -28,7 +28,7 @@ from dracykeiton.ui.battleuimanager import BattleUIManager
 from dracykeiton.common.battlefield import GridField, FieldRange
 from dracykeiton.util import curry
 from .tactics import BattleTactic
-from .combat import Weapon, MeleeGrab
+from .combat import Weapon, MeleeGrab, MeleeFlee
 
 class HGBattleAIController(Controller):
     pass
@@ -142,22 +142,24 @@ class HGBattleUIManager(BattleUIManager):
         self.do_action(self.selected.combat_action())
     
     def hovered_melee(self):
-        self.selected.plan_action_mod(MeleeGrab)
+        self.selected.plan_action_mod(self.change_melee_action())
     
     def unhovered_melee(self):
-        if self.selected.action_mod is MeleeGrab:
+        if self.selected.action_mod in [MeleeGrab, MeleeFlee]:
             self.selected.plan_action_mod(None)
     
     def clicked_melee(self):
         self.hovered_melee()
-        self.do_action(self.selected.melee_grab())
+        self.do_action(self.selected.melee_action())
+        self.unhovered_melee()
     
     def change_melee_action(self):
         if self.selected:
-            if self.selected.aim_range == 0:
-                pass
+            # TODO: refactor; this conditions are already in MeleeGrab/Flee
+            if self.selected.aim_range == 0 and self.selected.xy() != self.selected.aim_target.xy():
+                return MeleeFlee
             elif self.selected.aim_range == 1:
-                return True
+                return MeleeGrab
         return False
 
 def prepare_battle(battle):
