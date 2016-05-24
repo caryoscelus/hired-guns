@@ -23,6 +23,7 @@ from dracykeiton.entity import Entity, mod_dep, depends, simplenode, properties,
 from dracykeiton.action import action, category
 from dracykeiton.common import Name, Wield, Hp, XY, BattlefieldEntity, Hurt, ActionChance, Accuracy
 import dracykeiton.random as random
+from dracykeiton.util.maybe import maybe
 from ..skills import Skills
 
 @properties(
@@ -119,7 +120,7 @@ class CombatActions(Entity):
     @category('combat')
     @action
     def combat_action(self):
-        self.aim_target.get().hurt_by(self)
+        maybe(self.aim_target.get()).hurt_by(self)
     
     @unbound
     def can_combat_action(self):
