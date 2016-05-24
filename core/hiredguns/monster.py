@@ -24,7 +24,7 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
 from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory, Wield, Accuracy, Hit
 from .tactics import BattleTactic, TACTICS
-from .combat import Combat, GunShoot, SniperShoot
+from .combat import Combat, GunShoot, SniperShoot, FistHit
 from .skills import Skills
 
 @mod_dep(Hp)
@@ -135,4 +135,4 @@ class Monster(Entity):
         self.name = name
         self.maxhp = 1
         self.maxap = 1
-        self.known_actions = [GunShoot, SniperShoot]
+        self.known_actions = [GunShoot, SniperShoot, FistHit]

@@ -20,7 +20,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, data_node, properties
-from dracykeiton.common import ActionPoint, Name, Wield, HitAction
+from dracykeiton.common import ActionPoint, Name, Wield, HitAction, Accuracy
 from .combat import Combat, Weapon, ConsumeAP1, ConsumeAP2
 from ..skills import Skills
 
@@ -30,7 +30,7 @@ class GunShoot(Entity):
     def check_action(self):
         return self.wielded and self.wielded.has_mod(Gun) and 0 < self.aim_range < 4
 
-@mod_dep(Wield)
+@mod_dep(Wield, Accuracy)
 @data_node('get', 'accuracy', deps=['wielded'])
 def SniperAccuracy(value, wielded):
     """Enchance accuracy if weapon has optical scope"""
