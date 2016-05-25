@@ -16,6 +16,8 @@ screen battle(manager):
         possible_actions = manager.get_combat_actions()
     key '[' action Function(manager.prev_weapon)
     key ']' action Function(manager.next_weapon)
+    key 'K_TAB' action Function(manager.next_merc)
+    key 'shift_K_TAB' action Function(manager.prev_merc)
     frame yfill True:
         xmargin 0 ymargin 0 xpadding 0 ypadding 0
         has vbox

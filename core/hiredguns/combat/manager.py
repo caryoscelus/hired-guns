@@ -45,6 +45,24 @@ class HGBattleUIManager(BattleUIManager):
             field.put_on(x, y, merc)
             i += k
     
+    def select_merc(self, merc):
+        self.selected = merc
+    
+    def offset_merc(self, n):
+        mercs = self.turnman.world.sides['pc'].members
+        try:
+            index = mercs.index(self.selected)
+            index = (index+n)%len(mercs)
+        except ValueError:
+            index = 0
+        self.select_merc(mercs[index])
+    
+    def next_merc(self):
+        self.offset_merc(+1)
+    
+    def prev_merc(self):
+        self.offset_merc(-1)
+    
     def clicked(self, side, xy):
         """Process simple click on battle cell.
         
@@ -63,7 +81,7 @@ class HGBattleUIManager(BattleUIManager):
                 self.do_action(self.selected.move(x, y))
         else:
             if side is self.active_controller().entity:
-                self.selected = merc
+                self.select_merc(merc)
     
     def hovered(self, side, xy):
         """Process hover on battle cell.
@@ -88,7 +106,7 @@ class HGBattleUIManager(BattleUIManager):
         try:
             index = inv.index(self.selected.wielded)
             index = (index+n)%len(inv)
-        except IndexError:
+        except ValueError:
             index = 0
         self.clicked_inventory(self.selected, inv[index])
     
