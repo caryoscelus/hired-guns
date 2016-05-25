@@ -92,6 +92,27 @@ class HGBattleUIManager(BattleUIManager):
             cell = self.turnman.world.grid[y][x]
             self.selected.aim(cell)
     
+    def active_offset(self, dx, dy):
+        if not self.active_cell:
+            r = (0, 0)
+        else:
+            x, y = self.active_cell
+            w, h = self.turnman.world.size
+            r = ((x+dx)%w, (y+dy)%h)
+        self.hovered(None, r)
+    
+    def active_up(self):
+        self.active_offset(0, -1)
+    
+    def active_down(self):
+        self.active_offset(0, 1)
+    
+    def active_left(self):
+        self.active_offset(-1, 0)
+    
+    def active_right(self):
+        self.active_offset(1, 0)
+    
     def inventory(self, merc):
         return [None]+merc.inv
     

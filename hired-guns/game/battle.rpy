@@ -14,10 +14,18 @@ screen battle(manager):
         w, h = field.size
         selected = manager.selected
         possible_actions = manager.get_combat_actions()
+    
     key '[' action Function(manager.prev_weapon)
     key ']' action Function(manager.next_weapon)
-    key 'K_TAB' action Function(manager.next_merc)
-    key 'shift_K_TAB' action Function(manager.prev_merc)
+    
+    key 'K_TAB'         action Function(manager.next_merc)
+    key 'shift_K_TAB'   action Function(manager.prev_merc)
+    
+    key 'K_UP'      action Function(manager.active_up)
+    key 'K_DOWN'    action Function(manager.active_down)
+    key 'K_LEFT'    action Function(manager.active_left)
+    key 'K_RIGHT'   action Function(manager.active_right)
+    
     frame yfill True:
         xmargin 0 ymargin 0 xpadding 0 ypadding 0
         has vbox
