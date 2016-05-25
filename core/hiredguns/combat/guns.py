@@ -1,5 +1,5 @@
 ##
-##  Copyright (C) 2015 caryoscelus
+##  Copyright (C) 2015-2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
 ##  https://bitbucket.org/caryoscelus/hired-guns/
