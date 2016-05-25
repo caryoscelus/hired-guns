@@ -61,6 +61,9 @@ screen battle_cell(manager, x, y, possible_actions):
         action Function(manager.clicked, side, (x, y))
         hovered Function(manager.hovered, side, (x, y))
         
+        if is_active:
+            frame background '#fb06'
+        
         textbutton merc and merc.name or '':
             background None
             xmargin 0 ymargin 0
