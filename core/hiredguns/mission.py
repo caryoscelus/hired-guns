@@ -60,3 +60,16 @@ class Mission(Entity):
         self.dynamic_property('content', content)
         self.dynamic_property('timeout', timeout)
         self.dynamic_property('place', None)
+
+if HAS_RENPY:
+    import renpy
+    class RenpyDestroyVarsCallback(Entity):
+        @unbound
+        def _load(self):
+            self.add_var_destroy_callback(self.remove_var)
+        
+        @unbound
+        def remove_var(name):
+            delattr(renpy.store, name)
+    
+    Mission.global_mod(RenpyDestroyVarsCallback)
