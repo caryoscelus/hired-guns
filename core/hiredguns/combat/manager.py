@@ -74,9 +74,31 @@ class HGBattleUIManager(BattleUIManager):
             cell = self.turnman.world.grid[y][x]
             self.selected.aim(cell)
     
+    def inventory(self, merc):
+        return [None]+merc.inv
+    
     def clicked_inventory(self, merc, item):
         """Process clicking on inventory item"""
         merc.wield(item)
+    
+    def offset_weapon(self, n):
+        if not self.selected:
+            return
+        inv = self.inventory(self.selected)
+        try:
+            index = inv.index(self.selected.wielded)
+            index = (index+n)%len(inv)
+        except IndexError:
+            index = 0
+        self.clicked_inventory(self.selected, inv[index])
+    
+    def prev_weapon(self):
+        """Selected: wield previous weapon"""
+        self.offset_weapon(-1)
+    
+    def next_weapon(self):
+        """Selected: wield next weapon"""
+        self.offset_weapon(+1)
     
     def get_combat_actions(self):
         if self.selected:

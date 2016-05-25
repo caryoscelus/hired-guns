@@ -14,6 +14,8 @@ screen battle(manager):
         w, h = field.size
         selected = manager.selected
         possible_actions = manager.get_combat_actions()
+    key '[' action Function(manager.prev_weapon)
+    key ']' action Function(manager.next_weapon)
     frame yfill True:
         xmargin 0 ymargin 0 xpadding 0 ypadding 0
         has vbox
@@ -85,16 +87,7 @@ screen battle_cell(manager, x, y, possible_actions):
             frame:
                 xpos 130 ypos 40 xsize 120 ysize 108
                 has vbox
-                python:
-                    inv = [None]+merc.inv
-                    try:
-                        index = inv.index(merc.wielded)
-                    except IndexError:
-                        index = -1
-                if merc is selected:
-                    key '[' action Function(manager.clicked_inventory, merc, inv[index-1])
-                    key ']' action Function(manager.clicked_inventory, merc, inv[(index+1)%len(inv)])
-                for item in inv:
+                for item in manager.inventory(merc):
                     $ name = item and item.name or "<nothing>"
                     textbutton "[name]":
                         action Function(manager.clicked_inventory, merc, item) text_bold (item is merc.wielded) text_size 18
