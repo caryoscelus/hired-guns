@@ -26,17 +26,18 @@ screen battle(manager):
         w, h = field.size
         selected = manager.selected
         possible_actions = manager.get_combat_actions()
+        keyman = manager.keys
     
-    key 'prev_weapon' action Function(manager.prev_weapon)
-    key 'next_weapon' action Function(manager.next_weapon)
+    key 'prev_weapon' action Function(keyman.prev_weapon)
+    key 'next_weapon' action Function(keyman.next_weapon)
     
-    key 'prev_merc' action Function(manager.next_merc)
-    key 'next_merc' action Function(manager.prev_merc)
+    key 'prev_merc' action Function(keyman.next_merc)
+    key 'next_merc' action Function(keyman.prev_merc)
     
-    key 'focus_up'      action Function(manager.active_up)
-    key 'focus_down'    action Function(manager.active_down)
-    key 'focus_left'    action Function(manager.active_left)
-    key 'focus_right'   action Function(manager.active_right)
+    key 'focus_up'      action Function(keyman.active_up)
+    key 'focus_down'    action Function(keyman.active_down)
+    key 'focus_left'    action Function(keyman.active_left)
+    key 'focus_right'   action Function(keyman.active_right)
     
     frame yfill True:
         xmargin 0 ymargin 0 xpadding 0 ypadding 0

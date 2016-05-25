@@ -22,10 +22,72 @@ from dracykeiton.compat import *
 from dracykeiton.ui.battleuimanager import BattleUIManager
 from .melee import MeleeGrab, MeleeFlee
 
+class KeyManager(object):
+    """Handles keyboard shortcuts"""
+    def __init__(self, manager):
+        super(KeyManager, self).__init__()
+        self.manager = manager
+    
+    def offset_merc(self, n):
+        mercs = self.manager.turnman.world.sides['pc'].members
+        try:
+            index = mercs.index(self.manager.selected)
+            index = (index+n)%len(mercs)
+        except ValueError:
+            index = 0
+        self.manager.select_merc(mercs[index])
+    
+    def next_merc(self):
+        self.offset_merc(+1)
+    
+    def prev_merc(self):
+        self.offset_merc(-1)
+    
+    def active_offset(self, dx, dy):
+        if not self.manager.active_cell:
+            r = (0, 0)
+        else:
+            x, y = self.manager.active_cell
+            w, h = self.manager.turnman.world.size
+            r = ((x+dx)%w, (y+dy)%h)
+        self.manager.hovered(None, r)
+    
+    def active_up(self):
+        self.active_offset(0, -1)
+    
+    def active_down(self):
+        self.active_offset(0, 1)
+    
+    def active_left(self):
+        self.active_offset(-1, 0)
+    
+    def active_right(self):
+        self.active_offset(1, 0)
+    
+    def offset_weapon(self, n):
+        if not self.manager.selected:
+            return
+        inv = self.manager.inventory(self.manager.selected)
+        try:
+            index = inv.index(self.manager.selected.wielded)
+            index = (index+n)%len(inv)
+        except ValueError:
+            index = 0
+        self.manager.clicked_inventory(self.manager.selected, inv[index])
+    
+    def prev_weapon(self):
+        """Selected: wield previous weapon"""
+        self.offset_weapon(-1)
+    
+    def next_weapon(self):
+        """Selected: wield next weapon"""
+        self.offset_weapon(+1)
+
 class HGBattleUIManager(BattleUIManager):
     def __init__(self, *args, **kwargs):
         super(HGBattleUIManager, self).__init__(*args, **kwargs)
         self.active_cell = None
+        self.keys = KeyManager(self)
     
     def start(self):
         self.spawn_side('pc', 'left')
@@ -47,21 +109,6 @@ class HGBattleUIManager(BattleUIManager):
     
     def select_merc(self, merc):
         self.selected = merc
-    
-    def offset_merc(self, n):
-        mercs = self.turnman.world.sides['pc'].members
-        try:
-            index = mercs.index(self.selected)
-            index = (index+n)%len(mercs)
-        except ValueError:
-            index = 0
-        self.select_merc(mercs[index])
-    
-    def next_merc(self):
-        self.offset_merc(+1)
-    
-    def prev_merc(self):
-        self.offset_merc(-1)
     
     def clicked(self, side, xy):
         """Process simple click on battle cell.
@@ -92,52 +139,12 @@ class HGBattleUIManager(BattleUIManager):
             cell = self.turnman.world.grid[y][x]
             self.selected.aim(cell)
     
-    def active_offset(self, dx, dy):
-        if not self.active_cell:
-            r = (0, 0)
-        else:
-            x, y = self.active_cell
-            w, h = self.turnman.world.size
-            r = ((x+dx)%w, (y+dy)%h)
-        self.hovered(None, r)
-    
-    def active_up(self):
-        self.active_offset(0, -1)
-    
-    def active_down(self):
-        self.active_offset(0, 1)
-    
-    def active_left(self):
-        self.active_offset(-1, 0)
-    
-    def active_right(self):
-        self.active_offset(1, 0)
-    
     def inventory(self, merc):
         return [None]+merc.inv
     
     def clicked_inventory(self, merc, item):
         """Process clicking on inventory item"""
         merc.wield(item)
-    
-    def offset_weapon(self, n):
-        if not self.selected:
-            return
-        inv = self.inventory(self.selected)
-        try:
-            index = inv.index(self.selected.wielded)
-            index = (index+n)%len(inv)
-        except ValueError:
-            index = 0
-        self.clicked_inventory(self.selected, inv[index])
-    
-    def prev_weapon(self):
-        """Selected: wield previous weapon"""
-        self.offset_weapon(-1)
-    
-    def next_weapon(self):
-        """Selected: wield next weapon"""
-        self.offset_weapon(+1)
     
     def get_combat_actions(self):
         if self.selected:
