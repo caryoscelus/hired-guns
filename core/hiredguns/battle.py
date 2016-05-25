@@ -75,6 +75,10 @@ class HGBattle(object):
         return self.gen.generate()
 
 class HGBattleUIManager(BattleUIManager):
+    def __init__(self, *args, **kwargs):
+        super(HGBattleUIManager, self).__init__(*args, **kwargs)
+        self.active_cell = None
+    
     def start(self):
         self.spawn_side('pc', 'left')
         self.spawn_side('enemy', 'right')
@@ -116,6 +120,7 @@ class HGBattleUIManager(BattleUIManager):
     def hovered(self, side, xy):
         """Process hover on battle cell.
         """
+        self.active_cell = xy
         if self.selected:
             x, y = xy
             cell = self.turnman.world.grid[y][x]

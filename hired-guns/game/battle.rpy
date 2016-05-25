@@ -44,6 +44,7 @@ screen battle_cell(manager, x, y, possible_actions):
         cell = field.grid[y][x]
         merc = cell.get()
         selected = manager.selected
+        is_active = manager.active_cell == (x, y)
         side = field.sides['pc']
         possible_actions = [action for action in possible_actions if action.check_action(selected)]
         if merc:
@@ -63,6 +64,8 @@ screen battle_cell(manager, x, y, possible_actions):
             text_hover_bold True
             if merc:
                 action Show('unit_description', unit=merc, mode=mode)
+        if merc and is_active:
+            key 'i' action Show('unit_description', unit=merc, mode=mode)
         add merc and (merc.image or 'unknown'):
             zoom 0.25
             xalign 0.0 yalign 1.0
@@ -82,10 +85,18 @@ screen battle_cell(manager, x, y, possible_actions):
             frame:
                 xpos 130 ypos 40 xsize 120 ysize 108
                 has vbox
-                textbutton "<nothing>":
-                    action Function(manager.clicked_inventory, merc, None) text_bold (None is merc.wielded) text_size 18
-                for item in merc.inv:
-                    textbutton "[item.name]":
+                python:
+                    inv = [None]+merc.inv
+                    try:
+                        index = inv.index(merc.wielded)
+                    except IndexError:
+                        index = -1
+                if merc is selected:
+                    key '[' action Function(manager.clicked_inventory, merc, inv[index-1])
+                    key ']' action Function(manager.clicked_inventory, merc, inv[(index+1)%len(inv)])
+                for item in inv:
+                    $ name = item and item.name or "<nothing>"
+                    textbutton "[name]":
                         action Function(manager.clicked_inventory, merc, item) text_bold (item is merc.wielded) text_size 18
         
         if merc:
