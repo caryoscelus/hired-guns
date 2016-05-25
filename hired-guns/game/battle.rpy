@@ -7,6 +7,18 @@ init python:
     class ProxyMonster(ProxyEntity):
         pass
 
+init python:
+    config.keymap.update(dict(
+        prev_weapon = ['['],
+        next_weapon = [']'],
+        prev_merc = ['K_TAB'],
+        next_merc = ['shift_K_TAB'],
+        finish_turn = ['K_RETURN'],
+        end_encounter = ['q'],
+        force_end_encounter = ['Q'],
+        info = ['i'],
+    ))
+
 screen battle(manager):
     python:
         turnman = manager.turnman
@@ -15,16 +27,16 @@ screen battle(manager):
         selected = manager.selected
         possible_actions = manager.get_combat_actions()
     
-    key '[' action Function(manager.prev_weapon)
-    key ']' action Function(manager.next_weapon)
+    key 'prev_weapon' action Function(manager.prev_weapon)
+    key 'next_weapon' action Function(manager.next_weapon)
     
-    key 'K_TAB'         action Function(manager.next_merc)
-    key 'shift_K_TAB'   action Function(manager.prev_merc)
+    key 'prev_merc' action Function(manager.next_merc)
+    key 'next_merc' action Function(manager.prev_merc)
     
-    key 'K_UP'      action Function(manager.active_up)
-    key 'K_DOWN'    action Function(manager.active_down)
-    key 'K_LEFT'    action Function(manager.active_left)
-    key 'K_RIGHT'   action Function(manager.active_right)
+    key 'focus_up'      action Function(manager.active_up)
+    key 'focus_down'    action Function(manager.active_down)
+    key 'focus_left'    action Function(manager.active_left)
+    key 'focus_right'   action Function(manager.active_right)
     
     frame yfill True:
         xmargin 0 ymargin 0 xpadding 0 ypadding 0
@@ -40,14 +52,13 @@ screen battle(manager):
         hbox:
             textbutton "End turn":
                 action Function(manager.end_turn)
-            # TODO: customizeable
-            key 'K_RETURN' action Function(manager.end_turn)
+            key 'finish_turn' action Function(manager.end_turn)
             if manager.can_finish():
                 textbutton "Finish encounter":
                     action [Function(manager.end_encounter), Return()]
-                key 'q' action [Function(manager.end_encounter), Return()]
+                key 'end_encounter' action [Function(manager.end_encounter), Return()]
     textbutton "Force quit" yalign 1.0 action Return()
-    key 'Q' action Return()
+    key 'force_end_encounter' action Return()
 
 screen battle_cell(manager, x, y, possible_actions):
     python:
@@ -80,7 +91,7 @@ screen battle_cell(manager, x, y, possible_actions):
             if merc:
                 action Show('unit_description', unit=merc, mode=mode)
         if merc and is_active:
-            key 'i' action Show('unit_description', unit=merc, mode=mode)
+            key 'info' action Show('unit_description', unit=merc, mode=mode)
         add merc and (merc.image or 'unknown'):
             zoom 0.25
             xalign 0.0 yalign 1.0
