@@ -25,8 +25,7 @@ from dracykeiton.tb.turnman import Turnman
 from hiredguns.world import HiredGunsWorld
 from hiredguns.merc import Merc
 from hiredguns.monster import Monster
-from hiredguns.combat import Gun, SniperRifle
-from hiredguns.battle import HGBattle, prepare_battle
+from hiredguns.combat import Gun, SniperRifle, HGBattle, prepare_battle
 
 import pytest
 
@@ -54,6 +53,7 @@ def test_battle(world):
     
     assert pc.x == 0 and pc.y == 0
     
+    # select pc and move close to the enemy
     manager.clicked(side, (pc.x, pc.y))
     assert manager.selected is pc
     for i in range(3):
@@ -63,3 +63,7 @@ def test_battle(world):
     
     manager.hovered(side, (pc.x+1, pc.y))
     manager.clicked_melee()
+    assert pc.ap == 0
+    
+    manager.end_turn()
+    assert pc.ap == 5
