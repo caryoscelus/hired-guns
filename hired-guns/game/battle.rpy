@@ -28,10 +28,14 @@ screen battle(manager):
         hbox:
             textbutton "End turn":
                 action Function(manager.end_turn)
+            # TODO: customizeable
+            key 'K_RETURN' action Function(manager.end_turn)
             if manager.can_finish():
                 textbutton "Finish encounter":
                     action [Function(manager.end_encounter), Return()]
+                key 'q' action [Function(manager.end_encounter), Return()]
     textbutton "Force quit" yalign 1.0 action Return()
+    key 'Q' action Return()
 
 screen battle_cell(manager, x, y, possible_actions):
     python:
