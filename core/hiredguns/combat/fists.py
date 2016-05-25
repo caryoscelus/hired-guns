@@ -45,4 +45,4 @@ def FistAccuracy(value, skills):
 class FistHit(Entity):
     @unbound
     def check_action(self):
-        return self.wielded is None
+        return self.wielded is None and self.aim_range == 0
