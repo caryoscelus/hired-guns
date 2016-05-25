@@ -1,6 +1,8 @@
 init python hide:
     self = Merc('nya')
     self.name = _("Nya")
+    self.description = """A cybercat you know for a very long time
+    """
     self.set_skill('unarmed_combat', 12)
     self.set_skill('hacking', 15)
     self.maxpsy = 25
