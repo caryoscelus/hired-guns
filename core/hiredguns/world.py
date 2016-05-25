@@ -29,7 +29,7 @@ from .mission import Mission
 from .time import Time, DAY
 
 class HiredGunsWorld(AlmostSingleton):
-    def __init__(self, pc):
+    def __init__(self, pc=None):
         self.pc = pc
         self.mercs = list()
         self.hired_mercs = list()
