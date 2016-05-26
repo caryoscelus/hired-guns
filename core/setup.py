@@ -6,7 +6,7 @@ setup(
     name='hired-guns',
     version=__version__,
     description="core of hired guns game",
-    url='https://bitbucket.org/caryoscelus/hired-guns',
+    url='https://github.com/caryoscelus/hired-guns',
     author='caryoscelus',
     author_email='caryoscelus@gmx.com',
     license='GPLv3+',
