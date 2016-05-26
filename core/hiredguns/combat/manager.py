@@ -119,7 +119,7 @@ class HGBattleUIManager(BattleUIManager):
         """
         field = self.turnman.world
         x, y = xy
-        cell = field.grid[y][x]
+        cell = field.grid[(x, y)]
         merc = cell.get()
         if self.selected:
             if self.selected is merc:
@@ -136,7 +136,7 @@ class HGBattleUIManager(BattleUIManager):
         self.active_cell = xy
         if self.selected:
             x, y = xy
-            cell = self.turnman.world.grid[y][x]
+            cell = self.turnman.world.grid[(x, y)]
             self.selected.aim(cell)
     
     def inventory(self, merc):

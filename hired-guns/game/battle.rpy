@@ -65,7 +65,7 @@ screen battle_cell(manager, x, y, possible_actions):
     python:
         turnman = manager.turnman
         field = turnman.world
-        cell = field.grid[y][x]
+        cell = field.grid[(x, y)]
         merc = cell.get()
         selected = manager.selected
         is_active = manager.active_cell == (x, y)

@@ -24,7 +24,7 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, listener, mod_dep, properties
 from dracykeiton.tb.controller import UserController, Controller
 from dracykeiton.tb.battlegen import BattleGen
-from dracykeiton.common.battlefield import GridField, FieldRange
+from dracykeiton.common import GridField, FieldRange
 from dracykeiton.util import curry
 from .combat import Weapon
 from .manager import HGBattleUIManager
@@ -36,8 +36,9 @@ class HGBattleAIController(Controller):
 @mod_dep(GridField)
 class HGField(Entity):
     @unbound
-    def _init(self, w=1, h=1):
-        self.init_grid(w, h)
+    def _init(self, size=None):
+        if size:
+            self.set_size(*size)
     
     @unbound
     def get_range(self, axy, bxy):
@@ -60,7 +61,7 @@ class HGField(Entity):
 
 class HGBattle(object):
     def __init__(self, turnman_c, world):
-        self.gen = BattleGen(turnman_c, HGField, w=5, h=4)
+        self.gen = BattleGen(turnman_c, HGField, size=(5, 4))
         self.world = world
         self.enemies = list()
     
