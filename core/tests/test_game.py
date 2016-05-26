@@ -22,6 +22,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.tb.turnman import Turnman
+from dracykeiton import pickle
 from hiredguns.world import HiredGunsWorld
 from hiredguns.merc import Merc
 from hiredguns.monster import Monster
@@ -67,7 +68,9 @@ def test_battle(world):
     
     manager.end_turn()
     assert pc.ap == 5
+    
+    world1, manager1, battle = pickle.loads(pickle.dumps([world, manager, battle]))
+    assert world1.pc.xy() == pc.xy()
 
 def test_pickle(world):
-    from dracykeiton import pickle
     re_world = pickle.loads(pickle.dumps(world))
