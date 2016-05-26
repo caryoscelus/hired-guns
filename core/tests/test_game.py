@@ -67,3 +67,7 @@ def test_battle(world):
     
     manager.end_turn()
     assert pc.ap == 5
+
+def test_pickle(world):
+    from dracykeiton import pickle
+    re_world = pickle.loads(pickle.dumps(world))
