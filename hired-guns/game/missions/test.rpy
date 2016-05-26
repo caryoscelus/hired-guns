@@ -110,7 +110,7 @@ init python hide:
     missions_to_add.append(test_battle_mission)
 
 label test_gfx_mission(mission):
-    $ push_mode('nvl', left=200)
+    $ push_mode('nvl', {'left':200})
     nvl clear
     "So you're on a mission"
     $ roll_skill_hurt('stealth', (3, 6), atleast=1, damage=3)
