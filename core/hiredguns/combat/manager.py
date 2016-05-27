@@ -161,6 +161,7 @@ class HGBattleUIManager(BattleUIManager):
     def clicked_action(self, action):
         self.hovered_action(action)
         self.do_action(self.selected.combat_action())
+        self.unhovered_action(action)
     
     def hovered_melee(self):
         self.selected.plan_action_mod(self.change_melee_action())
