@@ -135,6 +135,7 @@ screen battle_cell(manager, x, y, possible_actions):
             hbox:
                 xalign 0.0 yalign 1.0
                 for action in possible_actions:
+                    key action.__name__ action Function(manager.clicked_action, action)
                     imagebutton:
                         idle "images/ui/action.png"
                         hovered Function(manager.hovered_action, action)
