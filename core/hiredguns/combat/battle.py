@@ -47,6 +47,7 @@ class HGField(Entity):
     def _init(self, size=None):
         if size:
             self.set_size(*size)
+        self.keep_dead = False
     
     @unbound
     def get_range(self, axy, bxy):
