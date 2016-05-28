@@ -45,10 +45,10 @@ class MeleeRush(Entity):
             return None
         if not self.aim_target or not self.aim_target.get():
             enemy = self.get_closest_enemy()
-            self.aim_target = self.field.grid[enemy.xy()]
-            if not self.aim_target:
+            if not enemy:
                 print('Cannot find any enemies')
                 return None
+            self.aim_target = self.field.grid[enemy.xy()]
         print('attack {}'.format(self.aim_target.get().name))
         distance = self.field.get_range(self.xy(), self.aim_target.xy())
         if distance > 1:
