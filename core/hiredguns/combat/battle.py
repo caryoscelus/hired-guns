@@ -2,7 +2,7 @@
 ##  Copyright (C) 2015-2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
-##  https://bitbucket.org/caryoscelus/hired-guns/
+##  https://github.com/caryoscelus/hired-guns/
 ##  
 ##  This program is free software: you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -30,7 +30,15 @@ from .combat import Weapon
 from .manager import HGBattleUIManager
 
 class HGBattleAIController(Controller):
-    pass
+    def act(self):
+        for entity in self.entity.members:
+            if entity.intellect == 0:
+                to_do = entity.act()
+                if to_do:
+                    return to_do
+            else:
+                raise NotImplementedError('smart AI is not implemented')
+        return None
 
 @properties(joined_cells=set)
 @mod_dep(GridField)

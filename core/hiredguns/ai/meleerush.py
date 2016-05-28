@@ -1,8 +1,8 @@
 ##
-##  Copyright (C) 2015 caryoscelus
+##  Copyright (C) 2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
-##  https://bitbucket.org/caryoscelus/hired-guns/
+##  https://github.com/caryoscelus/hired-guns/
 ##  
 ##  This program is free software: you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -18,15 +18,17 @@
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
+"""MeleeRush - monster AI that rushes in and attacks in melee"""
+
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
-from ..monster import Monster
-from ..ai import DoNothing
 
-@mod_dep(Monster, DoNothing)
-class LocustLeg(Entity):
+class DoNothing(Entity):
     @unbound
-    def _init(self):
-        self.id = "locustlimb"
-        self.name = "Locust's Leg"
-        self.maxhp = 6
+    def act(self):
+        return None
+
+class MeleeRush(Entity):
+    @unbound
+    def act(self):
+        return None

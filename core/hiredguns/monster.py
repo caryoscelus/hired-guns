@@ -1,8 +1,8 @@
 ##
-##  Copyright (C) 2015 caryoscelus
+##  Copyright (C) 2015-2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
-##  https://bitbucket.org/caryoscelus/hired-guns/
+##  https://github.com/caryoscelus/hired-guns/
 ##  
 ##  This program is free software: you can redistribute it and/or modify
 ##  it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 """Monster"""
 
 from dracykeiton.compat import *
-from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener
+from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener, properties
 from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory, Wield, Accuracy, Hit
 from .tactics import BattleTactic, TACTICS
 from .combat import Combat, GunShoot, SniperShoot, FistHit
@@ -108,6 +108,10 @@ class AdjacentMovable(Entity):
             return False
         return True
 
+@properties(intellect=0)
+class Intellect(Entity):
+    pass
+
 @mod_dep(
     # base attributes
     RoundingHp,
@@ -123,6 +127,7 @@ class AdjacentMovable(Entity):
     AdjacentMovable,
     Skills,
     Combat,
+    Intellect,
     # misc
     Name,
     Id,
