@@ -19,11 +19,10 @@
 ##
 
 init python:
+    from dracykeiton.compat import *
     from dracykeiton.entity import mod_dep, ProxyEntity, InterpolatingCache
     from dracykeiton.action import get_actions
     from hiredguns.combat import Gun, SniperRifle
-    
-    from hiredguns.ai import DoNothing, MeleeRush
     
     @mod_dep(InterpolatingCache)
     class ProxyMonster(ProxyEntity):
@@ -158,6 +157,18 @@ screen battle_cell(manager, x, y, possible_actions):
                         unhovered Function(manager.unhovered_melee)
                         action Function(manager.clicked_melee)
 
+init python:
+    from hiredguns.monster import Monster
+    from hiredguns.ai import DoNothing, MeleeRush
+    
+    @mod_dep(Monster, MeleeRush)
+    class LowMonster(Entity):
+        @unbound
+        def _init(self):
+            self.maxap = 2
+            self.name = 'Low Monster'
+            self.set_skill('unarmed_combat', 5)
+
 label test_battle:
     show screen debug_all(world, _layer='debug')
     python:
@@ -167,9 +178,8 @@ label test_battle:
         game.mercs_named['nya'].put_to_inv(Gun())
         game.mercs_named['nya'].put_to_inv(SniperRifle())
         battle = HGBattle(Turnman, world)
-        Monster.global_mod(MeleeRush)
-        battle.add_enemy(Monster('low monster'))
-        battle.add_enemy(Monster('low monster'))
-        battle.add_enemy(Monster('low monster'))
+        battle.add_enemy(LowMonster())
+        battle.add_enemy(LowMonster())
+        battle.add_enemy(LowMonster())
         start_battle(battle)
     return
