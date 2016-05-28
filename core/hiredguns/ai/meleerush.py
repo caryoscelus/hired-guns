@@ -22,15 +22,21 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
-from dracykeiton.common import ExamineFieldEntity
+from dracykeiton.common import ExamineFieldEntity, BattlefieldEntity
 from hiredguns.monster import Target
+
+import math
 
 class DoNothing(Entity):
     @unbound
     def act(self):
         return None
 
-@mod_dep(ExamineFieldEntity, Target)
+@mod_dep(
+    ExamineFieldEntity,
+    BattlefieldEntity,
+    Target,
+)
 class MeleeRush(Entity):
     @unbound
     def act(self):
@@ -39,5 +45,15 @@ class MeleeRush(Entity):
             if not self.target:
                 print('Cannot find any enemies')
                 return None
-            print('attack {}'.format(self.target.name))
+        print('attack {}'.format(self.target.name))
+        distance = self.field.get_range(self.xy(), self.target.xy())
+        if distance > 1:
+            # TODO: pathfinding
+            x, y = self.xy()
+            dx, dy = [a-b for (a, b) in zip(self.target.xy(), self.xy())]
+            if abs(dx) > abs(dy):
+                x += math.copysign(1, dx)
+            else:
+                y += math.copysign(1, dy)
+            return self.move(x, y)
         return None
