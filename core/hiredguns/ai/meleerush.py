@@ -23,7 +23,7 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
 from dracykeiton.common import ExamineFieldEntity, BattlefieldEntity
-from hiredguns.monster import Target
+from hiredguns.combat import FistHit, MeleeGrab, AimTarget
 
 import math
 
@@ -35,25 +35,38 @@ class DoNothing(Entity):
 @mod_dep(
     ExamineFieldEntity,
     BattlefieldEntity,
-    Target,
+    AimTarget,
 )
 class MeleeRush(Entity):
     @unbound
     def act(self):
-        if not self.target:
-            self.target = self.get_closest_enemy()
-            if not self.target:
+        # TODO: read ap cost
+        if not self.ap:
+            return None
+        if not self.aim_target:
+            enemy = self.get_closest_enemy()
+            self.aim_target = self.field.grid[enemy.xy()]
+            if not self.aim_target:
                 print('Cannot find any enemies')
                 return None
-        print('attack {}'.format(self.target.name))
-        distance = self.field.get_range(self.xy(), self.target.xy())
+        print('attack {}'.format(self.aim_target.get().name))
+        distance = self.field.get_range(self.xy(), self.aim_target.xy())
         if distance > 1:
+            print('approaching..')
             # TODO: pathfinding
             x, y = self.xy()
-            dx, dy = [a-b for (a, b) in zip(self.target.xy(), self.xy())]
+            dx, dy = [a-b for (a, b) in zip(self.aim_target.xy(), self.xy())]
             if abs(dx) > abs(dy):
                 x += math.copysign(1, dx)
             else:
                 y += math.copysign(1, dy)
             return self.move(x, y)
+        elif distance == 1:
+            print('grabbing..')
+            self.plan_action_mod(MeleeGrab)
+            return self.melee_action()
+        else: # distance == 0
+            print('hitting..')
+            self.plan_action_mod(FistHit)
+            return self.combat_action()
         return None

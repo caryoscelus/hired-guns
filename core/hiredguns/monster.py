@@ -24,7 +24,7 @@ from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener, properties
 from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory, Wield, Accuracy, Hit
 from .tactics import BattleTactic, TACTICS
-from .combat import Combat, GunShoot, SniperShoot, FistHit
+from .combat import Combat, GunShoot, SniperShoot, FistHit, AimTarget
 from .skills import Skills
 
 @mod_dep(Hp)
@@ -40,12 +40,6 @@ class DamageType(Entity):
     @unbound
     def receive_damage(self, amount, dtype='default'):
         self.hurt(amount*self.damage_type_coeff.get(dtype, 1.0))
-
-class Target(Entity):
-    """Target in battle"""
-    @unbound
-    def _init(self):
-        self.dynamic_property('target', None)
 
 class Tactics(Entity):
     """Contains basic tactic direction."""
@@ -122,7 +116,7 @@ class Intellect(Entity):
     Hit,
     # combat
     Tactics,
-    Target,
+    AimTarget,
     ActionPoint,
     AdjacentMovable,
     Skills,

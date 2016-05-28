@@ -36,7 +36,10 @@ class MeleeGrab(Entity):
     
     @unbound
     def can_melee_action(self):
-        return self.spend_ap(2)
+        return (
+            self.check_action() and
+            self.spend_ap(2)
+        )
 
 @mod_dep(BattlefieldEntity, GridEntity)
 class MeleeFlee(Entity):
@@ -51,4 +54,7 @@ class MeleeFlee(Entity):
     
     @unbound
     def can_melee_action(self):
-        return self.spend_ap(2)
+        return (
+            self.check_action() and
+            self.spend_ap(2)
+        )
