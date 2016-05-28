@@ -23,7 +23,7 @@ init python:
     from dracykeiton.action import get_actions
     from hiredguns.combat import Gun, SniperRifle
     
-    from hiredguns.ai import DoNothing
+    from hiredguns.ai import DoNothing, MeleeRush
     
     @mod_dep(InterpolatingCache)
     class ProxyMonster(ProxyEntity):
@@ -167,7 +167,7 @@ label test_battle:
         game.mercs_named['nya'].put_to_inv(Gun())
         game.mercs_named['nya'].put_to_inv(SniperRifle())
         battle = HGBattle(Turnman, world)
-        Monster.global_mod(DoNothing)
+        Monster.global_mod(MeleeRush)
         battle.add_enemy(Monster('low monster'))
         battle.add_enemy(Monster('low monster'))
         battle.add_enemy(Monster('low monster'))

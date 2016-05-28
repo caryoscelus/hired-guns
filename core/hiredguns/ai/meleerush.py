@@ -22,13 +22,22 @@
 
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
+from dracykeiton.common import ExamineFieldEntity
+from hiredguns.monster import Target
 
 class DoNothing(Entity):
     @unbound
     def act(self):
         return None
 
+@mod_dep(ExamineFieldEntity, Target)
 class MeleeRush(Entity):
     @unbound
     def act(self):
+        if not self.target:
+            self.target = self.get_closest_enemy()
+            if not self.target:
+                print('Cannot find any enemies')
+                return None
+            print('attack {}'.format(self.target.name))
         return None

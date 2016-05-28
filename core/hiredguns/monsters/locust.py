@@ -21,9 +21,9 @@
 from dracykeiton.compat import *
 from dracykeiton.entity import Entity, mod_dep
 from ..monster import Monster
-from ..ai import DoNothing
+from ..ai import MeleeRush
 
-@mod_dep(Monster, DoNothing)
+@mod_dep(Monster, MeleeRush)
 class LocustLeg(Entity):
     @unbound
     def _init(self):
