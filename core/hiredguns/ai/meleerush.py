@@ -43,7 +43,7 @@ class MeleeRush(Entity):
         # TODO: read ap cost
         if not self.ap:
             return None
-        if not self.aim_target:
+        if not self.aim_target or not self.aim_target.get():
             enemy = self.get_closest_enemy()
             self.aim_target = self.field.grid[enemy.xy()]
             if not self.aim_target:
