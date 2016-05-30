@@ -50,12 +50,14 @@ screen battle(manager):
     
     frame yfill True:
         xmargin 0 ymargin 0 xpadding 0 ypadding 0
+        background None
         has vbox
         grid w h:
             xfill True
             for y in range(h):
                 for x in range(w):
                     frame:
+                        background None
                         xmargin 0 ymargin 0 xpadding 0 ypadding 0
                         ysize 160
                         use battle_cell(manager, x, y, possible_actions)
@@ -85,7 +87,7 @@ screen battle_cell(manager, x, y, possible_actions):
     button:
         xpadding 0 ypadding 0
         xfill True yfill True
-        background (merc and merc is manager.selected and "#bbf" or "#fff")
+        background (merc and merc is manager.selected and "#bbf8" or None)
         
         action Function(manager.clicked, side, (x, y))
         hovered Function(manager.hovered, side, (x, y))
@@ -93,12 +95,12 @@ screen battle_cell(manager, x, y, possible_actions):
         if is_active:
             frame background '#fb06'
         
-        textbutton merc and merc.name or '':
-            background None
-            xmargin 0 ymargin 0
-            xpadding 0 ypadding 0
-            text_hover_bold True
-            if merc:
+        if merc:
+            textbutton merc.name or '<unknown>':
+                background '#fff4'
+                xmargin 0 ymargin 0
+                xpadding 0 ypadding 0
+                text_hover_bold True
                 action Show('unit_description', unit=merc, mode=mode)
         if merc and is_active:
             key 'info' action Show('unit_description', unit=merc, mode=mode)
@@ -119,11 +121,14 @@ screen battle_cell(manager, x, y, possible_actions):
         
         if merc:
             frame:
+                background '#fff4'
                 xpos 130 ypos 40 xsize 120 ysize 108
                 has vbox
+                spacing 0
                 for item in manager.inventory(merc):
                     $ name = item and item.name or "<nothing>"
                     textbutton "[name]":
+                        xfill True
                         action Function(manager.clicked_inventory, merc, item) text_bold (item is merc.wielded) text_size 18
         
         if merc:
