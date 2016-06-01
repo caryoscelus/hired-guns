@@ -23,7 +23,6 @@ screen nvl(dialogue, items=None):
 
         # Display a menu, if given.
         # advanced
-        $ print(vn_mode())
         if items:
             vbox:
                 id 'menu'
@@ -41,7 +40,7 @@ screen nvl(dialogue, items=None):
                         button action (Function(option.launch) if option.can_do() else None):
                             has vbox
 
-                            text option.name style "nvl_menu_choice" bold option.can_do()
+                            text option.name bold option.can_do() style "nvl_dialogue"
                             if option.requires:
                                 text "Requires:"
                                 for req in option.requires:
@@ -55,10 +54,9 @@ screen nvl(dialogue, items=None):
                         if action:
 
                             button:
-                                style "nvl_menu_choice_button"
                                 action action
 
-                                text caption style "nvl_menu_choice"
+                                text caption style "nvl_dialogue"
 
                         else:
 
