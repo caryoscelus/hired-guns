@@ -23,43 +23,46 @@ screen nvl(dialogue, items=None):
 
         # Display a menu, if given.
         # advanced
-        if items and items[0][0] == '^advanced^':
-            
+        $ print(vn_mode())
+        if items:
             vbox:
-                id "menu"
+                id 'menu'
                 
-                text am.caption style "nvl_dialogue"
+                # hacky positioning fix
+                xoffset vn_mode().kwargs.get('window_xoffset', 0) + vn_mode().margins.get('left', 0)
+                yoffset vn_mode().kwargs.get('window_yoffset', 0) + vn_mode().margins.get('top', 0)
                 
-                for option in am.options:
+                if items[0][0] == '^advanced^':
                     
-                    button action (Function(option.launch) if option.can_do() else None):
-                        has vbox
+                    text am.caption style "nvl_dialogue"
+                    
+                    for option in am.options:
+                        
+                        button action (Function(option.launch) if option.can_do() else None):
+                            has vbox
 
-                        text option.name style "nvl_menu_choice" bold option.can_do()
-                        if option.requires:
-                            text "Requires:"
-                            for req in option.requires:
-                                text str(req) bold req.check()
+                            text option.name style "nvl_menu_choice" bold option.can_do()
+                            if option.requires:
+                                text "Requires:"
+                                for req in option.requires:
+                                    text str(req) bold req.check()
         
-        # regular
-        elif items:
-            
-            vbox:
-                id "menu"
+                # regular
+                else:
+                    
+                    for caption, action, chosen in items:
 
-                for caption, action, chosen in items:
+                        if action:
 
-                    if action:
+                            button:
+                                style "nvl_menu_choice_button"
+                                action action
 
-                        button:
-                            style "nvl_menu_choice_button"
-                            action action
+                                text caption style "nvl_menu_choice"
 
-                            text caption style "nvl_menu_choice"
+                        else:
 
-                    else:
-
-                        text caption style "nvl_dialogue"
+                            text caption style "nvl_dialogue"
 
     add SideImage() xalign 0.0 yalign 1.0
 
