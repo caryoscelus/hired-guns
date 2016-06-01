@@ -20,7 +20,10 @@
 
 """Collection of util functions, previously located in mworld.py"""
 
+from dracykeiton.compat import *
 from dracykeiton import random
+from dracykeiton.tb.turnman import Turnman
+from hiredguns.combat import HGBattle
 from hiredguns.world import HiredGunsWorld
 
 def random_merc(req_traits=()):
@@ -71,3 +74,6 @@ def random_encounter(level=(0, float('inf')), with_tags=set(), without_tags=set(
         return random.choice(encounters)()
     else:
         return None
+
+def new_battle():
+    return HGBattle(Turnman, HiredGunsWorld.instance())

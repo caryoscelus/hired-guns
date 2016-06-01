@@ -27,6 +27,7 @@ from hiredguns.world import HiredGunsWorld
 from hiredguns.merc import Merc
 from hiredguns.monster import Monster
 from hiredguns.combat import Gun, SniperRifle, HGBattle, prepare_battle
+from hiredguns.utils import new_battle
 
 import pytest
 
@@ -42,7 +43,7 @@ def test_battle(world):
     pc = world.pc
     pc.maxap = 5
     pc.put_to_inv(SniperRifle())
-    battle = HGBattle(Turnman, world)
+    battle = new_battle()
     for i in range(4):
         battle.add_enemy(Monster('low monster'))
     

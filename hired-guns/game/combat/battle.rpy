@@ -182,7 +182,7 @@ label test_battle:
         world.pc.employ(game.mercs_named['madninja'])
         game.mercs_named['nya'].put_to_inv(Gun())
         game.mercs_named['nya'].put_to_inv(SniperRifle())
-        battle = HGBattle(Turnman, world)
+        battle = new_battle()
         battle.add_enemy(LowMonster())
         battle.add_enemy(LowMonster())
         battle.add_enemy(LowMonster())
