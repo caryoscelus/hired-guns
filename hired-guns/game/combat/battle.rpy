@@ -163,16 +163,7 @@ screen battle_cell(manager, x, y, possible_actions):
                         action Function(manager.clicked_melee)
 
 init python:
-    from hiredguns.monster import Monster
-    from hiredguns.ai import DoNothing, MeleeRush
-    
-    @mod_dep(Monster, MeleeRush)
-    class LowMonster(Entity):
-        @unbound
-        def _init(self):
-            self.maxap = 2
-            self.name = 'Low Monster'
-            self.set_skill('unarmed_combat', 5)
+    from hiredguns.sandbox import LowMonster
 
 label test_battle:
     show screen debug_all(world, _layer='debug')
