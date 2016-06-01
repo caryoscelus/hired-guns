@@ -9,8 +9,12 @@ def apply_margins(kwargs, margins):
 class VNMode(object):
     def __init__(self, mode, margins, **kwargs):
         self.mode = mode
+        self.margins = margins or dict()
         apply_margins(kwargs, margins)
         self.kwargs = kwargs
+    
+    def __repr__(self):
+        return 'VNMode({}, {}, **{})'.format(self.mode, self.margins, self.kwargs)
 
 def init_vn_modes():
     renpy.store._mode_stack = [VNMode('adv', None)]
