@@ -75,5 +75,5 @@ def random_encounter(level=(0, float('inf')), with_tags=set(), without_tags=set(
     else:
         return None
 
-def new_battle():
-    return HGBattle(Turnman, HiredGunsWorld.instance())
+def new_battle(*args, **kwargs):
+    return HGBattle(Turnman, HiredGunsWorld.instance(), *args, **kwargs)

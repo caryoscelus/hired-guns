@@ -69,18 +69,25 @@ class HGField(Entity):
         self.joined_cells.remove((axy, bxy))
 
 class HGBattle(object):
-    def __init__(self, turnman_c, world):
+    def __init__(self, turnman_c, world, enemy_first=False):
         self.gen = BattleGen(turnman_c, HGField, size=(5, 4))
         self.world = world
         self.enemies = list()
+        self.enemy_first = enemy_first
     
     def add_enemy(self, enemy):
         self.enemies.append(enemy)
     
     def generate(self):
         mercs = [self.world.pc]+self.world.pc.team
-        self.gen.add_side('pc', UserController, len(mercs), predefined=mercs)
-        self.gen.add_side('enemy', HGBattleAIController, len(self.enemies), predefined=self.enemies)
+        to_add_sides = [
+            (['pc', UserController, len(mercs)], dict(predefined=mercs)),
+            (['enemy', HGBattleAIController, len(self.enemies)], dict(predefined=self.enemies)),
+        ]
+        if self.enemy_first:
+            to_add_sides.reverse()
+        for side in to_add_sides:
+            self.gen.add_side(*side[0], **side[1])
         return self.gen.generate()
 
 def prepare_battle(battle):
