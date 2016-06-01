@@ -31,10 +31,12 @@ def random_merc(req_traits=()):
     
     Optionally, filter only those having all req_traits
     """
-    mercs = [merc for merc in HiredGunsWorld.instance().active_mission.mercs if merc.has_all_traits(req_traits)]
+    pc = HiredGunsWorld.instance().pc
+    mercs = [merc for merc in [pc]+pc.team if merc.has_all_traits(req_traits)]
     if mercs:
         return random.choice(mercs)
     else:
+        print('WARNING: no random_merc selected')
         return None
 
 def selected_merc():
