@@ -38,3 +38,5 @@ class AdvancedMenuOption(HiredGunsOption):
 
 class AdvancedMenu(advanced_menu.AdvancedMenu):
     option_class = AdvancedMenuOption
+
+store.am = AdvancedMenu()

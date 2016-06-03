@@ -1,8 +1,4 @@
 init python:
-    from hiredguns.monster import Monster
-    from hiredguns.renpy import mercs
-    
-    from dracykeiton.util import curry
     def merc_is_selected(merc, mission):
         return merc is mission.selected
 

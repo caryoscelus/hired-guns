@@ -1,17 +1,4 @@
 init -5 python:
-    from dracykeiton.compat import *
-    from dracykeiton.entity import Entity
-    from dracykeiton.tb.turnman import Turnman
-    from hiredguns.world import HiredGunsWorld
-    from hiredguns.mission import Mission
-    from hiredguns.encounter.encounter import Encounter
-    from hiredguns.merc import Merc
-    from hiredguns.combat import HGBattle, HGBattleUIManager, prepare_battle
-    from hiredguns.contacts import Contact
-    from hiredguns.places import Place
-    from hiredguns.utils import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill, new_battle, active_mission
-    from hiredguns.renpy.vars import define_var
-    
     missions_to_add = list()
     
     def init_world():
