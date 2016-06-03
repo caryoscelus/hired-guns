@@ -9,7 +9,7 @@ init -5 python:
     from hiredguns.combat import HGBattle, HGBattleUIManager, prepare_battle
     from hiredguns.contacts import Contact
     from hiredguns.places import Place
-    from hiredguns.utils import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill, new_battle
+    from hiredguns.utils import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill, new_battle, active_mission
     from mworld import define_var
     
     missions_to_add = list()

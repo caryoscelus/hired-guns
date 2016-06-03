@@ -1,15 +1,26 @@
 init python:
     from hiredguns.monster import Monster
     import mercs
+    
+    from dracykeiton.util import curry
+    def merc_is_selected(merc, mission):
+        return merc is mission.selected
 
-screen merc_default(merc, action, selected=False, get_selected=None):
-    button action action style 'filled_frame':
+screen merc_default(merc, action=None, selected=False, get_selected=None):
+    python:
+        mission = active_mission()
+        if mission:
+            if not get_selected:
+                get_selected = curry.curry(merc_is_selected)(merc, mission)
+            if not action:
+                action = Function(mission.select, merc)
+    button action action:
+        background Solid('#2223')
         has vbox
         if merc.image:
             add merc.image zoom 0.25
         text "hp: {0.hp} / {0.maxhp}".format(merc) style 'ui_small'
         text "psy: {0.psy} / {0.maxpsy}".format(merc) style 'ui_small'
-        text "attitude: {0.attitude}".format(merc) style 'ui_small'
         text merc.name bold (get_selected() if get_selected else selected)
 
 screen merc_chooser(mercs):
@@ -53,5 +64,6 @@ screen team_view():
         yalign 1.0
         background Solid('#2223')
         has hbox
+        $ mission = active_mission()
         for merc in [world.pc]+world.pc.team:
-            add merc.image zoom PORTRAIT_ZOOM
+            use merc_default(merc)
