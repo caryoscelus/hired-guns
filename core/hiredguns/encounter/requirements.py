@@ -40,7 +40,7 @@ class RequireSkill(Requirement):
         if self.who == 'merc':
             return selected_merc().has_skill(self.skill, self.level)
         elif self.who == 'team':
-            return all([m.has_skill(self.skill, self.level) for m in HiredGunsWorld.instance().active_mission.mercs])
+            return all([m.has_skill(self.skill, self.level) for m in active_mission().mercs])
         elif self.who == 'sum':
             return get_team_skill(self.skill) >= self.level
         else:
@@ -60,9 +60,9 @@ class RequireTrait(Requirement):
         if self.who == 'merc':
             return selected_merc().has_trait(self.trait)
         elif self.who == 'all':
-            return all([m.has_trait(self.trait) for m in HiredGunsWorld.instance().active_mission.mercs])
+            return all([m.has_trait(self.trait) for m in active_mission().mercs])
         elif self.who == 'any':
-            return any([m.has_trait(self.trait) for m in HiredGunsWorld.instance().active_mission.mercs])
+            return any([m.has_trait(self.trait) for m in active_mission().mercs])
         else:
             raise ValueError('require_skill: "who" cannot be {}'.format(self.who))
 

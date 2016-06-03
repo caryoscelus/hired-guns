@@ -39,17 +39,20 @@ def random_merc(req_traits=()):
         print('WARNING: no random_merc selected')
         return None
 
+def active_mission():
+    return HiredGunsWorld.instance().active_mission
+
 def selected_merc():
     """Returns currently selected merc"""
-    return HiredGunsWorld.instance().active_mission.selected
+    return active_mission().selected
 
 def affect_trait(trait, amount):
     """Affect trait on mission"""
-    for merc in HiredGunsWorld.instance().active_mission.mercs:
+    for merc in active_mission().mercs:
         merc.affect_trait(trait, amount)
 
 def get_team_skill(skill):
-    return sum([merc.get_skill(skill) for merc in HiredGunsWorld.instance().active_mission.mercs])
+    return sum([merc.get_skill(skill) for merc in active_mission().mercs])
 
 def mission_outcome(status):
     """Call this when mission is over
@@ -57,7 +60,7 @@ def mission_outcome(status):
     Right now, only calling mission_outcome('success') has effect.
     """
     if status == 'success':
-        HiredGunsWorld.instance().active_mission.receive_payment(HiredGunsWorld.instance().pc)
+        active_mission().receive_payment(HiredGunsWorld.instance().pc)
     else:
         pass
 
