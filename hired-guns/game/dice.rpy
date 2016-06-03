@@ -1,3 +1,5 @@
+## TODO: make sure this is usable & move code into .py
+
 init python:
     from dracykeiton.common import Dice
     from dracykeiton import random

@@ -6,6 +6,7 @@ init -5 python:
     from dracykeiton.common.dice import get_dice
     
     import hiredguns.renpy.mercs
+    import hiredguns.renpy.game
     
     from hiredguns.monsters import *
     
