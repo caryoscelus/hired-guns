@@ -2,7 +2,7 @@ init python:
     PORTRAIT_ZOOM = 0.3333
 
 init -1 python:
-    from style import apply_margins, VNMode, init_vn_modes, vn_mode, push_mode, set_window_margins, set_window_position, set_text_color, pop_mode, CombinedCharacter
+    from hiredguns.renpy.style import apply_margins, VNMode, init_vn_modes, vn_mode, push_mode, set_window_margins, set_window_position, set_text_color, pop_mode, CombinedCharacter
 
 define narrator = CombinedCharacter(
             None,
