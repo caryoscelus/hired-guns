@@ -26,7 +26,7 @@ label start:
         world.encounter_pool.add(Encounter('encounter_lone_guard', 1, {'indoors'}))
         
         
-        world.pc.set_skill('unarmed_combat', 1)
+        world.pc.set_skill('unarmed', 1)
         world.pc.set_skill('resilience', 1)
         world.pc.set_skill('hacking', 2)
         world.pc.set_skill('firearms', 1)

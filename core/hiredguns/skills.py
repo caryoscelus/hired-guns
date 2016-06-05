@@ -19,9 +19,32 @@
 ##
 
 from dracykeiton.compat import *
+from dracykeiton.translate import _
 from dracykeiton.entity import Entity, mod_dep
 
-KNOWN_SKILLS = ('stealth', 'cooking', 'unarmed_combat', 'resilience', 'hacking', 'firearms', 'explosives', 'telepathy', 'mechanics')
+KNOWN_SKILLS = dict(
+    resilience  = _("Resilience"),
+    dexterity   = _("Dexterity"),
+    strength    = _("Strength"),
+    mind        = _("Mind"),
+    speed       = _("Speed"),
+    
+    telepathy   = _("Telepathy"),
+    hacking     = _("Hacking"),
+    
+    mechanics   = _("Mechanics"),
+    cooking     = _("Cooking"),
+    
+    stealth     = _("Stealth"),
+    detection   = _("Detection"),
+    
+    unarmed     = _("Unarmed combat"),
+    knives      = _("Knife combat"),
+    
+    firearms    = _("Firearms"),
+    sniping     = _("Sniping"),
+    explosives  = _("Explosives"),
+)
 
 class Skills(Entity):
     @unbound
@@ -33,6 +56,13 @@ class Skills(Entity):
         if not skill in KNOWN_SKILLS:
             print('WARNING: {} is not known skill!'.format(skill))
         self.skills[skill] = value
+    
+    @unbound
+    def set_skills(self, **skills):
+        unknown_skills = set(skills).difference(KNOWN_SKILLS)
+        if unknown_skills:
+            print('WARNING: {} are not known skills!'.format(unknown_skills))
+        self.skills.update(skills)
     
     @unbound
     def has_skill(self, skill, level=1):

@@ -34,12 +34,12 @@ def FistDamage(value):
 @mod_dep(Skills, Hurt)
 @data_node('get', 'hit_damage', deps=['skills'])
 def FistSKill(value, skills):
-    return value * skills.get('unarmed_combat', 0)
+    return value * skills.get('unarmed', 0)
 
 @mod_dep(Skills, Accuracy)
 @data_node('get', 'accuracy', deps=['skills'])
 def FistAccuracy(value, skills):
-    return value ** (1 / (skills.get('unarmed_combat', 0)+1))
+    return value ** (1 / (skills.get('unarmed', 0)+1))
 
 @mod_dep(ConsumeAP1, HitAction, FistAccuracy, FistDamage, FistSKill)
 class FistHit(Entity):

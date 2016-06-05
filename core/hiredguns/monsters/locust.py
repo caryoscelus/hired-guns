@@ -31,4 +31,4 @@ class LocustLeg(Entity):
         self.name = "Locust's Leg"
         self.maxhp = 6
         self.maxap = 3
-        self.set_skill('unarmed_combat', 4)
+        self.set_skill('unarmed', 4)

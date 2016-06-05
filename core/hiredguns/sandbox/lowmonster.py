@@ -29,4 +29,4 @@ class LowMonster(Entity):
     def _init(self):
         self.maxap = 2
         self.name = 'Low Monster'
-        self.set_skill('unarmed_combat', 5)
+        self.set_skill('unarmed', 5)

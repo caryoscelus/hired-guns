@@ -40,9 +40,9 @@ label monsters_loop:
         am.outcome_result('success', 'monsters_killed')
         am.affect_trait('pacifist', -10)
         am.money_cost(10)
-        am.force_outcome('success', lambda: get_team_skill('unarmed_combat') < 6)
+        am.force_outcome('success', lambda: get_team_skill('unarmed') < 6)
         am.roll(3)
-        am.require_skill('unarmed_combat', 3, 'sum')
+        am.require_skill('unarmed', 3, 'sum')
         am.outcome_condition('success', get_dice((3, 6), atleast=1))
         am.outcome_result('failure', 'monsters_not_killed')
         
