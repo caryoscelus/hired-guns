@@ -20,7 +20,7 @@
 
 from dracykeiton.compat import *
 from dracykeiton.translate import _
-from dracykeiton.entity import Entity, mod_dep
+from dracykeiton.entity import Entity, mod_dep, properties
 
 KNOWN_SKILLS = dict(
     resilience  = _("Resilience"),
@@ -46,28 +46,49 @@ KNOWN_SKILLS = dict(
     explosives  = _("Explosives"),
 )
 
+@properties(skills=list)
 class Skills(Entity):
     @unbound
-    def _init(self):
-        self.dynamic_property('skills', dict())
+    def has_skill(self, skill, level=1):
+        return skill in self.skills and getattr(self, skill, 0) >= level
     
     @unbound
-    def set_skill(self, skill, value):
-        if not skill in KNOWN_SKILLS:
-            print('WARNING: {} is not known skill!'.format(skill))
-        self.skills[skill] = value
+    def set_skill(self, skill, level):
+        if not skill in self.skills:
+            raise ValueError('{} is not skill'.format(skill))
+        setattr(self, skill, level)
     
     @unbound
     def set_skills(self, **skills):
-        unknown_skills = set(skills).difference(KNOWN_SKILLS)
-        if unknown_skills:
-            print('WARNING: {} are not known skills!'.format(unknown_skills))
-        self.skills.update(skills)
-    
-    @unbound
-    def has_skill(self, skill, level=1):
-        return self.get_skill(skill) >= level
+        for skill, value in skills.items():
+            self.set_skill(skill, value)
     
     @unbound
     def get_skill(self, skill):
-        return self.skills.get(skill, 0)
+        if not skill in self.skills:
+            raise ValueError('{} is not skill'.format(skill))
+        return getattr(self, skill)
+
+def skill(cl):
+    if not isinstance(cl, type):
+        if isinstance(cl, str):
+            class _cl(Entity):
+                pass
+            _cl.__name__ = cl
+            cl = _cl
+        else:
+            raise TypeError('skill called with an arguments {} which is neither class nor string'.format(cl))
+    skill_name = cl.__name__
+    old_init = cl.__dict__.get('_init')
+    @unbound
+    def new_init(self, *args, **kwargs):
+        self.skills.append(skill_name)
+        if old_init:
+            old_init(self, *args, **kwargs)
+    cl._init = new_init
+    cl = properties(**{cl.__name__:0})(cl)
+    return mod_dep(Skills)(cl)
+
+@mod_dep(*[skill(s) for s in KNOWN_SKILLS])
+class HGSkills(Entity):
+    pass

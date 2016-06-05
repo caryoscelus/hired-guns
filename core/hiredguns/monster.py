@@ -25,7 +25,7 @@ from dracykeiton.entity import Entity, mod_dep, simplenode, depends, listener, p
 from dracykeiton.common import RoundingHp, Hp, Living, Name, Id, Description, ActionPoint, Movable, SimpleInventory, Wield, Accuracy, Hit
 from .tactics import BattleTactic, TACTICS
 from .combat import Combat, GunShoot, SniperShoot, FistHit, AimTarget
-from .skills import Skills
+from .skills import HGSkills
 
 @mod_dep(Hp)
 class DamageType(Entity):
@@ -119,7 +119,7 @@ class Intellect(Entity):
     AimTarget,
     ActionPoint,
     AdjacentMovable,
-    Skills,
+    HGSkills,
     Combat,
     Intellect,
     # misc

@@ -38,7 +38,7 @@ screen unit_skills(unit, edit=False):
     vbox:
         text "Skills"
         for skill in unit.skills:
-            $ value = unit.skills[skill]
+            $ value = unit.get_skill(skill)
             hbox:
                 textbutton "[skill]":
                     background "#333"
