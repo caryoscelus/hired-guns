@@ -68,6 +68,12 @@ class Skills(Entity):
         if not skill in self.skills:
             raise ValueError('{} is not skill'.format(skill))
         return getattr(self, skill)
+    
+    @unbound
+    def change_skill(self, skill, amount):
+        real_value = 2**self.get_skill(skill) + amount
+        value = log(real_value, 2)
+        self.set_skill(skill, value)
 
 def skill(cl):
     if not isinstance(cl, type):
@@ -92,3 +98,16 @@ def skill(cl):
 @mod_dep(*[skill(s) for s in KNOWN_SKILLS])
 class HGSkills(Entity):
     pass
+
+@mod_dep(Skills)
+@properties(skill_progression=dict)
+class SkillsProgress(Entity):
+    @unbound
+    def set_priority(self, skill, amount):
+        self.skill_progression[skill] = amount
+    
+    @unbound
+    def progress_skills(self, xp):
+        for skill in self.skills:
+            priority = self.skill_progression and self.skill_progression.get(skill, 0) or 1 / len(self.skills)
+            self.change_skill(priority*xp)
