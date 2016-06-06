@@ -48,16 +48,16 @@ def push_mode(*args, **kwargs):
     renpy.store._mode_stack.append(VNMode(*args, **kwargs))
 
 def set_window_margins(**margins):
-    apply_margins(renpy.store._mode_stack[-1].kwargs, margins)
+    apply_margins(vn_mode().kwargs, margins)
 
 def set_window_position(x, y):
-    renpy.store._mode_stack[-1].kwargs['window_xalign'] = 0
-    renpy.store._mode_stack[-1].kwargs['window_yalign'] = 0
-    renpy.store._mode_stack[-1].kwargs['window_xoffset'] = x
-    renpy.store._mode_stack[-1].kwargs['window_yoffset'] = y
+    vn_mode().kwargs['window_xalign'] = 0
+    vn_mode().kwargs['window_yalign'] = 0
+    vn_mode().kwargs['window_xoffset'] = x
+    vn_mode().kwargs['window_yoffset'] = y
 
 def set_text_color(color):
-    renpy.store._mode_stack[-1].kwargs['what_color'] = color
+    vn_mode().kwargs['what_color'] = color
 
 def pop_mode():
     renpy.store._mode_stack.pop()
