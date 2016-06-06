@@ -69,6 +69,7 @@ class CombinedCharacter(object):
             'what_prefix' : '"',
             'what_suffix' : '"',
         })
+        self.name = args[0] if args else kwargs['name']
         self.kwargs.update(kwargs)
     def __call__(self, *args, **kwargs):
         kwargs_copy = self.kwargs.copy()

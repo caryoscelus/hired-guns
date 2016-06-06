@@ -61,12 +61,3 @@ screen nvl(dialogue, items=None):
                         else:
 
                             text caption style "nvl_dialogue"
-
-    add SideImage() xalign 0.0 yalign 1.0
-
-init -1 python:
-    def format_skills(skills):
-        return ', '.join(['{}: {}'.format(skill[0], skill[1]) for skill in skills])
-    
-    def format_traits(traits):
-        return ', '.join([trait for trait in traits])
