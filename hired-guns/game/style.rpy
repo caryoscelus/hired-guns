@@ -33,4 +33,4 @@ style empty:
     foreground None
 
 style ui_small is text:
-    size 16
+    size 14

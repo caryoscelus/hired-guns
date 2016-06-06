@@ -11,13 +11,18 @@ screen merc_default(merc, action=None, selected=False, get_selected=None):
             if not action:
                 action = Function(mission.select, merc)
     button action action:
-        background Solid('#2223')
-        has vbox
+        background Solid('#eee3')
+        xsize 128 ysize 160
+        xpadding 0 ypadding 0
+        vbox:
+            xalign 1.0
+            text "hp {0.hp} / {0.maxhp}".format(merc) style 'ui_small'
+            text "psy {0.psy} / {0.maxpsy}".format(merc) style 'ui_small'
+        text merc.name:
+            bold (get_selected() if get_selected else selected)
+            yalign 0.0
         if merc.image:
-            add merc.image zoom 0.25
-        text "hp: {0.hp} / {0.maxhp}".format(merc) style 'ui_small'
-        text "psy: {0.psy} / {0.maxpsy}".format(merc) style 'ui_small'
-        text merc.name bold (get_selected() if get_selected else selected)
+            add merc.image zoom 0.25 yalign 1.0
 
 screen merc_chooser(mercs):
     default chosen = {merc : False for merc in mercs}
@@ -58,8 +63,9 @@ screen team_view():
     frame:
         xalign 0.5
         yalign 1.0
-        background Solid('#2223')
+        background Solid('#2226')
         has hbox
+        spacing 4
         $ mission = active_mission()
         for merc in [world.pc]+world.pc.team:
             use merc_default(merc)
