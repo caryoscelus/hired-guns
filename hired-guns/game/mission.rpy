@@ -1,12 +1,12 @@
 label mission(mission):
     $ world.start_mission(mission)
     hide screen main_view
-    show screen team_view
+    show screen team_npc_view()
     if mission.content:
         $ renpy.call(mission.content, mission)
     else:
         "Your mission was a failure"
-    hide screen team_view
+    hide screen team_npc_view
     $ mission.destroy_vars()
     $ world.end_mission()
     return

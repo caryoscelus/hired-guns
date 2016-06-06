@@ -61,7 +61,7 @@ label loop:
     return
 
 label test_encounter_mission:
-    $ world.pc.employ(game.mercs_named['brute'])
-    $ world.pc.employ(game.mercs_named['pacifist'])
+    $ world.pc.employ(game.mercs['brute'])
+    $ world.pc.employ(game.mercs['pacifist'])
     call mission(world.get_mission_by_label('test_mission'))
     return

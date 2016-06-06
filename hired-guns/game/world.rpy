@@ -23,9 +23,9 @@ init -5 python:
     
     def start_battle(battle):
         manager = prepare_battle(battle)
-        renpy.hide_screen('team_view')
+        renpy.hide_screen('team_npc_view')
         renpy.call_screen('battle', manager)
-        renpy.show_screen('team_view')
+        renpy.show_screen('team_npc_view')
 
 label roll_skill_hurt(skill, want, atleast, damage):
     $ define_var('remaining_mercs', world.active_mission.mercs.copy())

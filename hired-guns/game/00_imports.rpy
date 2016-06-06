@@ -7,12 +7,14 @@ init -5 python:
     
     import hiredguns.renpy.mercs
     import hiredguns.renpy.game
+    import hiredguns.renpy.scene
     
     from hiredguns.monsters import *
     
     from hiredguns.world import HiredGunsWorld
     from hiredguns.mission import Mission
     from hiredguns.encounter.encounter import Encounter
+    from hiredguns.monster import NPC
     from hiredguns.merc import Merc
     from hiredguns.contacts import Contact
     from hiredguns.places import Place
@@ -20,6 +22,7 @@ init -5 python:
     from hiredguns.combat import prepare_battle
     
     from hiredguns.renpy.style import apply_margins, VNMode, init_vn_modes, vn_mode, push_mode, set_window_margins, set_window_position, set_text_color, pop_mode, CombinedCharacter
+    from hiredguns.renpy.scene import current_scene, clear_scene
     
     from hiredguns.utils import random_merc, selected_merc, affect_trait, mission_outcome, random_encounter, get_team_skill, new_battle, active_mission
     from hiredguns.renpy.vars import define_var

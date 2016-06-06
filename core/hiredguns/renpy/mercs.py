@@ -23,7 +23,7 @@ from dracykeiton.entity import Entity, mod_dep, listener, depends, simplenode
 from dracykeiton import random
 from dracykeiton.common import Name
 from hiredguns.merc import Merc
-from hiredguns.monster import Monster
+from hiredguns.monster import NPC
 from hiredguns.traits import Attitude
 from hiredguns.renpy.style import CombinedCharacter
 
@@ -74,4 +74,4 @@ class VisualEntity(Entity):
             return id
         return value
 
-Monster.global_mod(VisualEntity)
+NPC.global_mod(VisualEntity)

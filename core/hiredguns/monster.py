@@ -107,6 +107,16 @@ class Intellect(Entity):
     pass
 
 @mod_dep(
+    Name,
+    Id,
+    Description,
+)
+class NPC(Entity):
+    @unbound
+    def _init(self, id='npc'):
+        self.id = id
+
+@mod_dep(
     # base attributes
     RoundingHp,
     DamageType,
@@ -123,9 +133,7 @@ class Intellect(Entity):
     Combat,
     Intellect,
     # misc
-    Name,
-    Id,
-    Description,
+    NPC,
 )
 class Monster(Entity):
     """Base class for entities in battle (including mercs)"""

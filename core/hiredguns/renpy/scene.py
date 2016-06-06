@@ -1,5 +1,5 @@
 ##
-##  Copyright (C) 2015-2016 caryoscelus
+##  Copyright (C) 2016 caryoscelus
 ##
 ##  This file is part of HiredGuns
 ##  https://github.com/caryoscelus/hired-guns/
@@ -18,29 +18,26 @@
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-from collections import OrderedDict
-from renpy import store
+from dracykeiton.compat import *
+from dracykeiton.util import globalvars
 
-class Game(object):
+class Scene(object):
     def __init__(self):
-        self.mercs = OrderedDict()
-        self.npcs = OrderedDict()
-        self.places = OrderedDict()
-        self.default_place = None
-    
-    def add_merc(self, merc):
-        self.mercs[merc.id] = merc
+        self.npcs = list()
     
     def add_npc(self, npc):
-        self.npcs[npc.id] = npc
+        self.npcs.append(npc)
     
-    def add_place(self, place):
-        self.places[place.id] = place
+    def remove_npc(self, npc):
+        self.npcs.remove(npc)
     
-    def set_default_place(self, place):
-        self.default_place = place
-    
-    def get_place(self, id):
-        return self.places[id]
+    def clear_npcs(self):
+        self.npcs = list()
 
-store.game = Game()
+def current_scene():
+    return globalvars.get('_current_scene')
+
+def clear_scene():
+    current_scene().clear_npcs()
+
+globalvars.set('_current_scene', Scene())

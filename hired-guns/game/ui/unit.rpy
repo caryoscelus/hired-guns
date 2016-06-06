@@ -46,5 +46,5 @@ screen unit_skills(unit, edit=False):
                 text "[value]"
 
 label test_unit_description:
-    show screen unit_description(game.mercs_named['nya'])
+    show screen unit_description(game.mercs['nya'])
     return
