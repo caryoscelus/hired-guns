@@ -30,7 +30,7 @@ from hiredguns.renpy.style import CombinedCharacter
 import renpy
 
 @mod_dep(Name)
-class MercSpeaker(Entity):
+class CharacterSpeaker(Entity):
     @unbound
     def _init(self):
         self.dynamic_property('speaker', CombinedCharacter(self.name))
@@ -40,9 +40,9 @@ class MercSpeaker(Entity):
     def name_changed(self, target, value):
         self.speaker = CombinedCharacter(self.name)
 
-Merc.global_mod(MercSpeaker)
+NPC.global_mod(CharacterSpeaker)
 
-@mod_dep(Attitude, MercSpeaker)
+@mod_dep(Attitude, CharacterSpeaker)
 class AttitudeChange(Entity):
     """Show message when attitude has changed"""
     @unbound
