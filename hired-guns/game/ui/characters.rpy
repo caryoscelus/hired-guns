@@ -11,7 +11,7 @@ screen character_default(char, action=None, selected=False, get_selected=None):
             if not action:
                 action = Function(mission.select, char)
     button action action:
-        background Solid('#eee3')
+        background Solid('#eee3' if char.name != _current_speaker else '#eee7')
         xsize 128 ysize 160
         xpadding 0 ypadding 0
         vbox:

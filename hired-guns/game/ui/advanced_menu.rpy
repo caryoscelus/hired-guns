@@ -2,6 +2,10 @@
 # TODO: separate menu to be usable with choice screen
 screen nvl(dialogue, items=None):
 
+    # TODO: fix this hack//
+    if dialogue:
+        $ renpy.store._current_speaker = dialogue[-1][0]
+
     window:
         style "nvl_window"
 
