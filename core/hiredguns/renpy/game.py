@@ -18,8 +18,9 @@
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
+from dracykeiton.compat import *
+from dracykeiton.util import globalvars
 from collections import OrderedDict
-from renpy import store
 
 class Game(object):
     def __init__(self):
@@ -43,4 +44,4 @@ class Game(object):
     def get_place(self, id):
         return self.places[id]
 
-store.game = Game()
+globalvars.set('game', Game())
