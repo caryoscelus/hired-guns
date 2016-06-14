@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>combat &mdash; Hired Guns design 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Hired Guns design 0.1 documentation" href="../index.html" />
+    <link rel="next" title="overview" href="overview.html" />
+    <link rel="prev" title="Hired Guns design" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="combat">
+<h1>combat<a class="headerlink" href="#combat" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="stats">
+<h2>stats<a class="headerlink" href="#stats" title="Permalink to this headline">¶</a></h2>
+<p>Most important stats for combat include:</p>
+<ul class="simple">
+<li>hp (TODO: decide how permanent is death)</li>
+<li>ap - action points</li>
+<li>psy (? - perhaps temporary name for some kind of energy)</li>
+</ul>
+</div>
+<div class="section" id="general-rules">
+<h2>general rules<a class="headerlink" href="#general-rules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="grid">
+<h3>grid<a class="headerlink" href="#grid" title="Permalink to this headline">¶</a></h3>
+<p>Combat takes place on a grid. Currently, it&#8217;s 5x4, but it&#8217;s subject to change.</p>
+<p>When combat starts, opposing sides are usually placed on left (player party) and
+right (enemy) sides.</p>
+</div>
+<div class="section" id="turn-resolution">
+<h3>turn resolution<a class="headerlink" href="#turn-resolution" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>sides take turns one after another</li>
+<li>units perform actions immediately</li>
+<li>unit has action points which can be spent on actions and are recharged each
+turn</li>
+</ul>
+</div>
+<div class="section" id="ranged">
+<h3>ranged<a class="headerlink" href="#ranged" title="Permalink to this headline">¶</a></h3>
+<p>Ranged weapons have different efficiency (both in power and aim) at different
+range.</p>
+</div>
+<div class="section" id="melee">
+<h3>melee<a class="headerlink" href="#melee" title="Permalink to this headline">¶</a></h3>
+<p>To go into melee, unit needs to enter same cell as enemy unit. This may activate
+free &#8216;defence&#8217; action and may also fail. When two units are on the same cell,
+range attacks on any of them has a high chance of injuring the other. Most means
+of ranged combat are either completely unusable or ineffective. Unit can try to
+escape melee range, but that may fail if enemy pursues or activate free &#8216;shot in
+the back&#8217; attack.</p>
+<p>? - how to implement two units on one cell:</p>
+<ul class="simple">
+<li>actually place them on one cell
+- increases visual density
+- can lead to situation when unit can only escape to another occupied cell</li>
+<li>&#8216;unite&#8217; two cells
+- looks weird
+- complicates range computations</li>
+</ul>
+</div>
+<div class="section" id="medicine">
+<h3>medicine<a class="headerlink" href="#medicine" title="Permalink to this headline">¶</a></h3>
+<p>Perhaps it should work similar to melee combat: on the same cell (except for
+self-heal, of course).</p>
+<p>Usefulness - ?</p>
+</div>
+</div>
+<div class="section" id="ideas">
+<h2>ideas<a class="headerlink" href="#ideas" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>special modes, e.g. taking cover, suppression fire, running</li>
+<li>grid positions have special meaning</li>
+<li>ability to reserve units from combat field</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">combat</a><ul>
+<li><a class="reference internal" href="#stats">stats</a></li>
+<li><a class="reference internal" href="#general-rules">general rules</a><ul>
+<li><a class="reference internal" href="#grid">grid</a></li>
+<li><a class="reference internal" href="#turn-resolution">turn resolution</a></li>
+<li><a class="reference internal" href="#ranged">ranged</a></li>
+<li><a class="reference internal" href="#melee">melee</a></li>
+<li><a class="reference internal" href="#medicine">medicine</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ideas">ideas</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Hired Guns design</a></li>
+      <li>Next: <a href="overview.html" title="next chapter">overview</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/design/combat.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, caryoscelus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/design/combat.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

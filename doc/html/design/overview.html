@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>overview &mdash; Hired Guns design 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Hired Guns design 0.1 documentation" href="../index.html" />
+    <link rel="next" title="style" href="style.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="combat.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="overview">
+<h1>overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>Technically, Hired Guns is an RPG, including story, character progression,
+choices and combat. It lacks maps and free movement though: exploration happens
+through (illustrated) text.</p>
+<p>From narrative point of view, Hired Guns is a set of loosely connected stories -
+&#8220;missions&#8221; - about a space mercenary squad. Missions can be mandatory or
+optional.</p>
+<p>Hired Guns is set in a pulp sci-fi world. Humanity is spread over galaxy and
+co-exist with other sentient races: cyber-cats, sentient robots, humanoid crows,
+etc. There are few large &#8220;countries&#8221; consisting of many planetary systems and
+lots of smaller planet-states.</p>
+<div class="section" id="structure">
+<h2>structure<a class="headerlink" href="#structure" title="Permalink to this headline">¶</a></h2>
+<p>As game is built around missions, main structure includes two stages.</p>
+<ul class="simple">
+<li>off mission: pc is at the base and player interacts with a network-connected
+computer, which can be used to get info, buy/sell stuff, hire mercenaries,
+browse and accept or deny job offers, communicate with other characters,
+travel to other planets</li>
+<li>on mission: after pc accepts a job and flies to target planet, mission starts;
+missions usually have branched scripts and include somewhat random events and
+combats</li>
+</ul>
+<div class="section" id="narrative">
+<h3>narrative<a class="headerlink" href="#narrative" title="Permalink to this headline">¶</a></h3>
+<p>Simply put, narrative is split into missions, but is kept together by
+characters. It is quite possible there will be a global over-arching plot, but
+it won&#8217;t have big effect on most missions. Characters (especially mercenaries),
+on the other hand, are present constantly and effort should be made to make them
+as live as possible. Thus, they will both affect mission flow and have their own
+personalities, dialogues and even stories.</p>
+<p>Mission narrative is more mandatory and easier to make (it&#8217;s more linear and
+isolated), while character-based narrative provides more depth and
+non-linearity. It&#8217;s best to balance them properly.</p>
+</div>
+<div class="section" id="grand-scale-gameplay">
+<h3>grand scale gameplay<a class="headerlink" href="#grand-scale-gameplay" title="Permalink to this headline">¶</a></h3>
+<p>This includes:</p>
+<ul class="simple">
+<li>character relationships (related to narrative as well)</li>
+<li>character building</li>
+<li>economics</li>
+</ul>
+<p>On global scale, player should maintain each of these aspects on basic level to
+succeed. However, viable balance can be acquired using different strategies.</p>
+</div>
+<div class="section" id="character-building">
+<h3>character building<a class="headerlink" href="#character-building" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>mix fixed classes and flexible approaches: each player character
+has aptitudes towards a specific &#8216;class&#8217;/build, but you can alter their
+development with some experience penalty</li>
+<li>no main character &#8216;level&#8217;, all aspects are controlled by individual skill/stat
+levels (?)</li>
+<li>&#8216;proficiency&#8217; level, which is related not to a generic skill, but to a
+specific weapon model; it goes down if weapon is not used, thus penalizing
+constant weapon switching</li>
+</ul>
+</div>
+<div class="section" id="combat">
+<h3>combat<a class="headerlink" href="#combat" title="Permalink to this headline">¶</a></h3>
+<p>Combat is tightly coupled with character building: stats, skills, items - all
+come into play here. However, while specific enemies should be designed
+appropriate to mission and expected difficulty, there are basic principles to
+combat as well.</p>
+<p>First of all, combat happens on a grid to have some variety and space for
+tactics. However, grid is small (currently used one is 5x4, may slightly change
+in future), resulting in somewhat middle option between full-featured battle
+ground with long ranges and obstacles and simplified menu-driven combat.</p>
+</div>
+<div class="section" id="mercenaries">
+<h3>mercenaries<a class="headerlink" href="#mercenaries" title="Permalink to this headline">¶</a></h3>
+<p>Basic mercenaries are predefined and unique. They have proper personalities,
+back stories, etc.</p>
+<p>It is also possible that additional &#8216;generic&#8217; mercenaries will be available for
+hiring to compensate loss of proper mercs. However, they will generally have
+less interesting stats/skills/price.</p>
+</div>
+<div class="section" id="missions">
+<h3>missions<a class="headerlink" href="#missions" title="Permalink to this headline">¶</a></h3>
+<p>Mission can be completely isolated or related to other missions. But in either
+case, if it doesn&#8217;t have dependencies (i.e. require to finish some previous
+mission), it should be able to stand on its own. Connection can be by place,
+characters or organizations involved.</p>
+<p>It is possible that apart from proper missions, there will be random-generated
+generic ones to allow for recovery from heavy economic loss.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">overview</a><ul>
+<li><a class="reference internal" href="#structure">structure</a><ul>
+<li><a class="reference internal" href="#narrative">narrative</a></li>
+<li><a class="reference internal" href="#grand-scale-gameplay">grand scale gameplay</a></li>
+<li><a class="reference internal" href="#character-building">character building</a></li>
+<li><a class="reference internal" href="#combat">combat</a></li>
+<li><a class="reference internal" href="#mercenaries">mercenaries</a></li>
+<li><a class="reference internal" href="#missions">missions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="combat.html" title="previous chapter">&lt;no title&gt;</a></li>
+      <li>Next: <a href="style.html" title="next chapter">style</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/design/overview.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, caryoscelus.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="../_sources/design/overview.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

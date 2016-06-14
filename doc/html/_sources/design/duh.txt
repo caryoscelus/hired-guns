@@ -1,0 +1,56 @@
+==========
+hired guns
+==========
+
+design goals
+============
+
+strategic level
+---------------
+
+choice
+~~~~~~
+
+Story:
+
+- character relationships
+- mission choice
+- long-lasting in-mission decisions
+
+Gameplay:
+
+- party choice
+- character builds
+
+challenge
+~~~~~~~~~
+
+Story:
+
+- making viable, compatible decisions
+
+Gameplay:
+
+- balancing characters
+- economics
+
+rewards
+~~~~~~~
+
+
+
+mission level
+-------------
+
+
+
+encounter level
+---------------
+
+- 
+
+world
+=====
+
+story
+=====
