@@ -2,7 +2,7 @@
 hired guns
 ==========
 
-A space opera text-driven rpg in development.
+A space opera text-driven rpg no longer in development.
 
 design
 ======
